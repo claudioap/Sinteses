@@ -1,0 +1,261 @@
+\documentclass[]{report}
+\usepackage[a4paper, total={7in, 8.5in}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace{5cm}
+	{\huge\bfseries Inteligência Artificial\par}
+	\vspace{1cm}
+	{\scshape\Large Síntese baseada no conteudo lecionado na\\
+	 FCT/Universidade Nova de Lisboa\par}
+	\vspace{2cm}
+	Adaptado por:\\
+	{\Large \textit{Cláudio Afonso de Sousa Pereira}\\
+	(sinteses$\text{@}$claudiop$.$com)\par}
+	\vspace{1cm}
+	Do lecionado por:\\
+	{\Large \textit{João Alexandre Carvalho Pinheiro Leite}\\
+	(jleite$\text{@}$fct$.$unl$.$pt)\par}
+	\vspace{1cm}
+	{\large \today\par}
+	\vfill
+	Adaptação licenciada:\\
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+\end{titlepage}
+\chapter{Definição}
+\section{O que é}
+A definição genérica e formal de IA segundo a \textit{Association for the Advancement of Artificial Intelligence} é:
+\begin{quote}
+A compreensão científica dos mecanismos subjacentes ao pensamento e ao comportamento inteligente e sua incorporação nas máquinas.
+\end{quote}
+Pode no entanto ser interpretada de diversas formas distintas:
+\begin{table}[htbp]
+\begin{tabular}{l | l}
+Sistemas que pensam como humanos & Sistemas que agem como humanos \\ \hline
+Sistemas que pensam racionalmente & Sistemas que agem racionalmente \\
+\end{tabular}
+\end{table}
+\subsection{Sistemas que pensam como humanos}
+Pensar como humanos requer uma teoria a detalhar a mente humana para validar o comportamento do sistema de inteligência artificial.\\
+Tal teoria pode ser obtida das seguintes formas:
+\begin{itemize}
+\item \textbf{Introspeção} - Por captação de pensamentos
+\item \textbf{Experiências Psicológicas} - Por observação de ações
+\item \textbf{Imagens cerebrais} - Por observação do cérebro
+\end{itemize}
+Perante uma teoria suficientemente detalhada, é possível implementar a mesma num computador.\\
+As áreas que tentam desenvolver teorias da mente são:
+\begin{itemize}
+\item \textbf{Ciência cognitiva} - Por técnicas psicológicas
+\item \textbf{Neurociência Cognitiva} - Por técnicas neurológicas
+\end{itemize}
+A desvantagem deste método de conceção de inteligência artificial é que a obtenção de dados e posterior validação é efetuada por via de experimentação em humanos, e após décadas de investigação ainda não foi possível explicar a inteligência humana.\\
+Por estes motivos esta área de estudo é considerada distinta da inteligência artificial, apesar de ter muito em comum.
+\subsection{Sistemas que pensam racionalmente}
+Um sistema que pensa racionalmente é um que tem fundamentos em lógica.\\
+A lógica pode ser vista neste contexto como uma interseção de Matemática e Filosofia, e seria possivel criarem-se sistemas de raciocinio por base nestas vertentes, no entanto:
+\begin{itemize}
+\item Nem todos os comportamentos inteligentes são lógicos.
+\item Não é simples deliberar o objetivo do pensamento ou quais os pensamentos a ter com lógica.
+\item É de elevada complexidade descrever lógica.
+\end{itemize}
+
+\subsection{Sistemas que agem racionalmente}
+Sistemas que agem racionalmente são construidos por base em \textbf{agentes racionais}.\\
+Um \textbf{agente} é entidade uma definida por:
+\begin{itemize}
+\item Agir autonomamente
+\item Percecionar o ambiente
+\item Persistir no tempo
+\item Adaptar-se a mudanças
+\item Criar e perseguir objetivos
+\end{itemize}
+Um agente é racional quando age para obter o melhor resultado, ou, perante incerteza, o melhor resultado esperado.\\
+É mais adequado para desenvolvimento cientifico do que as abordagens baseadas no comportamento humano.
+
+\section{Fundações}
+A inteligência artificial é constituída por muitas áreas de estudo, e pode ser aplicada a muitas mais. 
+\subsection{Filosofia}
+Para que se faça inteligência artificial tem de se conseguir responder às questões:
+\begin{itemize}
+\item Podem regras formais ser usadas para inferir conclusões válidas?
+\item Como é que a mente emerge de um cérebro físico?
+\item De onde vem o conhecimento?
+\item Como é que o conhecimento leva à ação?
+\end{itemize}
+No entanto a inteligência artificial contribui para a filosofia no estudo de:
+\begin{itemize}
+\item Lógica
+\item Métodos de raciocínio
+\item Compreensão da mente como um sistema físico
+\item Fundamentos da aprendizagem
+\item Linguagem
+\item Racionalidade
+\end{itemize}
+\subsection{Matemática}
+Tem de se conseguir responder as questões:
+\begin{itemize}
+\item Quais são as regras formais para inferir conclusões válidas?
+\item O que pode ser computado?
+\item Como raciocinar com informação incerta?
+\end{itemize}
+Sendo o retorno no estudo de:
+\begin{itemize}
+\item Representação formal e prova
+\item Algoritmos
+\item Computação
+\item Determinação da decibibilidade
+\item Determinação da tractibilidade
+\item Probabilidades
+\end{itemize}
+
+
+
+\chapter{Agentes}
+\section{Caraterísticas dos agentes}
+Agentes são sistemas que agem num dado \textbf{ambiente}.
+Um agente perceciona o ambiente através de \textbf{sensores} e age nele com \textbf{atuadores}.
+\begin{itemize}
+\item Corpo
+\item Localização (No tempo e espaço)
+\item Capacidades (Sensores e atuadores)
+\item Decisão
+\end{itemize}
+Existem diversos tipos de agentes conhecidos:
+\begin{itemize}
+\item Biológicos\\
+Os \textbf{sensores} são olhos, ouvidos, pele, ...\\
+Os \textbf{atuadores} são as mãos, pernas, boca, ...
+\item Robóticos\\
+Os \textbf{sensores} são câmaras, sensores de proximidade, ...\\
+Os \textbf{atuadores} são motores,...
+\item Computacionais\\
+Os \textbf{sensores} são um teclado, rato, ligações de rede, ...\\
+Os \textbf{atuadores} são o ecrã, uma placa de controlo, um email enviado, ...
+\end{itemize}
+\section{Definição sistemática}
+Um \textbf{ambiente} carateriza-se por conjuntos de \textbf{estados} $E$.\\
+Os estados sofrem transições não deterministas:
+$$[ \text{Ambiente: } E \times A \rightarrow 2^E] \text{(o que é isto?)}$$
+O agente é constituído por duas funções:
+$$[\text{Percepção: }: E \rightarrow P]$$
+$$[\text{Ação }: P^{\star} \rightarrow A]$$
+e implementa a função:
+$$[\text{Agente }: E^\star \rightarrow A]$$
+\section{Agentes racionais}
+Um agente racional faz o que lhe é mais benéfico.\\
+O beneficio é medido por via de uma \textbf{medida de desempenho} que é o critério de avaliação do agente.
+Assim sendo, um agente racional é um agente que maximiza o valor esperado da medida de desempenho.\\
+Note-se que racionalidade não implica:
+\begin{itemize}
+\item \textbf{Omnisciência} (Tudo saber)
+\item \textbf{Derividência} (Tudo prever)
+\item \textbf{Sucesso}
+\end{itemize}
+No entanto pressupõe:
+\begin{itemize}
+\item \textbf{Obtenção de informação} e \textbf{exploração}
+\item \textbf{Aprendizagem}
+\item \textbf{Autonomia}
+\end{itemize}
+\section{Performance measure environment}
+PEAS
+[Por fazer]
+\clearpage
+\section{Propriedades dos ambientes}
+\subsection{Observabilidade}
+Um ambiente é \textbf{totalmente observável} se o agente for omnisciente, isto é, souber o estado atual de tudo.\\
+Por outro lado é \textbf{parcialmente observável} se o agente só conseguir obter alguma informação em cada instante.
+\subsection{Determinismo}
+Um ambiente é \textbf{determinista} se as ações do agente sobre o ambiente forem deterministas.\\
+Se apenas as ações do próprio agente forem determinísticas, no entanto as dos restantes agentes não forem, o ambiente é \textbf{estratégico}.\\
+Caso o ambiente não seja determinístico é \textbf{estocástico}.
+\subsection{Coiso atómico cenas}
+[Por fazer]
+\subsection{Dinamicidade}
+Se o ambiente não alterar durante a deliberação do agente, então é \textbf{estático}.\\
+Se a o ambiente se alterar por fatores externos é \textbf{dinâmico}.\\
+Se a medida de desempenho alterar e com ela a perceção do ambiente, o ambiente é \textbf{semi-dinâmico}.
+\subsection{Espaço de ações}
+Se o ambiente tiver um numero finito de ações e todas elas estejam bem definidas, o ambiente é \textbf{discreto}.\\
+Caso contrario é \textbf{continuo}.
+\subsection{Partilhabilidade}
+Se o agente for o único no ambiente, o ambiente tem \textbf{agente único}.\\
+Caso contrario é \textbf{multi-agente}.
+\clearpage
+\section{Propriedades dos agentes}
+Um agente pode verificar uma combinação das seguintes propriedades:
+\subsection{Racionalidade}
+Maximiza o desempenho em função dos dados obtidos
+\subsection{Reatividade}
+Responde em tempo útil a mudanças no ambiente.
+\subsection{Proactividade}
+Tem iniciativa em vez de apenas reagir.
+\subsection{Comunicatividade}
+Comunica com os outros agentes.
+\subsection{Autonomo}
+Aprende e adapta-se com experiências anteriores
+\subsection{Mobilidade}
+Consegue deslocar-se
+\subsection{Caráter}
+Apresenta um estado emocional e uma propriedade própria.
+\clearpage
+\section{Arquiteturas de agentes}
+Os agentes tem uma arquitetura associada ao seu funcionamento.\\
+As seguintes são arquiteturas comuns, e todas elas podem ser transformadas em agentes com capacidades de aprendizagem. [needs sauce]
+\subsection{Agente reativo puro}
+Um agente reativo puro perceciona o mundo pelos seus sensores e recorre a um conjunto de regras suas para decidir o que fazer. Como o nome indica, para cada ação deverá de ter uma reação.
+\paragraph{Programas Teleo-Reativos (Nilsson)}.\\
+São programas definidos por um uma sequência de regras.
+$$\{\{c_1 \rightarrow a_1\}, \{c_2 \rightarrow a_2\}, \dots, \{c_n \rightarrow a_n\}\}$$
+Cada $c_k$ é uma condição dada por uma conjunção de preposições booleanas e cada $a_k$ é uma ação a executar.\\
+Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\\\
+Um agente reativo puro é baseado num programa Teleo-Reativo.
+\subsection{Agente reativo baseado em modelos}
+Este agente é uma modificação do agente reativo puro que o permite memorizar as mudanças no mundo.
+\subsection{Agente guiado por objetivo}
+Um agente que considera o impacto das ações no mundo, tanto para as ações passadas (avalia o resultado que tiveram), como para ações futuras (tenta prever as eventuais consequências).\\
+A partir das considerações, calcula o que pensa serem as melhores ações para chegar ao objetivo.
+\subsection{Agente guiado com função de utilidade}
+Um agente similar ao guiado por objetivo, mas considera a utilidade em vez dos objetivos, isto é, durante o seu tempo de execução, tenta maximizar a sua utilidade em todos os instantes de tempo
+\section{Agentes aprendizes}
+[TODO]
+\section{Representações internas dos agentes}
+\begin{itemize}
+\item Atómica\\
+Sem uma estrutura interna
+\item Factorizada\\
+Com um numero finito de atributos atómicos\\
+\item Estruturada\\
+Com relações entre objetos
+\end{itemize}
+\chapter{Procura Cega}
+Um \textbf{problema de procura} é um problema cuja solução é uma sequência de ações que levam de um estado inicial ao estado final.\\
+Um problema de procura lida com \textbf{procura cega} se o ambiente só for observável nos estados já observados. [factualy correct?, ver formulação]
+\section{Formulação de um agente}
+Para se formular um agente que resolva problemas de procura [cega?] tem de se assumir que o ambiente é:
+\begin{itemize}
+\item Estático
+Não muda durante a resolução\\
+\item Observavel - O agente sabe o estado corrente
+\end{itemize}
+\chapter{Procura Heurística}
+\section{Algoritmos iterativos de melhoramento}
+Estes algoritmos partem de uma potencial solução ao problema em análise, e dispõem de uma medida de quão boa é a sua qualidade. Cada iteração tenta arranjar uma solução alternativa à atual que apresente mais qualidade.\\
+Note-se que não é no entanto garantida a obtenção da solução ótima.\\\\
+O problema tem de ser formulado como um problema de otimização ou seja, tem de ser definido:
+\begin{itemize}
+\item O espaço de potenciais soluções, e o que pode ser uma solução (representada $x$).
+\item A função $f(x)$ a ser otimizada.
+\item O que se entende por "pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
+\end{itemize}
+
+\subsection{Aplicação ao problema do caixeiro viajante}
+
+\chapter{Procura Local}
+\end{document}
