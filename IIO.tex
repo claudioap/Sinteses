@@ -1,0 +1,110 @@
+\documentclass[]{report}
+\usepackage[a4paper, total={7in, 8.5in}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace{5cm}
+	{\huge\bfseries Introdução à Investigação Operacional\par}
+	\vspace{1cm}
+	{\scshape\Large Síntese baseada no conteudo lecionado na\\
+	 FCT/Universidade Nova de Lisboa\par}
+	\vspace{2cm}
+	Adaptado por:\\
+	{\Large \textit{Cláudio Afonso de Sousa Pereira}\\
+	(sinteses$\text{@}$claudiop$.$com)\par}
+	\vspace{1cm}
+	Do material lecionado por:\\
+	{\Large \textit{Ruy Araújo da Costa}\\
+	(rcosta$\text{@}$fct$.$unl$.$pt)\par}
+	\vspace{1cm}
+	{\large \today\par}
+	\vfill
+	Adaptação licenciada:\\
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+\end{titlepage}
+\chapter{Programação Linear}
+\section{Introdução a programação linear}
+A programação linear (abreviada PL) consiste na resolução de problemas de maximização (ou minimização) de funções, quando os domínios se encontram restritos por equações de 1º grau (lineares).\\ \par
+Nos problemas de PL existe a \textbf{função objetivo} $F$, uma função de 1º grau que se pretende maximizar ou minimizar. Essa função tem as variaveis $x_1, x_2, \dots, x_n$ sendo a sua forma extensa $F=c_1 \cdot x_1 + c_2 \cdot x_2 + \dots + c_n \cdot x_n$.\\
+Em F impomos um conjunto de restrições de três tipos, $\leq, \geq, =$.\\
+O objetivo da programação linear é a extração de um \textbf{valor ótimo} que se costuma representar $F^\star$.
+\subsection{Problema de programação linear}
+Os problemas de programação linear tem a seguinte forma:
+\begin{quotation}
+\noindent
+Maximizar (ou minimizar) $F(X_1, X_2, \dots, X_n)$\\
+Sujeito a:
+$$\begin{array}{rrl}
+c_1 \cdot X_1  + & c_2 \cdot X_2 & + \dots + c_n \cdot X_n \quad \{\leq, \geq, =\}\quad b_1\\
+c_{n+1} \cdot X_1 + & c_{n+1} \cdot X_2 & + \dots + c_{2n} \cdot X_n \quad \{\leq, \geq, =\}\quad b_2
+\end{array}
+$$
+\end{quotation}
+\subsection{Formulação de problema}
+A titulo de exemplo, queiram-se vender dois produtos $A$ e $B$ maximizando o lucro.\\
+$A$ vende-se por 10 batatas, e para fabricar necessita de 3 porcas e 2 parafusos.\\
+$B$ vende-se por 12 batatas, e para fabricar necessita de 5 porcas e 1 parafuso.\\ 
+Dispõe-se de 100 porcas e 30 parafusos.\\
+As porcas e os parafusos são gratuitos.\\ \\
+A função objetivo é $F = 10 \cdot A + 12 \cdot B$ e quer-se \textbf{maximizar}.\\
+Esta função está sujeita a:
+$$\begin{array}{rccll}
+3 \cdot A &+& 5 \cdot B &\leq 100 \quad &\text{Restrição das porcas}\\
+2 \cdot A &+& 1 \cdot B &\leq 30 \quad &\text{Restrição dos parafusos}\\
+&&A, B& \geq 0& \text{Positividade das variáveis}
+\end{array}
+$$
+Este problema está formulado na \textbf{forma geral} (ver abaixo).
+\section{Formas de problemas}
+Os problemas de PL podem estar formulados de formas distintas.
+\subsection{Forma geral}
+A \textbf{forma geral} é a forma obtida quando se formulam os problemas.
+\begin{itemize}
+\item A função objetivo podem ser maximizações ou minimizações.
+\item As restrições podem ser dos tipos $\leq, \geq$ ou $=$.
+\item As variáveis podem ser $\geq 0$, $\leq 0$ ou $\in \mathbb{R}$.
+\end{itemize}
+\subsection{Forma canónica}
+A \textbf{forma canónica} impõe restrições sobre a forma geral.
+\begin{itemize}
+\item A função objetivo só pode ser uma maximização.
+\item As restrições tem de ser todas majorações ($cX + \dots  \leq k$).
+\item As variáveis são positivas ou nulas ($\geq 0$).
+\end{itemize}
+Efetuar a passagem de um problema da forma geral para a forma canónica é feito com as transformações:
+\begin{itemize}
+\item (Caso objetivo seja minimização) Maximização de uma função que seja simétrica à função objetivo.\\
+Se $F(X)=-G(X)$ então a minimização de $F$ é a maximização de $G$.\\
+Neste caso o valor ótimo $F^\star$ é dado por $-G^\star$
+\item (Caso restrições negativas) Multiplicar a restrição por $-1$.\\
+$cX \geq k \quad \Rightarrow \quad -cX \leq k$
+\item (Caso variáveis $\notin \mathbb{R}^+_0$) Substituir uma variável $x$ por $y-y'$.\\
+Se $x \leq 0$ então $y,y' \geq 0$ conseguem atingir todos os valores que $x$ atingia.\\
+Não esquecer de substituir em todos os locais em que a variável em questão aparece.
+\end{itemize}
+\subsection{Forma standard}
+A \textbf{forma standard} baseia-se na forma canónica impondo ainda mais restrições na forma geral. É uma formulação melhor para resoluções analíticas (como será visto).\\[0.5cm]
+A única diferença da forma canónica é que a standard requer que as restrições sejam igualdades. Para tal requer-se a introdução de um novo conceito:
+\paragraph{Variáveis de folga} - Assumem a diferença entre a soma das variáveis de uma restrição e a constante que as limita.\\
+A aplicação das mesmas é feita com a transformação $cX \leq k \quad \Rightarrow \quad cX + f = k$ com $f$ sendo a variável de folga.\\[0.5cm]
+\noindent A passagem da forma canónica para a standard passa pela colocação de variáveis de folga em todas as restrições.
+\subsection{Sintetização}
+\begin{table}[ht!]
+\begin{tabular}{l|l|l|l}
+                & Geral           & Canónica & Standard \\\hline
+Função objetivo & max/min         & max      & max \\\hline
+Restrições      & $\geq,\leq, =$  & $\leq$   & $=$\\\hline
+Variáveis       & $\geq 0,\leq 0,\in \mathbb{R}$ & $\geq 0$ & $\geq 0$         
+\end{tabular}
+\end{table}
+\chapter{Teoria da Decisão}
+\chapter{Teoria das Filas de Espera}
+\chapter{Simulação}
+\chapter{Programação Linear}
+\end{document}
