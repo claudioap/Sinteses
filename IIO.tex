@@ -62,6 +62,7 @@ $$\begin{array}{rccll}
 $$
 Este problema está formulado na \textbf{forma geral} (ver abaixo).
 \section{Formas de problemas}
+\section{Método gráfico de resolução}
 Os problemas de PL podem estar formulados de formas distintas.
 \subsection{Forma geral}
 A \textbf{forma geral} é a forma obtida quando se formulam os problemas.
@@ -95,14 +96,35 @@ A única diferença da forma canónica é que a standard requer que as restriç�
 A aplicação das mesmas é feita com a transformação $cX \leq k \quad \Rightarrow \quad cX + f = k$ com $f$ sendo a variável de folga.\\[0.5cm]
 \noindent A passagem da forma canónica para a standard passa pela colocação de variáveis de folga em todas as restrições.
 \subsection{Sintetização}
-\begin{table}[ht!]
 \begin{tabular}{l|l|l|l}
-                & Geral           & Canónica & Standard \\\hline
-Função objetivo & max/min         & max      & max \\\hline
-Restrições      & $\geq,\leq, =$  & $\leq$   & $=$\\\hline
-Variáveis       & $\geq 0,\leq 0,\in \mathbb{R}$ & $\geq 0$ & $\geq 0$         
+\textbf{Forma}:  & Geral           & Canónica & Standard \\\hline
+Função objetivo: & max/min         & max      & max \\\hline
+Restrições:      & $\geq,\leq, =$  & $\leq$   & $=$\\\hline
+Variáveis:       & $\geq 0,\leq 0,\in \mathbb{R}$ & $\geq 0$ & $\geq 0$         
 \end{tabular}
-\end{table}
+\section{Soluções}
+A \textbf{solução} de um problema de PL é qualquer combinação de coeficientes que cumpra todas as restrições.\\
+Uma solução é ótima se obtiver a parir de $F$ o valor ótimo, no entanto obter um valor ótimo não é requisito para ser solução.\\
+Se uma solução obedecer ao domínio das variáveis é \textbf{solução admissível}, se sair fora desse domínio (continuando a cumprir as restrições) é \textbf{solução não admissível}. [Por Ilustrar]
+\subsection{Integralidade}
+Um problema de programação linear pressupõe coeficientes em $\mathbb{R}$, no entanto pode ser importante obter coeficientes inteiros. Ninguém quer comprar meio parafuso. Esses problemas requerem que o domínio das suas variáveis seja intersectado ao conjunto dos inteiros $\mathbb{Z}$, passando a chamar-se de problemas de programação linear inteira (abreviado PLI).\\ \par
+A solução de um problema de PLI é sempre $\leq$ á solução do mesmo problema em PL (com domínios em $\mathbb{R}$).\\
+Note-se ainda que a solução de um problema PLI \underline{não é} necessariamente o arredondamento da solução do mesmo problema em PL. A coordenada inteira admissível que mais se aproxima da reta de otimalidade pode estar a mais de uma unidade de distância do da coordenada real ótima.
+\subsection{Múltiplas soluções}
+Quando de um problema de PL resulta um segmento de reta de soluções ótimas, descobrem-se quais os vértices da região admissível que fazem extremo a esse segmento de reta.\\
+Procede-se então a representar a solução ótima com a expressão $(X^\star, Y^\star) = \lambda (x_1, y_1)+(1-\lambda)(x_2, y_2)$, em que $(x_1, y_1)$ e $(x_2, y_2)$ são os extremos do segmento de reta, e $\lambda$ é um valor limitado entre 0 e 1 (formalmente $\lambda \in [0,1]$).\\
+Tem-se assim, variando $\lambda$, todos os valores ótimos.
+\section{Método gráfico de resolução}
+Em problemas de programação linear de duas variáveis pode ser utilizada uma abordagem gráfica.\\
+A abordagem consiste no desenho das restrições num referencial.
+\begin{itemize}
+\item Cada restrição é colocada por base numa reta.\\
+Note-se que caso a restrição inclua desigualdade, então um dos semi-planos limitado pela reta é região admissível.
+\item A região admissível é a interceção das regiões resultantes das interseções.
+\item Os valores possíveis da função objetivo são retas paralelas entre si.
+\item O valor ótimo (caso exista) será um vértice, reta ou segmento de reta.
+\end{itemize}
+[Por ilustrar e acabar]
 \chapter{Teoria da Decisão}
 \chapter{Teoria das Filas de Espera}
 \chapter{Simulação}
