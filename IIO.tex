@@ -5,6 +5,14 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{forest}
+\usepackage{tikz}
+\tikzset{
+  treenode/.style = {align=center},
+  root/.style     = {treenode, font=\Large},
+  env/.style      = {treenode, font=\normalsize},
+  dummy/.style    = {circle,draw}
+}
 
 \begin{document}
 \begin{titlepage}
@@ -62,7 +70,6 @@ $$\begin{array}{rccll}
 $$
 Este problema está formulado na \textbf{forma geral} (ver abaixo).
 \section{Formas de problemas}
-\section{Método gráfico de resolução}
 Os problemas de PL podem estar formulados de formas distintas.
 \subsection{Forma geral}
 A \textbf{forma geral} é a forma obtida quando se formulam os problemas.
@@ -105,11 +112,42 @@ Variáveis:       & $\geq 0,\leq 0,\in \mathbb{R}$ & $\geq 0$ & $\geq 0$
 \section{Soluções}
 A \textbf{solução} de um problema de PL é qualquer combinação de coeficientes que cumpra todas as restrições.\\
 Uma solução é ótima se obtiver a parir de $F$ o valor ótimo, no entanto obter um valor ótimo não é requisito para ser solução.\\
-Se uma solução obedecer ao domínio das variáveis é \textbf{solução admissível}, se sair fora desse domínio (continuando a cumprir as restrições) é \textbf{solução não admissível}. [Por Ilustrar]
+Se uma solução obedecer ao domínio das variáveis é \textbf{solução admissível}, se sair fora desse domínio (continuando a cumprir as restrições) é \textbf{solução não admissível}.\\
+\begin{tikzpicture}
+  [
+    every node/.style={circle,draw},
+    level 1/.style={sibling distance=20em},
+    level 2/.style={sibling distance=20em},
+    level 3/.style={sibling distance=10em},
+    grow                    = down,
+    level distance          = 7em,
+    edge from parent/.style = {draw, -latex},
+    every node/.style       = {font=\small},
+    sloped
+  ]
+  \node [root] {Tuplo coeficientes}
+    child { node [env] {Não é solução}
+      edge from parent node [below] {Restrições falham} }
+    child { node [dummy] {}
+      child { node [dummy] {}
+        child { node [env] {Solução\\ básica\\ admissivel\\ (S.B.A.)}
+                edge from parent node [above] {Básica} }
+        child { node [env] {Solução\\ não básica\\ admissivel\\ (S.N.B.A.)}
+                edge from parent node [above] {Não básica} }
+        edge from parent node [below] {Admissível} }
+      child { node [dummy] {}
+        child { node [env] {Solução\\ básica\\ não admissivel\\ (S.B.N.A)}
+                edge from parent node [above] {Básica} }
+        child { node [env] {Solução\\ não básica\\ não admissivel\\ (S.N.B.N.A)}
+                edge from parent node [above] {Não básica} }
+        edge from parent node [below] {Não admissível} }
+              edge from parent node [below] {Restrições passam} };
+\end{tikzpicture}
 \subsection{Integralidade}
 Um problema de programação linear pressupõe coeficientes em $\mathbb{R}$, no entanto pode ser importante obter coeficientes inteiros. Ninguém quer comprar meio parafuso. Esses problemas requerem que o domínio das suas variáveis seja intersectado ao conjunto dos inteiros $\mathbb{Z}$, passando a chamar-se de problemas de programação linear inteira (abreviado PLI).\\ \par
 A solução de um problema de PLI é sempre $\leq$ á solução do mesmo problema em PL (com domínios em $\mathbb{R}$).\\
-Note-se ainda que a solução de um problema PLI \underline{não é} necessariamente o arredondamento da solução do mesmo problema em PL. A coordenada inteira admissível que mais se aproxima da reta de otimalidade pode estar a mais de uma unidade de distância do da coordenada real ótima.
+Note-se ainda que a solução de um problema PLI \underline{não é} necessariamente o arredondamento da solução do mesmo problema em PL. A coordenada inteira admissível que mais se aproxima da reta de ótimalidade pode estar a mais de uma unidade de distância do da coordenada real ótima.\\[0.5cm]
+Ao problema de PL resultante do levantamento das restrições de integralidade de um problema PLI, chama-se de "problema relaxado", pelo que "relaxar" um PLI é precisamente retirar o critério de integralidade.
 \subsection{Múltiplas soluções}
 Quando de um problema de PL resulta um segmento de reta de soluções ótimas, descobrem-se quais os vértices da região admissível que fazem extremo a esse segmento de reta.\\
 Procede-se então a representar a solução ótima com a expressão $(X^\star, Y^\star) = \lambda (x_1, y_1)+(1-\lambda)(x_2, y_2)$, em que $(x_1, y_1)$ e $(x_2, y_2)$ são os extremos do segmento de reta, e $\lambda$ é um valor limitado entre 0 e 1 (formalmente $\lambda \in [0,1]$).\\
@@ -125,6 +163,23 @@ Note-se que caso a restrição inclua desigualdade, então um dos semi-planos li
 \item O valor ótimo (caso exista) será um vértice, reta ou segmento de reta.
 \end{itemize}
 [Por ilustrar e acabar]
+\section{Notação matricial}
+\begin{minipage}{\textwidth}
+Existe uma notação frequentemente utilizada nos problemas de programação linear, a notação matricial, que consiste na formulação do problema na forma de matrizes.\\[0.5cm]
+Seja o seguinte um problema com $n$ variáveis e $m$ restrições:
+\begin{quotation}
+\noindent Maximizar $F=C \cdot X$\\
+Sujeito a: $A \cdot X = b$\\
+\indent\indent\indent $X \geq 0$
+\end{quotation}
+Então:
+\begin{itemize}
+\item $X$ é um vetor coluna com as $n$ variáveis.
+\item $C$ o vetor linha dos $n$ coeficientes da função objetivo.
+\item $A$ a matriz ($m \times n$) dos coeficientes das restrições.
+\item $b$ é o vetor coluna dos $m$ termos independentes das restrições.
+\end{itemize}
+\end{minipage}
 \chapter{Teoria da Decisão}
 \chapter{Teoria das Filas de Espera}
 \chapter{Simulação}
