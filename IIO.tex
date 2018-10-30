@@ -113,6 +113,15 @@ Variáveis:       & $\geq 0,\leq 0,\in \mathbb{R}$ & $\geq 0$ & $\geq 0$
 A \textbf{solução} de um problema de PL é qualquer combinação de coeficientes que cumpra todas as restrições.\\
 Uma solução é ótima se obtiver a parir de $F$ o valor ótimo, no entanto obter um valor ótimo não é requisito para ser solução.\\
 Se uma solução obedecer ao domínio das variáveis é \textbf{solução admissível}, se sair fora desse domínio (continuando a cumprir as restrições) é \textbf{solução não admissível}.\\
+As variáveis cujos coeficientes são não-nulos chama-se de \textbf{básicas}. [contradito pelas degeneradas, confirmar]\\[0.5cm]
+Fale-se de um problema na forma standard com $n$ variáveis e $m$ restrições ($n>m$):
+\begin{itemize}
+\item \textbf{Solução básica} é qualquer solução $(n-m)$ variáveis básicas.\\
+Isto é, tantas variáveis básicas quão variáveis de folga.
+\item \textbf{Base} é o conjunto das variáveis básicas de uma solução.
+\item \textbf{Degenerada} é a solução admissível que contem variáveis básicas nulas.\\
+Soluções degeneradas ocorrem nas intersecções de mais de duas restrições.
+\end{itemize}
 \begin{tikzpicture}
   [
     every node/.style={circle,draw},
@@ -148,6 +157,17 @@ Um problema de programação linear pressupõe coeficientes em $\mathbb{R}$, no 
 A solução de um problema de PLI é sempre $\leq$ á solução do mesmo problema em PL (com domínios em $\mathbb{R}$).\\
 Note-se ainda que a solução de um problema PLI \underline{não é} necessariamente o arredondamento da solução do mesmo problema em PL. A coordenada inteira admissível que mais se aproxima da reta de ótimalidade pode estar a mais de uma unidade de distância do da coordenada real ótima.\\[0.5cm]
 Ao problema de PL resultante do levantamento das restrições de integralidade de um problema PLI, chama-se de "problema relaxado", pelo que "relaxar" um PLI é precisamente retirar o critério de integralidade.
+\subsection{Procura de soluções ótimas}
+Na resolução de um problema de PL considera-se o facto que todas as soluções (quando finitas) serão vértices.\\
+Existem diversos algoritmos para a procura de soluções ótimas, sendo a solução menos elaborada a enumeração dos vértices, com respetivos valores de $F$ para se concluir a ótimalidade.\\
+No entanto é possível mesmo sem algoritmos concluir alguns dados através do numero de variáveis e restrições.\\[0.5cm]
+Tenha um problema de PL na forma standard $n$ variáveis e $m$ restrições:\\
+Uma solução é básica caso se encontre num vértice, e cada restrição poderá causar a aparição de 0, 1 ou 2 vértices. [ilustrar]\\
+É possível definir um limite superior para as variáveis básicas admissíveis, sendo: $C^n_m = \frac{n!}{m! / (n-m)!}$. [formula combinatória mal na sebenta?]
+\subsection{Teorema fundamental da programação linear}
+Dado um problema na forma standard:\\
+Se existe uma solução admissível, existe uma solução básica admissível.\\
+Se existe uma solução ótima admissível, existe uma solução básica ótima admissível.
 \subsection{Múltiplas soluções}
 Quando de um problema de PL resulta um segmento de reta de soluções ótimas, descobrem-se quais os vértices da região admissível que fazem extremo a esse segmento de reta.\\
 Procede-se então a representar a solução ótima com a expressão $(X^\star, Y^\star) = \lambda (x_1, y_1)+(1-\lambda)(x_2, y_2)$, em que $(x_1, y_1)$ e $(x_2, y_2)$ são os extremos do segmento de reta, e $\lambda$ é um valor limitado entre 0 e 1 (formalmente $\lambda \in [0,1]$).\\
@@ -158,7 +178,7 @@ A abordagem consiste no desenho das restrições num referencial.
 \begin{itemize}
 \item Cada restrição é colocada por base numa reta.\\
 Note-se que caso a restrição inclua desigualdade, então um dos semi-planos limitado pela reta é região admissível.
-\item A região admissível é a interceção das regiões resultantes das interseções.
+\item A região admissível é a interceção das sub-regiões admissíveis (uma por cada restrição).
 \item Os valores possíveis da função objetivo são retas paralelas entre si.
 \item O valor ótimo (caso exista) será um vértice, reta ou segmento de reta.
 \end{itemize}
@@ -180,6 +200,79 @@ Então:
 \item $b$ é o vetor coluna dos $m$ termos independentes das restrições.
 \end{itemize}
 \end{minipage}
+\section{Método simplex primal}
+O método \textbf{simplex primal} é um método iterativo que efetua procura de soluções ótimas de um problema de PL iterativamente. O seu funcionamento visto geometricamente passa por saltar entre vértices adjacentes. Como o espaço de soluções é um polítopo, se cada salto representar uma melhoria no valor de $F$, então eventualmente alcança-se o valor ótimo.\\
+Começa-se por executar dois importantes passos:
+\begin{itemize}
+\item Escreve-se o problema na forma standard.
+\item Descobre-se uma solução básica admissível inicial.\\
+Tipicamente a solução básica admissível inicial tem as variável de folga na base, mas nem sempre isso é possível.\\
+\textit{Nota}: Esta solução inicial recomendada corresponde à origem do referencial.
+\end{itemize}
+\noindent De um problema:
+\begin{quotation}
+\noindent Maximizar $F=v_1\cdot x +v_2\cdot y$\\
+Sujeita a:
+\begin{quotation}
+\noindent $c_1\cdot x+c_2\cdot y + f_1 = b_1$\\
+$c_3\cdot x+c_4\cdot y + f_2 = b_2$
+\end{quotation}
+\end{quotation}
+Suponha-se que a base arbitrada inicialmente foi:\\
+$(x=0;\quad y=0;\quad f_1=b_1;\quad f_2=b_2)$, tal como recomendado.\\[0.2cm]
+Tem-se que $F=v_1\cdot x +v_2\cdot y+0\cdot f_1+0\cdot f_2+0\cdot f_3 + 0$\\
+portanto $\quad F-v_1\cdot x -v_2\cdot y-0\cdot f_1-0\cdot f_2-0\cdot f_3 = 0$.\\
+Atente-se na negatividade dos coeficientes quando se deixa o \textbf{termo independente} isolado.\\[0.2cm]
+\begin{minipage}{\textwidth}
+Por uma questão de organização este método é mais simples de ser feito num suporte chamado a "\textbf{tabela do simplex}". 
+Começa-se por definir uma coluna para cada variável, e no fim uma coluna de termos independentes.\\
+É colocada uma linha por cada variável básica.\\
+Os valores a preencher na $n$-ésima linha indicam o coeficiente da variável dessa coluna na $n$-ésima restrição.\\
+Por baixo da ultima linha coloca-se a função objetivo e seus coeficientes.\\
+\begin{tabular}{l|llll|l}
+      & x & y & $f_1$ & $f_2$ & T.I.\\\hline
+$f_1$ & $c_1$ & $c_2$ & 1  & 0  & $b_1$\\
+$f_2$ & $c_3$ & $c_4$ & 0  & 1  & $b_2$\\\hline
+$F$   & $-v_1$ & $-v_2$ & 0  & 0  & $r=0$
+\end{tabular}\\
+Atente-se na negatividade dos coeficientes da função objetivo, conforme visto acima.\\[0.3cm]
+\end{minipage}
+A partir daqui o algoritmo consiste na repetição ordenada dos seguintes passos:
+\begin{enumerate}
+\item \textbf{Escolher uma variável para entrar na base}\\
+Pretende-se escolher a variável com maior potencial de crescimento, com o maior coeficiente na função objetivo.\\
+Escolhe-se a que tenha o valor \underline{mais negativo} na ultima linha da tabela.\\
+Neste caso $min(\{-v_1, -v_2\})$ (ou $max(\{v_1, v_2\})$). A variável no topo dessa coluna é eleita.
+\item \textbf{Escolher uma variável para sair da base}\\
+Suponha-se que no passo anterior se optou pela 2ª coluna. Para cada $c_i$ nessa linha, divide-se pelo termo independente (T.I.) respetivo. A linha que obtiver o \underline{menor} resultado é a que contem a variável básica que mais limita o crescimento da variável que vai entrar para a base.\\
+Supondo que seria a 1ª linha, $f_1$ seria a variável a sair.
+\item \textbf{Reconstruir o quadro e verificar se a solução é ótima}\\
+Seja $y$ a variável que entrou, e $f_1$ a variável que saiu da base.\\
+Para reconstruir a tabela gerando uma nova solução básica, recorre-se ao \textbf{pivô}, isto é, o coeficiente que se encontra na coluna que pertencia a $y$ na tabela anterior. P.ex estando a operar na 3ª linha o pivô é $-v_2$.
+\begin{itemize}
+\item Coloca-se a linha que pertencia a $f_1$ na tabela anterior.\\
+Onde constava $f_1$ na 1ª coluna passa a constar $y$.\\
+Os elementos a colocar são os mesmos que estavam nessa linha todos divididos pelo pivô (neste caso $c_2$).\\
+Neste caso $[\frac{c_1}{c_2},\frac{c_2}{c_2},\frac{1}{c_2},\frac{0}{c_2},\frac{b_1}{c_2}]$\\
+\item Coloca-se as restantes linhas.\\
+Multiplica-se a linha obtida no ponto anterior pelo simétrico do pivô da linha a colocar e soma-se os valores que a linha continha.\\
+Começa-se pela solução, neste caso a linha será : $-(-v_2) \times[\frac{c_1}{c_2},\frac{c_2}{c_2},\frac{1}{c_2},\frac{0}{c_2},\frac{b_1}{c_2}] + [-v_1,-v_2, 0,0, r]$
+\end{itemize}
+\item \textbf{Verificar a otimalidade da solução}\\
+A solução é ótima quando não existem coeficiêntes negativos na linha da função objetivo.\\
+Os valores ótimos das diversas variáveis encontram-se nessa mesma linha.\\
+Havendo valores negativos repete-se a partir do 1º passo.\\
+\textit{Nota}: É uma boa ideia no passo anterior colocar a ultima linha antes das demais para verificar a otimalidade. (Caso seja solução ótima é escusado calcular as restantes linhas.)
+\end{enumerate}
+A tabela resultante ao fim de uma iteração (com as variáveis assumidas a título de exemplo) é:\\
+\begin{tabular}{l|cccc	|l}
+      & x & y & $f_1$ & $f_2$ & T.I.\\\hline
+$y$ & $\frac{c_1}{c_2}$ & $\frac{c_2}{c_2}$ & $\frac{1}{c_2}$ & $\frac{0}{c_2}$ & $\frac{b_1}{c_2}$\\
+$f_2$ & $(-c_2) \times \frac{c_1}{c_2} + c_3 $ & $(-c_2) \times \frac{c_2}{c_2} + c_4$ & $(-c_2) \times \frac{1}{c_2} + 1$ & $(-c_2) \times \frac{0}{c_2} + 0$ & $(-c_2) \times \frac{b_1}{c_2} + b_1$\\\hline
+$F$ & $(-(-v_2)) \times \frac{c_1}{c_2} + c_3 $ & $(-(-v_2)) \times \frac{c_2}{c_2} + c_4$ & $(-(-v_2)) \times \frac{0}{c_2} + 0$ & $(-(-v_2)) \times \frac{1}{c_2} + 0$ & $(-(-v_2)) \times \frac{b_1}{c_2} + r$
+\end{tabular}\\
+Repare-se que a ordem em que são efetuadas as introduções de linhas facilita muitos dos cálculos.
+
 \chapter{Teoria da Decisão}
 \chapter{Teoria das Filas de Espera}
 \chapter{Simulação}
