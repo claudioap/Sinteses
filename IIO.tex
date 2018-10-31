@@ -272,7 +272,96 @@ $f_2$ & $(-c_2) \times \frac{c_1}{c_2} + c_3 $ & $(-c_2) \times \frac{c_2}{c_2} 
 $F$ & $(-(-v_2)) \times \frac{c_1}{c_2} + c_3 $ & $(-(-v_2)) \times \frac{c_2}{c_2} + c_4$ & $(-(-v_2)) \times \frac{0}{c_2} + 0$ & $(-(-v_2)) \times \frac{1}{c_2} + 0$ & $(-(-v_2)) \times \frac{b_1}{c_2} + r$
 \end{tabular}\\
 Repare-se que a ordem em que são efetuadas as introduções de linhas facilita muitos dos cálculos.
-
+\section{Variáveis Binárias}
+Variáveis binárias são variáveis que só podem tomar os valores $\{0,1\}$. Essas variáveis ajudam a resolver algumas variantes de problemas similares a PL que tem restrições que não são satisfazíveis apenas com minorações e majorações.\\
+Uma constante importante que auxilia alguns destes problemas é representada $M$, representa um numero arbitrariamente grande, o suficiente para nunca restringir o problema.
+\subsection{Lote Mínimo}
+Problemas deste tipo tem variáveis que só se ativam se conseguirem obter um certo valor mínimo.\\
+Uma fabrica não abre portas para produzir uma unidade.\\
+\begin{tikzpicture}
+\draw[->] (0,0) -- (10,0) node[anchor=north]{$X$};
+\draw	(0,0) node[anchor=north] {0}
+		(3,0) node[anchor=north] {$k$};
+\draw[dotted] (3,0) -- (3,1.5);
+\draw[thick] (3,0) -- (3,1) -- (10,1);
+\end{tikzpicture}\\
+Se $Z$ for uma variável binária, então este problema resolve-se com as restrições:
+\begin{quotation}
+\noindent $X \geq k \cdot Z$\\
+$X \leq M \cdot Z$\\
+$Z \in \{0,1\}$\\
+$X \geq 0$
+\end{quotation}
+Quando a variável binária for falsa ($=0$), vai majorar $X$ com $0$.\\
+$X \leq M \cdot 0 \Leftrightarrow X \leq 0$\\
+Dado que $X$ é estritamente positiva, nesse caso $X=0$.
+\subsection{Custo inicial}
+Para se produzir, frequentemente existem custos iniciais que não contribuem diretamente para o produzido (aluguer do espaço, compra das maquinas).\\
+Enquanto que um problema de PL normal costuma ser visto como o gráfico da esquerda (em que $C=$custo, $P=$produzido), nestas situações o gráfico da direita é mais realista:\\
+\begin{tikzpicture}
+\draw[->] (0,0) -- (0,3) node[anchor=east] {$C$};
+\draw[->] (0,0) -- (8,0) node[anchor=north]{$P$};
+\draw	(0,0) node[anchor=north] {0};
+\draw[thick] (0,0) -- (8,2);
+\end{tikzpicture}
+\begin{tikzpicture}
+\draw[->] (0,0) -- (0,3) node[anchor=east] {$C$};
+\draw[->] (0,0) -- (8,0) node[anchor=north]{$P$};
+\draw	(0,0) node[anchor=north] {0}
+		(0,1) node[anchor=east] {$c_i$};
+\draw[dotted] (0,1) -- (8,1);
+\draw[thick] (0,1) -- (8,3);
+\end{tikzpicture}\\
+Para estas situações é utilizada uma variável binária que indica se chegou a existir produção dessa variável.\\
+Essa variável é colocada na função objetivo aliada á constante de custo inicial ($c_i$ no gráfico).
+\begin{quotation}
+\noindent $Min\quad F= \dots + c_i \cdot Z + c_k \cdot X_i + \dots$\\
+$X_i \leq M \cdot Z$\\
+$Z \in \{0,1\}$
+\end{quotation}
+Quando a variável binária é falsa ($=0$) não se produz nada, e $X_i \leq 0$.\\
+Caso contrario $M$ não limita $X_i$ e a constante de custo inicial é adicionada á função objetivo.
+\subsection{Variável discreta}
+Quando se tem uma variável que só pode tomar valores de um conjunto discreto, necessita-se de tantas variáveis binárias quão o tamanho do conjunto.\\
+Esse problema é formulado:
+\begin{quotation}
+\noindent
+$X \in \{x_1, x_2, \dots, x_n\}$\\
+$X=\dots + Z_1\cdot x_1 + Z_2 \cdot x_2 + \dots + Z_n \cdot x_n + \dots$\\
+$Z_1 + Z_2 + \dots + Z_n = 1$\\
+$Z_1, Z_2, \dots, Z_n \in \{0,1\}$
+\end{quotation}
+Atente-se que apenas um dos $Z$s pode ser positivo.
+\subsection{Função objetivo com inclinação variável}
+Caso em que a função objetivo contem uma variável cuja inclinação varia em função do produzido.\\
+Utilizado em cenários de rendimentos decrescentes (por exemplo o preço por fotocópia descer quantas mais páginas se imprimam), mas não só, não havendo de todo obrigatoriedade de haver um comportamento monótono.\\
+\begin{tikzpicture}
+\draw[->] (0,0) -- (0,3) node[anchor=east] {$C$};
+\draw[->] (0,0) -- (9,0) node[anchor=north]{$P$};
+\draw	(0,0) node[anchor=north] {0}
+		(1,0) node[anchor=north] {$a$}
+		(4,0) node[anchor=north] {$b$}
+		(8,0) node[anchor=north] {$c$};
+\draw[dotted] (1,0) -- (1,1) ;
+\draw[dotted] (4,0) -- (4,1.5) ;
+\draw[dotted] (8,0) -- (8,3) ;
+\draw[thick] (0,0) -- (1,1) -- (4,1.5) -- (8,3);
+\end{tikzpicture}\\
+Sejam $d_1, d_2, \dots, d_n$ os declives dos sucessivos segmentos (entre [$a,b$], entre [$b,c$], ...).\\
+Decompõe-se $X$ em $n$ sub-variáveis ($Y_1, \dots, Y_n$), uma para cada um dos $n$ sub-intervalos (a figura tinha 3).\\
+$0 \leq Y_1 \leq a;\quad 0 \leq Y_2 \leq b-a;\quad \dots \quad  0 \leq Y_n \leq n-m$.\\
+Formula-se o problema:
+\begin{quotation}
+\noindent$X = Y_1, Y_2 + \dots + Y_n$\\
+$F = d_1 \cdot Y_1 + d_2 \cdot Y_2 + \dots + d_n \cdot Y_n$\\
+$a \cdot Z_1 \leq Y_1 \leq a$\\
+$b \cdot Z_2 \leq Y_2 \leq b-a \cdot Z_1$\\
+$\vdots$\\
+$0 \leq Y_n \leq n-m \cdot Z_{n-1}$\\
+$Z_1, \dots, Z_{n-1} \in \{0,1\}$
+\end{quotation}
+A função objetivo é o declive multiplicado pela amplitude o intervalo correspondente.\\
+As variáveis binárias obrigam os segmentos a ser usados consecutivamente, pela ordem em que aparecem, até ao ultimo segmento utilizado.
 \chapter{Teoria da Decisão}
 \chapter{Teoria das Filas de Espera}
 \chapter{Simulação}
