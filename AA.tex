@@ -1,0 +1,129 @@
+\documentclass[]{report}
+\usepackage[a4paper, total={7in, 8.5in}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace{5cm}
+	{\huge\bfseries Aprendizagem Automática\\
+	(Machine Learning)\par}
+	\vspace{1cm}
+	{\scshape\Large Síntese baseada no conteúdo lecionado na\\
+	 FCT/Universidade Nova de Lisboa\par}
+	\vspace{2cm}
+	Adaptado por:\\
+	{\Large \textit{Cláudio Afonso de Sousa Pereira}\\
+	(sinteses$\text{@}$claudiop$.$com)\par}
+	\vspace{1cm}
+	Do material lecionado por:\\
+	{\Large \textit{Ludwig Krippahl}\\
+	(ludi$\text{@}$fct$.$unl$.$pt)\par}
+	\vspace{1cm}
+	{\large \today\par}
+	\vfill
+	Adaptação licenciada:\\
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+\end{titlepage}
+\chapter{Introdução}
+\section{O que é}
+A aprendizagem automática (machine learning em inglês) é a ciência que estuda sistemas que se melhoram com dados.
+Existem três elementos básicos na definição de um sistema de aprendizagem automática:
+\begin{itemize}
+\item A tarefa que o sistema desempenha
+\item A medida de performance que avalia o sistema
+\item Os dados que podem ser utilizados para melhorar o sistema
+\end{itemize}
+\section{Tipos de problemas}
+Existem dois tipos principais de problemas a resolver.\\
+Quando se querem prever valores contínuos o problema é de \textbf{regressão}.\\
+Quando se querem prever categorias dentro de um conjunto discreto, o problema é de \textbf{classificação}.\\[0.2cm]
+Podem querer encontrar-se regras de associação que são distribuições probabilísticas conjuntas dos elementos em análise.
+Por exemplo o problema de otimizar o posicionamento dos produtos numa loja por base nos produtos que são comprados em conjunto.\\[0.2cm]
+\textbf{Clustering} é o agrupamento de elementos em análise pela sua similaridade.
+Por exemplo categorias de produtos, fotos de sinais de trânsito.
+\section{Tipos de aprendizagem}
+Aprendizagem automática é \textbf{supervisionada} se utiliza dados etiquetados (isto é, cujas caraterísticas são conhecidas) para criar hipóteses.
+Por exemplo imagens de sinais de trânsito que indicam qual o sinal.\\
+O processo de aprendizagem supervisionada é:[imagem]\\[0.2cm]
+Para contraste é \textbf{não supervisionada} se tem de retirar conclusões a partir de dados que se desconhece o que são.
+Por exemplo textos retirados da Internet.
+O processo de aprendizagem não supervisionada é: [imagem]\\[0.2cm]
+Há ainda mais tipos de aprendizagem, como a híbrida dita \textbf{semi-supervisionada}, ou a que decorre num contexto de tempo real dita aprendizagem por reforço em que as alterações de estado indicam os passos do problema.
+\section{Utilidade}
+A aprendizagem automática é útil em particular para problemas baseados em condições difíceis de definir, ou cujo contexto se pode alterar em o programa ter de ser reprogramado.\\
+As sugestões dadas por um motor de busca são geradas por base nestas automações, ou o reconhecimento de matriculas. São sistemas que tem de ser flexíveis a novos dados, e simples de voltar a treinar para identificar por exemplo um novo formato de matricula, ou os contextos em que uma nova palavra é colocada.\\
+Seria demasiado trabalhoso para um humano criar e adaptar sistemas estáticos para fazer esses reconhecimentos.
+\section{Conceitos fundamentais}
+Em aprendizagem automática quer-se otimizar a solução de um problema a partir de um espaço de resultados.\\
+Se existirem duas caraterísticas diferentes (por exemplo peso e altura) nos eixos $X,Y$ e dados etiquetados como pertencentes a uma de varias \textbf{classes} (p.ex saudável ou não saudável), então a \textbf{classe de hipóteses} é o conjunto de formas possíveis para separar as classes.\\
+Uma classe de hipóteses pode ser um conjunto de retas, círculos, parábolas.\\
+Uma boa classe de hipóteses admite hipóteses que modelam bem os dados.\\[0.2cm]
+Veja-se por exemplo o seguinte espaço:\\
+.[Imagem]\\[0.2cm]
+Uma classe de hipóteses pode ser dada pela equação $(x-\theta_1)^2+(y-\theta_2)^2 = 1$\\
+Uma hipótese dentro dessa classe pode ser dada por $\theta=(-1,-1)$\par
+A escolha de uma classe de hipóteses é enviesada uma vez que é escolhida uma que nós pensamos representar os dados, não uma que representa o universo dos dados. A esse enviesamento é dado o nome de \textbf{enviesamento indutivo} (\textit{inductive bias}).
+Sem enviesamento indutivo não seria possível extrapolar nada a partir dos dados, é sempre necessário assumir alguma coisa.
+Escolher a melhor classe de hipóteses é o problema chamado de \textbf{seleção de modelo}(\textit{model selection}).
+Veja-se dois modelos (classes de hipóteses) representativos dos dados, ainda que com enviesamentos distintos. Um separa as classes com linhas horizontais $y=\theta$ e o outro com recurso à equação do circulo proposta acima:\\
+.[imagem]\par
+O $\theta$ utilizado para se obter uma hipótese a partir da classe de hipóteses é o vetor dos \textbf{parâmetros}.
+\chapter{Classificação}
+\section{Introdução}
+Uma classificação é um tipo de análise de caraterísticas. Enquanto que uma regressão ambiciona prever os valores valores de novos elementos por base nos elementos utilizados para treino, uma classificação agrupa os elementos de treino em classes disjuntas e por resultado indica em qual das classes é que um novo elemento se encontra.\\[0.2cm]
+Veja-se a seguinte figura que representa a reação de células a dois genes distintos: [imagem]\\
+Na figura apresentada existem duas classes (com ou sem tumor), sendo que a classificação de um nova célula entende-se por concluir se tem ou não tumor por base na reação da mesma aos genes.
+\subsection{Separabilidade}
+A separabilidade é uma propriedade das classes de classificação que indica se é possível serem isoladas.
+Por exemplo, duas classes dizem-se linearmente separáveis se puderem ser separadas por um polinómio de primeiro grau.
+\subsection{Hipóteses}
+Para se estabelecer uma hipótese de classificação, não se podem utilizar os métodos utilizados nas regressões como o método dos mínimos quadrados uma vez que esses métodos tentam minimizar distância entre a hipótese e os elementos.
+O que se pretende para classificação é utilizar probabilidade e não distância como fator de separação.
+Veja-se por exemplo uma separação pelo método dos mínimos quadrados (1ª figura) e uma regressão logística (2ª figura):[imagens]
+\section{Regressão logística}
+Um problema de classificação não pode utilizar regressões convencionais para delimitar os dados. As regressões tentam prever onde é mais provável a aparição de um novo elemento, no entanto uma classificação não procura pelo local de maior probabilidade de ocorrência de um novo ponto, procura pelo local em que classes são equi-prováveis. Caso fosse feita uma separação de classes pelo método dos mínimos quadrados, e uma das classes de classificação estivesse muito mais dissipada pelo espaço, a regressão iria tender para ela, contrariamente ás classes com dados mais concentrados.[imagem]\\
+Uma regressão logística contrariamente ás regressões convencionais funciona encontrando o hiperplano de igual verosimilhança entre classes. Um ponto muito distante da hipótese de divisão de classes não afeta muito o resultado.\par
+O nome "regressão logística" deve-se ao facto da regressão ser efetuada nos dados recorrendo a uma função logística, no entanto não resolve problemas de previsão de dados contínuos (regressões). Os seus resultados são binários contrariamente às regressões.
+$$\text{Função logistica: } g(\vec x, \widetilde w) = \frac {1}{1+e^{-(\vec w ^T \vec x + w_0)}}$$
+\section{Lazy Learning}
+O conceito de \textit{lazy learning} (aprendizagem preguiçosa) consiste na constituição de modelos/classes de hipóteses de forma dinâmica à medida que os dados de treino são adicionados.\\
+A principal vantagem desta caraterística que pode ser utilizada em alguns classificadores, é que permite a mutação do modelo em tempo real, sem carecer de novo treino com a integralidade dos dados.
+\section{k-Vizinhos mais próximos (k-NN)}
+O algoritmo k-Vizinhos mais próximos (abreviado k-NN, do inglês \textit{k-nearest neighbors}) é um potencial classificador.\\
+Enquanto classificador é caraterizado por poder recorrer a \textit{lazy learning} (conforme visto acima) consoante a sua implementação. Assim sendo não requer um modelo pré-treinado.\par
+Este algoritmo ordena os vizinhos de um elemento por ordem de proximidade das caraterísticas, carecendo de um parâmetro $k$ que indica o numero de vizinhos a considerar.
+Para ordenar elementos admite diversas definições de distância, como a de \textit{Manhattan}, a euclidiana, a de \textit{Hamming}, etc... cada uma servido para propósitos distintos.
+Por exemplo a distância de \textit{Manhattan} baseia-se na soma das diferenças absolutas nos eixos: $(1,1) \text{ até } (5,5) \text{ é } 4 + 4 = 8$ enquanto a distância euclidiana funciona por base na norma da soma dos vetores.\\
+As distâncias comuns são baseadas na formula de \textit{Minkowski}:
+$$ D_{x, x'} = \sqrt[p]{\sum_d |x_d - x_d'|^p} $$
+Com esta formula a distância de \textit{Manhattan} é representada com $p=1$ e a euclidiana com $p=2$.\par
+\subsection{Diagramas de Voronoi}
+Para ilustrar um espaço bidimensional é possível recorrer a um diagrama de \textit{Voronoi}, com polígonos a delimitar as regiões em que cada classe é a que verifica o numero de vizinhos mais próximos. [Continuar...]
+\section{Classificador de Bayes}
+Pela \textbf{regra de Bayes} pode-se concluir que a probabilidade de uma amostra com vetor de caraterísticas $x$ pertencer à classe $c$ é dado por:
+$$P(C=c|X=x)=\frac{P(C=c)P(X=x|C=c)}{P(X=x)}$$
+Uma vez que a regra de Bayes com caraterísticas $x$ vai sempre resultar numa divisão por $P(X=x)$ podemos dizer que há proporcionalidade e simplificar a expressão para:
+$$P(C=c|X=x)\propto P(C=c)P(X=x|C=c)$$
+Pela regra do produto sabemos que $P(C=c)P(X=x|C=c)$ é a distribuição conjunta $P(C=c,X=x)$.\\
+Computamos á parte uma tabela que a representa, sendo que podemos ainda escolher a melhor classe para cada exemplo, temos assim o \textbf{classificador de Bayes}:
+$$C^{Bayes}=\underset{c\in \{0,1,\dots,N\}}{argmax} P(C=c,X=x)$$
+O problema do classificador de Bayes é que implica que hajam dados para todas as combinações possíveis do vetor $x$, não consegue prever uma combinação que ainda nunca tenha tenha sido vista mesmo que seja composta por $x_i$'s que tornem a hipótese quase garantida.
+Assim sendo é muito raro aplicar-se este classificador dada a impraticabilidade de fazer a amostragem de dados suficientes.
+\section{Naïve Bayes}
+O classificador Naïve Bayes é uma variação do classificador de Bayes que assume que todas as caraterísticas são condicionalmente independentes[confirmar]. Essa assunção reduz drasticamente a quantidade de dados necessários.\\[0.2cm]
+Tem-se que para caraterísticas independentes a seguinte expressão está correta:
+$$ p(x_i | C_k, x_1, \dots , x_{n-1}) $$
+Por base nesse facto, é possível alterar o classificador de Bayes para se tornar:
+$$C^{\text{Naïve Bayes}} = \underset{k\in \{0,1,\dots,K\}}{argmax} \> ln\> p(C_k) + \sum^N_{j=1} ln \> p(x_j | C_k)$$
+\end{document}
