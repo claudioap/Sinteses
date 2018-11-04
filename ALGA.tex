@@ -1,0 +1,333 @@
+\documentclass[]{report}
+\usepackage[a4paper, total={7in, 8.5in}]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[dvipsnames]{xcolor}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vspace{5cm}
+	{\huge\bfseries Álgebra Linear e Geometria Analítica\par}
+	\vspace{1cm}
+	{\scshape\Large Síntese baseada no conteúdo lecionado na\\
+	 FCT/Universidade Nova de Lisboa\par}
+	\vspace{2cm}
+	Adaptado por:\\
+	{\Large \textit{Cláudio Afonso de Sousa Pereira}\\
+	(sinteses$\text{@}$claudiop$.$com)\par}
+	\vspace{1cm}
+	{\large \today\par}
+	\vfill
+	Adaptação licenciada:\\
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+\end{titlepage}
+\chapter{Calculo Matricial}
+\section{Matrizes}
+Matrizes são estruturas compostas por diversos números em grelha, tendo propriedades e operações próprias. São úteis a certas áreas de estudo podendo ajudar a abstrair problemas.\\
+Uma matriz $m$ por $n$ (interpretada "matriz com $m$ linhas e $n$ colunas") tem o formato:
+$$\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n} \\
+a_{21} & a_{22} & \dots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \dots & a_{mn}
+\end{bmatrix}$$
+Assim sendo, $a_{ij}$ é dito elemento na linha $i$ e coluna $j$.\\
+Os elementos pode pertencer aos reais ($\mathbb{R}$) ou aos complexos ($\mathbb{C}$).\\
+Se $\forall i,j : a_{ij} \in \mathbb{R}$ a matriz acima é declarada $\mathcal{M}_{m \times n} \in \mathbb{R}$.\\
+\subsection{Matrizes notáveis}
+Alguns formatos matrizes são especialmente importantes:
+\begin{itemize}
+\item \textbf{Quadrada} - Toda a que tenha o mesmo numero de linhas e colunas.\\
+$\mathcal{M}_{n \times n}$ - Quadrada da ordem $n$, abreviada $\mathcal{M}_{n}$.\\
+A \textbf{diagonal principal} de uma matriz são os elementos entre o canto superior esquerdo e o inferior direito.
+\item \textbf{Triangular} - Quadrada nulificada de um dos lados da diagonal principal.
+$$\begin{bmatrix}
+a_{11} & \dots & a_{1n} \\
+0 & \ddots & \vdots \\
+0 & 0 & a_{mn}
+\end{bmatrix}$$
+\item \textbf{Diagonal} - Quadrada que só tem elementos não-nulos na diagonal principal.
+$$\begin{bmatrix}
+a_{11} & 0 & 0 \\
+0 & \ddots & 0\\
+0 & 0 & a_{mn}
+\end{bmatrix}$$
+\item \textbf{Escalar} - Diagonal em que todos os elementos da diagonal principal tem o mesmo valor.
+$$\begin{bmatrix}
+k & 0 & 0 \\
+0 & \ddots & 0\\
+0 & 0 & k
+\end{bmatrix}$$
+\item \textbf{Identidade} - Quadrada com os elementos da diagonal principal $=1$.
+$$\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \ddots & 0\\
+0 & 0 & 1
+\end{bmatrix}$$
+\item \textbf{Nula} - Constituída por elementos nulos.
+$$\begin{bmatrix}
+0 & \dots & 0 \\
+\vdots & \ddots & \vdots\\
+0 & \dots & 1
+\end{bmatrix}$$
+\item \textbf{Linha} - Apenas tem uma linha.
+$$\begin{bmatrix}
+a_{11} & \dots & a_{1n}
+\end{bmatrix}$$
+\item \textbf{Coluna} - Apenas tem uma coluna.
+$$\begin{bmatrix}
+a_{1} \\
+\vdots \\
+a_{m1}
+\end{bmatrix}$$
+\end{itemize} 
+\section{Operações aritméticas}
+\subsection{Adição}
+Duas matrizes $A$ e $B$ podem somadas da seguinte forma:
+$$A+B = 
+\begin{bmatrix}
+\color{red}a_{11} & \color{red}a_{12} & \dots & \color{red}a_{1n} \\
+\color{red}a_{21} & \color{red}a_{22} & \dots & \color{red}a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\color{red}a_{m1} & \color{red}a_{m2} & \dots & \color{red}a_{mn}
+\end{bmatrix}
++
+\begin{bmatrix}
+\color{blue}b_{11} & \color{blue}b_{12} & \dots & \color{blue}b_{1n} \\
+\color{blue}b_{21} & \color{blue}b_{22} & \dots & \color{blue}b_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\color{blue}b_{m1} & \color{blue}b_{m2} & \dots & \color{blue}b_{mn}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\textcolor{red}{a_{11}}+\textcolor{blue}{b_{11}} & \textcolor{red}{a_{12}}+\textcolor{blue}{b_{12}} & \dots & \textcolor{red}{a_{1n}}+\textcolor{blue}{b_{1n}} \\
+\textcolor{red}{a_{21}}+\textcolor{blue}{b_{21}} & \textcolor{red}{a_{22}}+\textcolor{blue}{b_{22}} & \dots & \textcolor{red}{a_{2n}}+\textcolor{blue}{b_{2n}} \\
+\vdots & \vdots & \ddots & \vdots \\
+\textcolor{red}{a_{m1}}+\textcolor{blue}{b_{m1}} & \textcolor{red}{a_{m2}}+\textcolor{blue}{b_{m2}} & \dots & \textcolor{red}{a_{mn}}+\textcolor{blue}{b_{mn}}
+\end{bmatrix}$$
+A adição de matrizes é comutativa ($A+B = B+A$) e associativa ($A+(B+C) = (A+B)+C$).
+\subsection{Produto escalar}
+$$
+\textcolor{red}{\alpha}
+\begin{bmatrix}
+\color{blue}b_{11} & \color{blue}b_{12} & \dots & \color{blue}b_{1n} \\
+\color{blue}b_{21} & \color{blue}b_{22} & \dots & \color{blue}b_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\color{blue}b_{m1} & \color{blue}b_{m2} & \dots & \color{blue}b_{mn}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\textcolor{red}{\alpha}+\textcolor{blue}{b_{11}} & \textcolor{red}{\alpha}+\textcolor{blue}{b_{12}} & \dots & \textcolor{red}{\alpha}+\textcolor{blue}{b_{1n}} \\
+\textcolor{red}{\alpha}+\textcolor{blue}{b_{21}} & \textcolor{red}{\alpha}+\textcolor{blue}{b_{22}} & \dots & \textcolor{red}{\alpha}+\textcolor{blue}{b_{2n}} \\
+\vdots & \vdots & \ddots & \vdots \\
+\textcolor{red}{\alpha}+\textcolor{blue}{b_{m1}} & \textcolor{red}{\alpha}+\textcolor{blue}{b_{m2}} & \dots & \textcolor{red}{\alpha}+\textcolor{blue}{b_{mn}}
+\end{bmatrix}$$
+\begin{itemize}
+\item $\alpha(A+B) = \alpha A + \alpha B$
+\item $(\alpha + \beta)A = \alpha A + \beta A$
+\item $(\alpha\beta)A = \alpha(\beta A)$
+\end{itemize}
+\subsection{Produto}
+O produto de matrizes requer que a esquerda seja $\mathcal{M}_{m\times k}$ e a direita $\mathcal{M}_{k\times n}$.\\
+Como o numero de colunas da primeira tem que ser igual ao numero de linhas da segunda intuitivamente o produto de matrizes \underline{não é comutativo} (nem quando ambas são quadradas).
+$$(AB)_{ij} = \sum^n_{k=1} a_{ik}b_{kj}$$
+Isto é, o elemento $(AB)_{i,j}$ da matriz resultante é dado por:
+$$AB = 
+\begin{bmatrix}
+\vdots & \vdots & \vdots & \vdots \\
+\color{red}a_{i1} & \color{red}a_{i2} & \dots & \color{red}a_{in} \\
+\vdots & \vdots & \vdots & \vdots
+\end{bmatrix}
+\times
+\begin{bmatrix}
+\dots & \color{blue}b_{12} & \dots \\
+\dots & \color{blue}b_{22} & \dots\\
+\vdots & \vdots & \vdots \\
+\dots & \color{blue}b_{mj} & \dots
+\end{bmatrix}
+=
+\begin{bmatrix}
+\dots & \dots & \dots\\
+\dots & \textcolor{red}{a_{i1}}\textcolor{blue}{b_{1j}} + \textcolor{red}{a_{i2}}\textcolor{blue}{b_{2j}} + \dots + \textcolor{red}{a_{in}}\textcolor{blue}{b_{nj}} & \dots\\
+\dots & \dots & \dots
+\end{bmatrix}$$
+\begin{itemize}
+\item $(AB)C = A(BC)$ (Associativa)
+\item $A(B+C) = AB + AC, \quad (B+C)A = BA + CA$ (Distributiva, á esquerda e direita)
+\item $\alpha(AB) = (\alpha A)B = A(\alpha B)$ (Multiplicação por escalar)
+\item $AI_n = I_m A = A$ (Multiplicação por identidade)
+\item Se $AB=AC$ ou $BA = CA$, sabendo que $A \neq 0$, sabe-se que $B=C$.
+\end{itemize}
+\subsection{Potência}
+$A^k
+\begin{cases}
+I_n&,\text{se } k=1\\
+A^{k-1}A&,\text{se } k=\mathbb{N}
+\end{cases}
+$\\
+$A^k A^l = A^{k+l}$\\
+$A^{k^l} = A^{kl}$
+\section{Transformações Elementares}
+A partir das operações aritméticas em matrizes, há operações compostas que são definidas como transformações elementares por linhas (ou por colunas). São as seguintes (quando por linhas):
+\begin{enumerate}
+\item \textbf{Troca de linhas}
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\color{red}a_{i1} & \color{red}a_{i2} & \dots & \color{red}a_{in}\\
+\dots & \dots & \dots & \dots\\
+\color{blue}a_{j1} & \color{blue}a_{j2} & \dots & \color{blue}a_{jn}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+\overrightarrow{l_i \leftrightarrow l_j}
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\color{blue}a_{j1} & \color{blue}a_{j2} & \dots & \color{blue}a_{jn}\\
+\dots & \dots & \dots & \dots\\
+\color{red}a_{i1} & \color{red}a_{i2} & \dots & \color{red}a_{in}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+$$
+\item \textbf{Multiplicação a linha}
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\color{red}a_{i1} & \color{red}a_{i2} & \dots & \color{red}a_{in}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+\overrightarrow{\textcolor{blue}{\alpha} l_i}
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\color{blue}\alpha\color{red}a_{i1} & \color{blue}\alpha\color{red}a_{i2} & \dots & \color{blue}\alpha\color{red}a_{in}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+$$
+\textbf{Nota}: é necessário garantir que $\alpha \neq 0$.
+\item \textbf{Soma com múltiplo de outra linha}
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\color{red}a_{i1} & \color{red}a_{i2} & \dots & \color{red}a_{in}\\
+\dots & \dots & \dots & \dots\\
+\color{blue}a_{j1} & \color{blue}a_{j2} & \dots & \color{blue}a_{jn}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+\overrightarrow{l_i + \textcolor{green}{\beta} l_j}
+\begin{bmatrix}
+a_{11} & a_{12} & \dots & a_{1n}\\
+\dots & \dots & \dots & \dots\\
+\textcolor{red}{a_{i1}}+ \color{green}\beta\color{blue}a_{j1} & \textcolor{red}{a_{i2}}+ \color{green}\beta\color{blue}a_{j2} & \dots & \textcolor{red}{a_{in}}+ \color{green}\beta\color{blue}a_{jn}\\
+\dots & \dots & \dots & \dots\\
+\color{blue}a_{j1} & \color{blue}a_{j2} & \dots & \color{blue}a_{jn}\\
+\dots & \dots & \dots & \dots\\
+a_{11} & a_{12} & \dots & a_{1n}\\
+\end{bmatrix}
+$$
+\end{enumerate}
+Como dito, as mesmas operações podem ser feitas por colunas.\\[0.5cm]
+Seja $A \in \mathcal{M}_{m \times n}$ e $\alpha, \beta \in \mathbb{R}$.
+\begin{itemize}
+\item $A {\scriptstyle{\overrightarrow{\quad T \quad}}} B$ representa que $B$ resulta de uma transformação elementar, do tipo $T$, aplicada a $A$.
+\item $A$ é \textbf{equivalente por linhas} a $B$ se um numero finito de transformações elementares por linhas em $A$ resultar em $B$.
+\end{itemize}
+\subsection{Matrizes elementares e formas de escada}
+Á matriz que resulte da aplicação de \underline{uma única} transformação elementar a uma matriz identidade, designa-se de \textbf{matriz elementar}.
+\begin{itemize}
+\item Uma matriz tem uma transformação por linhas quando pré-multiplicada por uma matriz elementar.
+\item Uma matriz tem uma transformação por colunas quando pós-multiplicada por uma matriz elementar.
+\item A inversa de uma matriz elementar reverte a operação que a elementar aplica.
+\end{itemize}
+Seja o elemento \textbf{pivô} de uma linha o elemento não nulo mais à esquerda dessa linha e que não apresenta mais nenhum elemento não nulo por baixo de si (na coluna).
+Quando uma matriz apresenta um pivô em todas as linhas não nulas, e quaisquer eventuais linhas nulas venham depois das não nulas, então a matriz tem \textbf{forma de escada}.\\[0.2cm]
+O número de linhas não nulas de uma matriz em escada é chamado de \textbf{caraterística}.
+A caraterística da matriz $A$ representa-se $r(A)$ e é sempre menor ou igual tanto ao numero de linhas como de colunas.\\[0.2cm]
+Verificam-se as seguintes propriedades:
+\begin{itemize}
+\item Toda a matriz é equivalente por linhas a uma matriz em forma de escada.
+\item Se uma matriz  escada contiver 1 como elemento pivô de cada coluna, e todos os restantes elementos dessa coluna forem nulos, a matriz é dita em forma de \textbf{escada reduzida} e é única. 
+\end{itemize}
+\section{Invertíbilidade}
+Sejam $A, B \in \mathcal{M}_{n}$ (matrizes quadradas), $\alpha \in \mathbb{R}$ 
+(ou $\mathbb{C}$) e $k \in \mathbb{N}$.\\
+A matriz $A \in \mathcal{M}_{n}$ é invertível se existe uma matriz $B \in \mathcal{M}_{n}$ que verifica $AB = BA = I_n$.\\
+Representa-se a inversa de $A$: $A^{-1}$.\\[0.2cm]
+Propriedades:
+\begin{itemize}
+\item Se $\alpha \neq 0$ então $(\alpha A)^{-1} = \alpha^{-1}A^{-1}$
+\item Se $A_1, \dots, A_{k}$ forem invertíveis, então $(A_1, \dots, A_k)^{-1} = A_k^{-1} \dots A_1^{-1}$\\
+\indent Se $A,B$ forem invertíveis, então $(AB)^{-1} = B^{-1} A^{-1}$
+\item Se $A$ invertível, $A^k$ é invertível e $(A^k)^{-1} = (A^-1)^k$.
+\end{itemize}
+Verificar um dos seguintes verifica todos:
+\begin{itemize}
+\item $A$ é invertível.
+\item $r(A) = m = n$ (o numero de linhas e colunas).
+\item $I_n$ é a forma de escada reduzida de $A$.
+\item Pode escrever-se $A$ como produto de matrizes elementares.
+\end{itemize}
+\subsection{Dedução de inversa}
+Para se obter a inversa de uma matriz que se sabe ser invertível, considera-se uma matriz identidade $I_n$.\\
+Aplica-se a ambas as matrizes as mesmas transformações elementares com o objetivo de tornar a matriz a inverter numa matriz identidade. Quando tal acontecer, a matriz que originalmente era identidade, é agora  a inversa da matriz que se pretendia inverter.
+\section{Transposição}
+A transposta de uma matriz $A \in \mathcal{M}_{m \times n}$ é a matriz cujos elementos tem a linha trocada com a coluna. $$\forall i,j \in \mathbb{N}, a \in A: (A^T)_{ij} = a_{ji}$$
+$A^T$ diz-se a transposta da matriz $A$.
+$$
+\begin{bmatrix}
+\color{red}a_{11} & \color{red}a_{12} & \dots & \color{red}a_{1n}\\
+\color{green}a_{21} & \color{green}a_{22} & \dots & \color{green}a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+\color{blue}a_{m1} & \color{blue}a_{m2} & \dots & \color{blue}a_{mn}
+\end{bmatrix}^T
+=
+\begin{bmatrix}
+\color{red}a_{11} & \color{green}a_{21} & \dots & \color{blue}a_{m1}\\
+\color{red}a_{12} & \color{green}a_{22} & \dots & \color{blue}a_{m2}\\
+\vdots & \vdots & \ddots & \vdots\\
+\color{red}a_{1n} & \color{green}a_{2n} & \dots & \color{blue}a_{mn}
+\end{bmatrix}
+$$
+Propriedades:
+\begin{itemize}
+\item $(A^T)^T = A$
+\item $(A+B)^T = A^T + B^T$
+\item $(\alpha A)^T = \alpha A^T$
+\item $(AB)^T = B^T A^T$
+\item $(A^k)^T = (A^T)^k$
+\item Se $A$ invertível, então $A^T$ invertível e $(A^T)^{-1} = (A^{-1})^T$
+\end{itemize}
+Uma matriz igual à transposta é dita \textbf{simétrica}.\\
+Se $A=-A^T$ então é dita \textbf{hemi-simétrica}.
+\section{Conjugação}
+Quando uma matriz $A \in \mathcal{M}$ é composta por elementos de $\mathbb{C}$, a sua conjugada, representada $\overline{A}$, é uma matriz na qual todos os elementos foram substituídos pelo conjugado.\\
+Propriedades:
+\begin{itemize}
+\item $\overline{A+B} = \overline A + \overline B$
+\item $\overline{\alpha A} = \overline \alpha \cdot \overline A$
+\item $\overline{AC} = \overline A  \> \overline C$
+\item $\overline{A^k} = (\overline{A})^k$
+\item Se $\exists A^{-1} \Rightarrow  (\overline{A})^{-1} = \overline{A^{-1}}$\\
+Para uma matriz invertível, a inversa da conjugada é igual á conjugada da inversa.
+\item $\overline{A^T} = (\overline{A})^T$\\
+Qualquer destas operações é chamada de \textbf{transconjugação} de $A$, representando-se $A^\star$.
+\end{itemize}
+A partir da definição de transconjugação (acima) tem-se que:
+\begin{itemize}
+\item Se $A = A^\star$, (ou seja $a_{ij} = \overline{a}_{ji}$), a matriz é dita \textbf{hermítica}.
+
+\item Se $A = -A^\star$, (ou seja $a_{ij} = -\overline{a}_{ji}$), a matriz é dita \textbf{hemi-hermítica}.
+\end{itemize}
+\end{document}
