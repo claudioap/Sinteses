@@ -6,6 +6,15 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{forest}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix}
+\tikzset{
+  treenode/.style = {align=center},
+  root/.style     = {treenode, font=\Large},
+  env/.style      = {treenode, font=\normalsize},
+  dummy/.style    = {circle,draw}
+}
 
 \begin{document}
 \begin{titlepage}
@@ -327,7 +336,230 @@ Qualquer destas operações é chamada de \textbf{transconjugação} de $A$, rep
 A partir da definição de transconjugação (acima) tem-se que:
 \begin{itemize}
 \item Se $A = A^\star$, (ou seja $a_{ij} = \overline{a}_{ji}$), a matriz é dita \textbf{hermítica}.
-
 \item Se $A = -A^\star$, (ou seja $a_{ij} = -\overline{a}_{ji}$), a matriz é dita \textbf{hemi-hermítica}.
 \end{itemize}
+\chapter{Sistemas de Equações Lineares}
+\section{Definição}
+Uma equação linear é qualquer equação que apresente a forma $a_1 x_1 + a_2 x_2 + \dots + a_n x_n = b$, com $a_1, a_2, \dots, a_n \in \mathbb{C}$.
+Repare-se que o maior dos graus de uma equação linear é 1. Se apresentasse grau 2 seria equação quadrática, 3 cúbica \dots\\
+Relembre-se que a $b$ se dá o nome de \textbf{termo independente}.\\[0.2cm]
+Um sistema de equações lineares costuma ser representado da seguinte forma:
+$$
+\begin{cases}
+a_{11} x_1 + \dots + a_{1n} x_n = b_1\\
+a_{21} x_1 + \dots + a_{2n} x_n = b_2\\
+\dots\\
+a_{m1} x_1 + \dots + a_{mn} x_n = b_m\\
+\end{cases}
+$$
+Chama-se a $\beta_1, \beta_2, \dots, \beta_n \in \mathbb{C}$ de \textbf{solução} se a substituição $\forall i, x_i = b_i$ resultar apenas em preposições verdadeiras.
+\begin{itemize}
+\item A existência de uma única solução faz do sistema \textbf{determinado}.
+\item A existência de múltiplas soluções faz do sistema \textbf{indeterminado}.
+\item A inexistência de solução faz do sistema \textbf{impossível}.
+\end{itemize}
+Se dois sistemas são \textbf{equivalentes} se tiverem o mesmo conjunto de soluções.
+Define-se ainda que:
+\begin{itemize}
+\item Se $\exists i : b_i = 0$ então a equação linear na linha $i$ é \textbf{homogénea}.
+\item Se $\forall i, b_i = 0$ então o sistema de equações lineares é \textbf{homogéneo}.
+\end{itemize}
+\section{Representação Matricial}
+Um sistema de equações lineares pode ser representado matricialmente por base em 3 componentes:
+\begin{enumerate}
+\item A matriz dos \textbf{coeficientes}:
+$$
+A \in \mathcal{M}_{m \times n} =
+\begin{bmatrix}
+a_{11} & \dots & a_{1n}\\
+\vdots & \ddots & \vdots\\
+a_{m1} & \dots & a_{mn}\\
+\end{bmatrix}
+$$
+\item A matriz(/vetor) das \textbf{incógnitas}:
+$$
+X \in \mathcal{M}_{m \times 1} =
+\begin{bmatrix}
+x_1\\
+x_2\\
+\vdots \\
+x_n
+\end{bmatrix}
+$$
+\item A matriz(/vetor) dos \textbf{termos independentes}:
+$$
+B \in \mathcal{M}_{m \times 1} =
+\begin{bmatrix}
+b_1\\
+b_2\\
+\vdots \\
+b_n
+\end{bmatrix}
+$$
+\end{enumerate}
+A representação do sistema é então $AX=B$.\\
+Efetuar o produto de matrizes torna possível verificar que se trata do mesmo sistema.
+\subsection{Matriz Ampliada}
+É prático recorrer a uma representação alternativa do sistema, a sua matriz ampliada.\\
+Para duas matrizes $A, B$ a sua ampliada é representada por $A|B$ e escrita:
+$$
+A|B=
+  \left(\begin{array}{cccc|c}
+    a_{11} & a_{12} & \dots &a_{1n} & b_1 \\
+    a_{21} & a_{22} & \dots &a_{2n} & b_2 \\
+    \vdots & \vdots & \ddots &\vdots & \vdots \\
+    a_{m1} & a_{m2} & \dots &a_{mn} & b_n
+  \end{array}\right)
+$$
+\subsection{Propriedades}
+\begin{itemize}
+\item Se $P \in \mathcal{M}_{k \times m}$ for invertível então $AX=B \equiv (PA)X=B$ (os sistemas são equivalentes).
+\item Transformações por linhas resultam em sistemas equivalentes.
+$$\left[A|B\right]{\scriptstyle \overrightarrow{\quad T_l \quad}} \left[A'| B'\right] \quad \rightarrow \quad AX = B \equiv A'X=B'$$
+\end{itemize}
+\subsection{Determinabilidade}
+A caraterística dos coeficientes é sempre menor ou igual á caraterística da matriz ampliada do sistema.
+$$r(A) \leq r(A|B)$$
+\begin{minipage}{\textwidth}
+Fazendo a forma de escada da matriz ampliada é possível saber que:
+\begin{itemize}
+\item Se a caraterística dos coeficientes for menor que a da matriz ampliada, o sistema é \textbf{impossível}.
+$$r(A) < r(A|B)$$
+\item Se a caraterística dos coeficientes for igual à da matriz ampliada, o sistema é \textbf{possível}.
+$$r(A) = r(A|B)$$
+\begin{itemize}
+\item Se a caraterística for igual ao numero de variáveis (e de colunas), o sistema é \textbf{possível determinado}.
+$$r(A) = r(A|B) = n$$
+\item Se a caraterística for menor que o numero de variáveis, o sistema é \textbf{possível indeterminado}.
+$$r(A) = r(A|B) < n$$
+\item O \textbf{grau de indeterminação} é dado por $n - r(A)$.
+\end{itemize}
+\item As $r(A)$ incógnitas correspondentes a linhas com pivôs são \textbf{básicas}.
+\item As $n - r(A)$ incógnitas correspondentes a linhas sem pivôs são \textbf{livres}.
+\end{itemize}
+\end{minipage}\\[0.5cm]
+{\textbf{Resumindo}:\\
+\begin{tikzpicture}
+  [
+    every node/.style={circle,draw},
+    sibling distance=5em,
+    grow                    = right,
+    level distance          = 19em,
+    edge from parent/.style = {draw, -latex},
+    every node/.style       = {font=\small},
+    sloped
+  ]
+  \node [root] {Sistema\\$AX = B$}
+    child { node [env] {Sistema impossível}
+      edge from parent node [below] {$r(A) < r([A|B])$} }
+    child { node [env] {Sistema possível}
+      child { node [env] {Sistema possível\\ determinado}
+        edge from parent node [below] {$r(A) = r([A|B])$} }
+      child { node [env] {Sistema possível indeterminado\\ Grau de indeterminação $n - r(A)$\\}
+        edge from parent node [above] {$r(A) < r([A|B])$} }};
+\end{tikzpicture}}
+\section{Sistemas de Cramer}
+Um sistema $AX = B$ diz-se sistema de Cramer se $A$ é invertível.\\
+Obtendo $A^{-1}$ consegue-se resolver o sistema.
+$$A^{-1}\left(A \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} \right) = A^{-1}B
+\quad \Leftrightarrow \quad
+\left(A^{-1}A\right) \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = A^{-1}B
+\quad \Leftrightarrow \quad
+I_n \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = A^{-1}B
+\quad \Leftrightarrow \quad
+\begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = A^{-1}B
+$$
+\subsection{Regra de Cramer}
+(Por fazer)
+\section{Determinantes}
+O determinante é um valor escalar que se obtém a partir de matrizes e permite inferir algumas propriedades das mesmas. É um valor abstrato, mas pode ser interpretado como a magnitude das alterações que a matriz implica.\\
+O determinante de uma matriz $A$ representa-se $det A$ ou $|A|$ e em matrizes $\mathcal{M}_{1 \times 1}$ (ou seja $[k]$) o determinante é o próprio elemento ($k$). Para matrizes maiores será visto de seguida como calcular.
+\subsection{Complemento Algébrico}
+\textbf{Notação}: $A_{(i|j)} \in \mathcal{M}_{(m-1) \times (n-1)}$ é a matriz que se obtém a partir de $A \in \mathcal{M}_{m \times n}$ removendo a linha $i$ e a coluna $j$.\\[0.5cm]
+Se $a_{ij}$ for um elemento de uma matriz, o seu \textbf{complemento algébrico} é representado $\hat a_{i,j}$.\\
+O complemento algébrico serve principalmente para calcular determinantes de matrizes. É definido:
+$$\hat a_{ij} = (-1)^{i+j} det A(i|j)$$
+Pode pensar-se que a matriz é um tabuleiro de xadrez com casas $1$ e $-1$, em que $a_{11}$ é uma casa $1$.\\
+Seja o seguinte exemplo uma $\mathcal{M}_{4 \times 4}$, em que as casas brancas são multiplicadas por 1 e as pretas por $-1$:
+\begin{center}
+\begin{tikzpicture}[x=1cm]
+\foreach \y in {0,2,...,3}{
+    \foreach \x in {0,2,...,3}{
+        \fill (\x,\y) rectangle (1+\x,1+\y) rectangle (2+\x,2+\y);}}
+\end{tikzpicture}
+\end{center}
+O complemento algébrico de cada elemento da matriz é o valor da sua "casa de xadrez" a multiplicar pelo determinante da matriz sem essa linha e coluna.\\[0.2cm]
+A \textbf{matriz dos complementos algébricos} é a matriz em que todos os elementos são complementos algébricos de outra matriz, nas respetivas posições.
+\subsection{Teorema de Laplace}
+O método genérico para a obtenção de determinantes é pelo teorema de Laplace, que indica o seguinte:
+\begin{enumerate}
+\item De uma matriz $A \in \mathcal{M}_{n \times n}$ escolha-se uma linha ou coluna, preferencialmente a que tenha mais zeros.
+\begin{center}(A título de exemplo escolha-se a linha $l$)\end{center}
+\item Somam-se os produtos entre os elementos dessa linha e os seus complementos algébricos.
+$$\sum_l \left(a_{lj} \times \hat a_{lj}\right)$$
+\item Re-aplica-se este teorema novamente a eventuais sub-matrizes resultantes.\\
+\textbf{Nota}: Não aplicar em matrizes $\mathcal{M}_{1\times 1}$, aplicar $det [k] = k$.
+\end{enumerate}
+\subsection{Regra de Sarrus}
+\begin{minipage}{\textwidth}
+A regra de Sarrus é uma simplificação do calculo do determinante aplicável só em matrizes $\mathcal{M}_{3\times 3}$.\\
+É possível obter a expressão para o determinante de uma matriz $A \in \mathcal{M}_{3 \times 3}$ a partir do teorema de Laplace:
+$$a_{11} \times a_{22} \times a_{33} + a_{12} \times a_{23} \times a_{31} + a_{13} \times a_{21} \times a_{32}
+ - a_{31} \times a_{22} \times a_{13} - a_{33} \times a_{21} \times a_{12} - a_{32} \times a_{23} \times a_{11}$$
+Enquanto que este resultado é abstrato, quando visto geometricamente na matriz torna-se fácil de memorizar:
+\begin{itemize}
+\item Imagine-se a matriz que resulta da concatenação entre a matriz cujo determinante está a ser calculado, e as suas primeiras duas colunas:
+$$
+\left(\begin{array}{ccc|cc}
+  a_{11} & a_{12} & a_{13} & a_{11} & a_{12} \\
+  a_{21} & a_{22} & a_{23} & a_{21} & a_{22} \\
+  a_{31} & a_{32} & a_{33} & a_{31} & a_{32}
+\end{array}\right)
+$$
+\item Soma-se o produto dos elementos das diagonais que decrescem:
+$$a_{11} \times a_{22} \times a_{33} +$$
+$$a_{12} \times a_{23} \times a_{31} +$$
+$$a_{13} \times a_{21} \times a_{32} =$$
+$$a_{11} \times a_{22} \times a_{33} + a_{12} \times a_{23} \times a_{31} + a_{13} \times a_{21} \times a_{32}$$
+\item Subtrai-se o produto dos elementos das diagonais que crescem:
+$$- a_{31} \times a_{22} \times a_{13}$$
+$$- a_{32} \times a_{23} \times a_{11}$$
+$$\quad- a_{33} \times a_{21} \times a_{12}=$$
+$$- a_{31} \times a_{22} \times a_{13} - a_{32} \times a_{23} \times a_{11} - a_{33} \times a_{21} \times a_{12}$$
+\item Soma-se o resultado dos dois pontos anteriores (com atenção à negatividade).
+$$a_{11} \times a_{22} \times a_{33} + a_{12} \times a_{23} \times a_{31} + a_{13} \times a_{21} \times a_{32} - a_{31} \times a_{22} \times a_{13} - a_{32} \times a_{23} \times a_{11} - a_{33} \times a_{21} \times a_{12}$$
+\end{itemize}
+\begin{center}
+Ilustração do o que foi feito:\\
+\begin{tikzpicture}[>=stealth]
+% Author for this illustration: Thorsten Donig@ https://tex.stackexchange.com/a/32981
+  \matrix [%
+    matrix of math nodes,
+    column sep=1em,
+    row sep=1em
+  ] (sarrus) {%
+    a_{11} & a_{12} & a_{13} & a_{11} & a_{12} \\
+    a_{21} & a_{22} & a_{23} & a_{21} & a_{22} \\
+    a_{31} & a_{32} & a_{33} & a_{31} & a_{32} \\
+  };
+  \path ($(sarrus-1-1.north west)-(0.5em,0)$) edge ($(sarrus-3-1.south west)-(0.5em,0)$)
+        ($(sarrus-1-3.north east)+(0.5em,0)$) edge ($(sarrus-3-3.south east)+(0.5em,0)$)
+        (sarrus-1-1)                          edge            (sarrus-2-2)
+        (sarrus-2-2)                          edge[->]        (sarrus-3-3)
+        (sarrus-1-2)                          edge            (sarrus-2-3)
+        (sarrus-2-3)                          edge[->]        (sarrus-3-4)
+        (sarrus-1-3)                          edge            (sarrus-2-4)
+        (sarrus-2-4)                          edge[->]        (sarrus-3-5)
+        (sarrus-3-1)                          edge[dashed]    (sarrus-2-2)
+        (sarrus-2-2)                          edge[->,dashed] (sarrus-1-3)
+        (sarrus-3-2)                          edge[dashed]    (sarrus-2-3)
+        (sarrus-2-3)                          edge[->,dashed] (sarrus-1-4)
+        (sarrus-3-3)                          edge[dashed]    (sarrus-2-4)
+        (sarrus-2-4)                          edge[->,dashed] (sarrus-1-5);
+  \foreach \c in {1,2,3} {\node[anchor=south] at (sarrus-1-\c.north) {$+$};};
+  \foreach \c in {1,2,3} {\node[anchor=north] at (sarrus-3-\c.south) {$-$};};
+\end{tikzpicture}
+\end{center}
+Como esta regra não é útil para matrizes de dimensões diferentes de $3 \times 3$, é preferível utilizar-se exclusivamente o teorema de Laplace. A vantagem desta regra passaria por exemplo por matrizes com dois $0$s em diagonais distintas para simplificar os cálculos, mas em algumas dessas o teorema de Laplace também pode fazer uso desses $0$s.
+\end{minipage}
 \end{document}
