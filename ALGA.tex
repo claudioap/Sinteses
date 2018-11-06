@@ -34,6 +34,7 @@
 	Adaptação licenciada:\\
 	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
 \end{titlepage}
+\tableofcontents
 \chapter{Calculo Matricial}
 \section{Matrizes}
 Matrizes são estruturas compostas por diversos números em grelha, tendo propriedades e operações próprias. São úteis a certas áreas de estudo podendo ajudar a abstrair problemas.\\
@@ -272,7 +273,7 @@ Verificam-se as seguintes propriedades:
 \section{Invertíbilidade}
 Sejam $A, B \in \mathcal{M}_{n}$ (matrizes quadradas), $\alpha \in \mathbb{R}$ 
 (ou $\mathbb{C}$) e $k \in \mathbb{N}$.\\
-A matriz $A \in \mathcal{M}_{n}$ é invertível se existe uma matriz $B \in \mathcal{M}_{n}$ que verifica $AB = BA = I_n$.\\
+A matriz $A \in \mathcal{M}_{n}$ é invertível se existe uma única matriz $B \in \mathcal{M}_{n}$ que verifica $AB = BA = I_n$.\\
 Representa-se a inversa de $A$: $A^{-1}$.\\[0.2cm]
 Propriedades:
 \begin{itemize}
@@ -469,8 +470,6 @@ I_n \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = A^{-1}B
 \quad \Leftrightarrow \quad
 \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = A^{-1}B
 $$
-\subsection{Regra de Cramer}
-(Por fazer)
 \section{Determinantes}
 O determinante é um valor escalar que se obtém a partir de matrizes e permite inferir algumas propriedades das mesmas. É um valor abstrato, mas pode ser interpretado como a magnitude das alterações que a matriz implica.\\
 O determinante de uma matriz $A$ representa-se $det A$ ou $|A|$ e em matrizes $\mathcal{M}_{1 \times 1}$ (ou seja $[k]$) o determinante é o próprio elemento ($k$). Para matrizes maiores será visto de seguida como calcular.
@@ -516,12 +515,12 @@ $$
   a_{31} & a_{32} & a_{33} & a_{31} & a_{32}
 \end{array}\right)
 $$
-\item Soma-se o produto dos elementos das diagonais que decrescem:
+\item Soma-se o produto dos elementos das diagonais que decrescem ($\searrow$):
 $$a_{11} \times a_{22} \times a_{33} +$$
 $$a_{12} \times a_{23} \times a_{31} +$$
 $$a_{13} \times a_{21} \times a_{32} =$$
 $$a_{11} \times a_{22} \times a_{33} + a_{12} \times a_{23} \times a_{31} + a_{13} \times a_{21} \times a_{32}$$
-\item Subtrai-se o produto dos elementos das diagonais que crescem:
+\item Subtrai-se o produto dos elementos das diagonais que crescem ($\nearrow$):
 $$- a_{31} \times a_{22} \times a_{13}$$
 $$- a_{32} \times a_{23} \times a_{11}$$
 $$\quad- a_{33} \times a_{21} \times a_{12}=$$
@@ -661,4 +660,6 @@ det A & 0 & 0\\
 0 & 0 & det A
 \end{bmatrix}
 $$
+\section{Regra de Cramer}
+(Por fazer)
 \end{document}
