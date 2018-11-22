@@ -214,7 +214,7 @@ Um agente reativo puro perceciona o mundo pelos seus sensores e recorre a um con
 São programas definidos por um uma sequência de regras.
 $$\{\{c_1 \rightarrow a_1\}, \{c_2 \rightarrow a_2\}, \dots, \{c_n \rightarrow a_n\}\}$$
 Cada $c_k$ é uma condição dada por uma conjunção de preposições booleanas e cada $a_k$ é uma ação a executar.\\
-Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\\\
+Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\[0.2cm]
 Um agente reativo puro é baseado num programa Teleo-Reativo.
 \subsection{Agente reativo baseado em modelos}
 Este agente é uma modificação do agente reativo puro que o permite memorizar as mudanças no mundo.
@@ -229,8 +229,8 @@ Um agente similar ao guiado por objetivo, mas considera a utilidade em vez dos o
 \begin{itemize}
 \item Atómica\\
 Sem uma estrutura interna
-\item Factorizada\\
-Com um numero finito de atributos atómicos\\
+\item Fatorizada\\
+Com um numero finito de atributos atómicos
 \item Estruturada\\
 Com relações entre objetos
 \end{itemize}
@@ -241,21 +241,19 @@ Um problema de procura lida com \textbf{procura cega} se o ambiente só for obse
 Para se formular um agente que resolva problemas de procura [cega?] tem de se assumir que o ambiente é:
 \begin{itemize}
 \item Estático
-Não muda durante a resolução\\
-\item Observavel - O agente sabe o estado corrente
+Não muda durante a resolução
+\item Observável - O agente sabe o estado corrente
 \end{itemize}
 \chapter{Procura Heurística}
 \section{Algoritmos iterativos de melhoramento}
 Estes algoritmos partem de uma potencial solução ao problema em análise, e dispõem de uma medida de quão boa é a sua qualidade. Cada iteração tenta arranjar uma solução alternativa à atual que apresente mais qualidade.\\
-Note-se que não é no entanto garantida a obtenção da solução ótima.\\\\
+Note-se que não é no entanto garantida a obtenção da solução ótima.\\[0.5cm]
 O problema tem de ser formulado como um problema de otimização ou seja, tem de ser definido:
 \begin{itemize}
 \item O espaço de potenciais soluções, e o que pode ser uma solução (representada $x$).
 \item A função $f(x)$ a ser otimizada.
 \item O que se entende por "pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
 \end{itemize}
-
 \subsection{Aplicação ao problema do caixeiro viajante}
-
 \chapter{Procura Local}
 \end{document}
