@@ -4,6 +4,30 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
 \begin{document}
 \begin{titlepage}
@@ -27,6 +51,7 @@
 	Adaptação licenciada:\\
 	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
 \end{titlepage}
+\tableofcontents
 \chapter{Definição}
 \section{O que é}
 A definição genérica e formal de IA segundo a \textit{Association for the Advancement of Artificial Intelligence} é:
@@ -58,13 +83,12 @@ A desvantagem deste método de conceção de inteligência artificial é que a o
 Por estes motivos esta área de estudo é considerada distinta da inteligência artificial, apesar de ter muito em comum.
 \subsection{Sistemas que pensam racionalmente}
 Um sistema que pensa racionalmente é um que tem fundamentos em lógica.\\
-A lógica pode ser vista neste contexto como uma interseção de Matemática e Filosofia, e seria possivel criarem-se sistemas de raciocinio por base nestas vertentes, no entanto:
+A lógica pode ser vista neste contexto como uma interseção de Matemática e Filosofia, e seria possível criarem-se sistemas de raciocínio por base nestas vertentes, no entanto:
 \begin{itemize}
 \item Nem todos os comportamentos inteligentes são lógicos.
 \item Não é simples deliberar o objetivo do pensamento ou quais os pensamentos a ter com lógica.
 \item É de elevada complexidade descrever lógica.
 \end{itemize}
-
 \subsection{Sistemas que agem racionalmente}
 Sistemas que agem racionalmente são construidos por base em \textbf{agentes racionais}.\\
 Um \textbf{agente} é entidade uma definida por:
@@ -77,7 +101,6 @@ Um \textbf{agente} é entidade uma definida por:
 \end{itemize}
 Um agente é racional quando age para obter o melhor resultado, ou, perante incerteza, o melhor resultado esperado.\\
 É mais adequado para desenvolvimento cientifico do que as abordagens baseadas no comportamento humano.
-
 \section{Fundações}
 A inteligência artificial é constituída por muitas áreas de estudo, e pode ser aplicada a muitas mais. 
 \subsection{Filosofia}
@@ -110,12 +133,9 @@ Sendo o retorno no estudo de:
 \item Algoritmos
 \item Computação
 \item Determinação da decibibilidade
-\item Determinação da tractibilidade
+\item Determinação da tractibilidade [rever e acabar isto]
 \item Probabilidades
 \end{itemize}
-
-
-
 \chapter{Agentes}
 \section{Caraterísticas dos agentes}
 Agentes são sistemas que agem num dado \textbf{ambiente}.
@@ -177,14 +197,14 @@ Se apenas as ações do próprio agente forem determinísticas, no entanto as do
 Caso o ambiente não seja determinístico é \textbf{estocástico}.
 \subsection{Coiso atómico cenas}
 [Por fazer]
-\subsection{Dinamicidade}
+\subsection{Dinamismo}
 Se o ambiente não alterar durante a deliberação do agente, então é \textbf{estático}.\\
 Se a o ambiente se alterar por fatores externos é \textbf{dinâmico}.\\
 Se a medida de desempenho alterar e com ela a perceção do ambiente, o ambiente é \textbf{semi-dinâmico}.
 \subsection{Espaço de ações}
 Se o ambiente tiver um numero finito de ações e todas elas estejam bem definidas, o ambiente é \textbf{discreto}.\\
 Caso contrario é \textbf{continuo}.
-\subsection{Partilhabilidade}
+\subsection{Partilha}
 Se o agente for o único no ambiente, o ambiente tem \textbf{agente único}.\\
 Caso contrario é \textbf{multi-agente}.
 \clearpage
@@ -196,7 +216,7 @@ Maximiza o desempenho em função dos dados obtidos
 Responde em tempo útil a mudanças no ambiente.
 \subsection{Proactividade}
 Tem iniciativa em vez de apenas reagir.
-\subsection{Comunicatividade}
+\subsection{Comunicação}
 Comunica com os outros agentes.
 \subsection{Autonomo}
 Aprende e adapta-se com experiências anteriores
@@ -256,4 +276,150 @@ O problema tem de ser formulado como um problema de otimização ou seja, tem de
 \end{itemize}
 \subsection{Aplicação ao problema do caixeiro viajante}
 \chapter{Procura Local}
+\chapter{Agentes Lógicos}
+\section{Bases de conhecimento}
+Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
+As bases de conhecimento permitem construir agentes de forma \textbf{declarativa}, através de duas ações:\\
+\begin{tabular}{r l}
+$TELL \Leftarrow $ & A ação da base de conhecimento informar o sistema.\\
+$ASK \Leftarrow $ & A ação do sistema questionar a sua base de conhecimento.
+\end{tabular}\\[0.2cm]
+Os agentes podem então ser analisados pelo:
+\begin{itemize}
+\item Nível de conhecimento\\
+(Ex: A quantidade de conhecimento)
+\item Nível de implementação\\
+(Ex: As estruturas de dados na base de conhecimento e estruturas que manipulam)
+\end{itemize}
+Tendo os mesmos de ser capazes de:
+\begin{itemize}
+\item Representar novos estados, ações, ...
+\item Incorporar novas perceções.
+\item Atualizar representações internas do mundo.
+\item Deduzir propriedades escondidas no mundo.
+\item Deduzir ações apropriadas.
+\end{itemize}
+Exemplo da formulação de um agente simples:
+\begin{lstlisting}
+function KB-Agent(percept) returns action
+    static KB, base de conhecimento
+           t, um contador que indica tempo
+    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t))
+    action = ASK(KB, MAKE-ACTION-QUERY(t))
+    TELL(KB, MAKE-ACTION-SENTENCE(action, t))
+    t = t + 1
+    return action
+\end{lstlisting}
+\section{Lógica}
+\subsection{Noções}
+Linguagens \textbf{lógicas} são linguagens formais para representação de informação que permitem extração de conclusões.\\[0.2cm]
+A \textbf{sintaxe} define as frases permitidas na linguagem.\\
+\indent Ex: Em aritmética $x + 2 \geq y$ é uma frase (preposição), no entanto $x2 + y >$ não é.\\[0.2cm]
+A \textbf{semântica} define o significado das frases.\\
+\indent Ex: Em preposições aritméticas a semântica define a verdade da preposição.
+\subsection{Conclusões}
+A uma \textbf{conclusão} (ou consequência) lógica, designa-se ao que obteve o seu valor semântico indiretamente, por via de outros elementos linguísticos. Por exemplo o numero 7 ser primo é uma consequência da sua não divisibilidade por outros números que não 1.\\[0.2cm]
+Havendo uma base de conhecimento KB, conclui-se dela uma frase $\alpha$, se $\alpha$ é verdade sempre que KB é verdade. (representando-se esta conclusão $\text{KB }\models \alpha$, lida KB modela/conclui $\alpha$).\\[0.2cm]
+Chama-se de \textbf{conclusão lógica} a uma relação entre frases que se baseia em \textbf{semântica}.
+\subsection{Modelos}
+Em lógica modelos são mundos formalmente estruturados dos quais se pode avaliar a veracidade de preposições.\\
+Diz-se que $m$ é um modelo de uma preposição $\alpha$ se $\alpha$ é verdade em $m$.\\
+Designa-se $M(\alpha)$ o conjunto de todos os modelos de $\alpha$.\\
+Conclui-se portanto que se KB modela $\alpha$ ($\text{KB } \models \alpha$) então os modelos de KB são um subconjunto (ou iguais) aos modelos de $\alpha$ ($M(\text{KB}) \subseteq M(\alpha)$).\\
+Ex: Sendo KB uma base de conhecimento que define as cadeiras que os alunos fizeram. Se $\alpha$ for a aprovação do João a Análise, então KB modela $\alpha$, é possível apurar $\alpha$ a partir de KB e $M(\text{KB}) \subseteq M(\alpha)$ verifica-se.
+\subsection{Inferência}
+Uma inferência lógica a método de obtenção de uma consequência lógica por base numa base de conhecimento. Representa-se de KB $\vdash_i \alpha$ obtenção da preposição $\alpha$ a partir de KB por base na inferência $i$.\\[0.2cm]
+O procedimento de inferência $i$ é:
+\begin{itemize}
+\item \textbf{Fidedigno} (ou sólido): Se KB $\vdash_i \alpha$ implica que KB $\models \alpha$.
+\item \textbf{Completo}: Se KB $\models \alpha$ implica que KB $\vdash_i \alpha$.
+\end{itemize}
+Quando um procedimento de inferência é fidedigno e completo responde a qualquer questão conhecida pela base de conhecimento.
+[Colocar esquema ilustrativo, frasear melhor]
+\section{Lógica proposicional}
+A lógica proposicional é a lógica mais simples. Ilustra conceitos básicos por base em símbolos (variáveis) proposicionais para constituição de proposições (frases).\\
+Se $P_1, P_2$ forem proposições, o seguinte também o é:
+\begin{itemize}
+\item $\neg P_1$ (Negação)
+\item $P_1 \wedge P_2$ (Conjunção)
+\item $P_1 \vee P_2$ (Disjunção)
+\item $P_1 \Rightarrow P_2$ (Implicação)
+\item $P_1 \Leftrightarrow P_2$ (Bicondicional)
+\end{itemize}
+Os modelos atribuem valores booleanos aos símbolos proposicionais.\\
+$n$ símbolos admitem no máximo $2^n$ modelos, consoante as preposições existentes.\\[0.5cm]
+A avaliação da veracidade de um modelo $m$ é feita por disjunção das suas preposições, sendo cada preposição decomposta em sub-preposições até ser constituída apenas por símbolos e as operações descritas acima. O valor da expressão final dita a validade do modelo.\\[0.2cm]
+Uma tabela de verdade permite enumerar todos os $2^n$ modelos teoricamente possíveis, verificar quais é que respeitam a base de conhecimento, e se uma dada preposição é sempre verdade
+\subsection{Equivalências}
+Quando duas preposições são sempre iguais entre si, em todos os modelos, então são ditas \textbf{equivalentes}.\\
+Equivalência entre dois modelos $\alpha, \beta$ representa-se $\alpha \equiv \beta$ e implica $\alpha \models \beta \wedge \beta \models \alpha$.\\
+As seguintes são equivalências da lógica proposicional:
+\begin{itemize}
+\item $(\alpha \wedge \beta) \equiv (\beta \wedge \alpha)$, comutatividade.
+\item $(\alpha \vee \beta) \equiv (\beta \vee \alpha)$, comutatividade.
+\item $((\alpha \wedge \beta) \wedge \gamma) \equiv (\alpha \wedge (\beta \wedge \gamma))$, associatividade.
+\item $((\alpha \vee \beta) \vee \gamma) \equiv (\alpha \vee (\beta \vee \gamma))$, associatividade.
+\item $\neg(\neg \alpha) \equiv \alpha$, eliminação da dupla negação.
+\item $(\alpha \Rightarrow \beta) \equiv (\neg \beta \Rightarrow \neg \alpha)$, contraposição.
+\item $(\alpha \Rightarrow \beta) \equiv (\neg \alpha \vee \beta)$, eliminação da implicação.
+\item $(\alpha \Leftrightarrow \beta) \equiv ((\alpha \Rightarrow \beta) \wedge (\beta \Rightarrow \alpha))$, eliminação da bicondicional.
+\item $\neg(\alpha \wedge \beta) \equiv (\neg \alpha \vee \neg \beta)$, De Morgan.
+\item $\neg(\alpha \vee \beta) \equiv (\neg \alpha \wedge \neg \beta)$, De Morgan.
+\item $(\alpha \wedge (\beta \vee \gamma)) \equiv ((\alpha \wedge \beta) \vee (\alpha \wedge \gamma))$, distributividade.
+\item $(\alpha \vee (\beta \wedge \gamma)) \equiv ((\alpha \vee \beta) \wedge (\alpha \vee \gamma))$, distributividade.
+\end{itemize}
+\subsection{Validade e satisfatibilidade}
+Uma proposição é \textbf{valida} se for verdadeira em todos os modelos.\\
+A validade está relacionada com a consequência pelo \textbf{teorema da dedução}:
+\begin{center}
+KB $\models \alpha$ é valida apenas se KB $\Rightarrow \alpha$ é valida.
+\end{center}
+Uma proposição é \textbf{satisfazível} se existirem modelos que a verifiquem, e \textbf{insatisfazivel} se não houverem modelos que a verifiquem.\\
+$A \wedge \neg A$ é um exemplo de uma preposição instatisfazivel.\\[0.2cm]
+A insatisfabilidade pode ser relacionado com a consequência (pelo teorema acima) da seguinte forma:
+\begin{center}
+KB $\models \alpha$ é valida apenas se KB $\wedge \neg \alpha$ for insatisfazivel.
+\end{center}
+Um exemplo da utilização da utilidade deste caso do teorema é a prova por redução ao absurdo.
+\section{Exemplo: Mundo do Wumpus}
+O mundo do Wumpus é um exemplo de um puzzle que pode ser resolvível com um agente.\\
+É caraterizado por um mapa em grelha com diversas armadilhas, um inimigo, e um tesouro que se pretende obter.\\
+O \textbf{ambiente} verifica que:
+\begin{itemize}
+\item Casas adjacentes ao Wumpus são mal-cheirosas.
+\item Casas adjacentes a um poço são ventosas.
+\item Brilho só se ouro está na mesma casa.
+\item Disparo mata Wumpus se estiver em frente.
+\item Disparar gasta única seta.
+\item Agarrar apanha o ouro da casa.
+\item Largar deixa o ouro na mesma casa.
+\end{itemize}
+O agente tem os seguintes \textbf{sensores}:
+\begin{itemize}
+\item Brisa, brilho, cheiro, grito e batida.
+\end{itemize}
+E os seguintes \textbf{atuadores}:
+\begin{itemize}
+\item Rodar esquerda, rodar direita, avançar, agarrar, largar, disparar, sair.
+\end{itemize}
+Uma medida de desempenho poderá seguir os critérios:
+\begin{itemize}
+\item Sair com ouro: +1000 pontos
+\item Morte: -1000 pontos
+\item Passo: -1 pontos
+\item Utilizar a seta: -10 pontos
+\end{itemize}
+Assim uma caraterização do mundo conclui que é:
+\begin{itemize}
+\item \textbf{Não observável} - Só se perceciona o próprio local.
+\item \textbf{Determinístico} - Os resultados das mesmas ações são sempre idênticos.
+\item \textbf{Não episódico} - Ações sequenciais.
+\item \textbf{Estático} - O Wumpus e os poços não se movem.
+\item \textbf{Discreto} - As ações são atómicas.
+\item \textbf{Agente único} - Mais nada interage com o ambiente.
+\end{itemize}
+[Ilustrar mapa, Tikz?]\\[0.5cm]
+Dão-se situações em que não existe nenhum caminho livre de risco, como o jogador se encontrar na posição (1,1) e existir um poço na posição (2,2). Qualquer movimento admite uma chance de erro.\\
+Para os cenários desconhecidos estudam-se os modelos possíveis.
+No mundo do Wumpus a base de conhecimento é uma agregação das regras de jogo ás observações já efetuadas.
 \end{document}
