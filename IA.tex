@@ -27,6 +27,10 @@
 	{\Large \textit{João Alexandre Carvalho Pinheiro Leite}\\
 	(jleite$\text{@}$fct$.$unl$.$pt)\par}
 	\vspace{1cm}
+	E do livro:\\
+	{\Large \textit{Artificial Intelligence: A Modern Approach}\\
+	(http://aima.eecs.berkeley.edu/)\par}
+	\vspace{1cm}
 	{\large \today\par}
 	\vfill
 	Adaptação licenciada:\\
@@ -253,7 +257,7 @@ O problema tem de ser formulado como um problema de otimização ou seja, tem de
 \begin{itemize}
 \item O espaço de potenciais soluções, e o que pode ser uma solução (representada $x$).
 \item A função $f(x)$ a ser otimizada.
-\item O que se entende por "pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
+\item O que se entende por ``pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
 \end{itemize}
 \subsection{Aplicação ao problema do caixeiro viajante}
 \chapter{Procura Local}
@@ -296,7 +300,6 @@ Exemplo da formulação de um agente simples:
 \end{algorithmic}
 \end{algorithm}
 \section{Lógica}
-\subsection{Noções}
 Linguagens \textbf{lógicas} são linguagens formais para representação de informação que permitem extração de conclusões.\\[0.2cm]
 A \textbf{sintaxe} define as frases permitidas na linguagem.\\
 \indent Ex: Em aritmética $x + 2 \geq y$ é uma frase (preposição), no entanto $x2 + y >$ não é.\\[0.2cm]
@@ -304,7 +307,7 @@ A \textbf{semântica} define o significado das frases.\\
 \indent Ex: Em preposições aritméticas a semântica define a verdade da preposição.
 \subsection{Conclusões}
 A uma \textbf{conclusão} (ou consequência) lógica, designa-se ao que obteve o seu valor semântico indiretamente, por via de outros elementos linguísticos. Por exemplo o numero 7 ser primo é uma consequência da sua não divisibilidade por outros números que não 1.\\[0.2cm]
-Havendo uma base de conhecimento KB, conclui-se dela uma frase $\alpha$, se $\alpha$ é verdade sempre que KB é verdade. (representando-se esta conclusão $\text{KB }\models \alpha$, lida KB modela/conclui $\alpha$).\\[0.2cm]
+Havendo uma base de conhecimento KB, conclui-se dela uma frase $\alpha$, se $\alpha$ é verdade sempre que KB é verdade. (representando-se esta conclusão $\text{KB }\models \alpha$, isto é KB consequência de $\alpha$).\\[0.2cm]
 Chama-se de \textbf{conclusão lógica} a uma relação entre frases que se baseia em \textbf{semântica}.
 \subsection{Modelos}
 Em lógica modelos são mundos formalmente estruturados dos quais se pode avaliar a veracidade de preposições.\\
@@ -316,10 +319,12 @@ Ex: Sendo KB uma base de conhecimento que define as cadeiras que os alunos fizer
 Uma inferência lógica a método de obtenção de uma consequência lógica por base numa base de conhecimento. Representa-se de KB $\vdash_i \alpha$ obtenção da preposição $\alpha$ a partir de KB por base na inferência $i$.\\[0.2cm]
 O procedimento de inferência $i$ é:
 \begin{itemize}
-\item \textbf{Fidedigno} (ou sólido): Se KB $\vdash_i \alpha$ implica que KB $\models \alpha$.
-\item \textbf{Completo}: Se KB $\models \alpha$ implica que KB $\vdash_i \alpha$.
+\item \textbf{Fidedigno} (ou sólido): Se KB $\vdash_i \alpha$ implica que KB $\models \alpha$.\\
+Isto é, inferir por base em implicações, sem assumir o que não se sabe ser verdade.
+\item \textbf{Completo}: Se KB $\models \alpha$ implica que KB $\vdash_i \alpha$.\\
+Isto é, capacidade de derivar as suas implicações.
 \end{itemize}
-Quando um procedimento de inferência é fidedigno e completo responde a qualquer questão conhecida pela base de conhecimento.
+Quando um procedimento de inferência é fidedigno e completo responde a qualquer questão conhecida pela base de conhecimento. Consegue-se retirar conclusões complexas de factos conhecidos, e decompor essas conclusões complexas para obter factos.
 [Colocar esquema ilustrativo, frasear melhor]
 \section{Lógica proposicional}
 A lógica proposicional é a lógica mais simples. Ilustra conceitos básicos por base em símbolos (variáveis) proposicionais para constituição de proposições (frases).\\
@@ -334,10 +339,10 @@ Se $P_1, P_2$ forem proposições, o seguinte também o é:
 Os modelos atribuem valores booleanos aos símbolos proposicionais.\\
 $n$ símbolos admitem no máximo $2^n$ modelos, consoante as preposições existentes.\\[0.5cm]
 A avaliação da veracidade de um modelo $m$ é feita por disjunção das suas preposições, sendo cada preposição decomposta em sub-preposições até ser constituída apenas por símbolos e as operações descritas acima. O valor da expressão final dita a validade do modelo.\\[0.2cm]
-Uma tabela de verdade permite enumerar todos os $2^n$ modelos teoricamente possíveis, verificar quais é que respeitam a base de conhecimento, e se uma dada preposição é sempre verdade
+Uma tabela de verdade permite enumerar todos os $2^n$ modelos teoricamente possíveis, verificar quais é que respeitam a base de conhecimento, e se uma dada preposição é sempre verdade.
 \subsection{Equivalências}
 Quando duas preposições são sempre iguais entre si, em todos os modelos, então são ditas \textbf{equivalentes}.\\
-Equivalência entre dois modelos $\alpha, \beta$ representa-se $\alpha \equiv \beta$ e implica $\alpha \models \beta \wedge \beta \models \alpha$.\\
+Equivalência entre dois modelos $\alpha, \beta$ representa-se $\alpha \equiv \beta$ e implica que $\alpha \models \beta \wedge \beta \models \alpha$.\\
 As seguintes são equivalências da lógica proposicional:
 \begin{itemize}
 \item $(\alpha \wedge \beta) \equiv (\beta \wedge \alpha)$, comutatividade.
@@ -359,13 +364,41 @@ A validade está relacionada com a consequência pelo \textbf{teorema da deduç�
 \begin{center}
 KB $\models \alpha$ é valida apenas se KB $\Rightarrow \alpha$ é valida.
 \end{center}
-Uma proposição é \textbf{satisfazível} se existirem modelos que a verifiquem, e \textbf{insatisfazivel} se não houverem modelos que a verifiquem.\\
+Uma proposição é \textbf{satisfazível} for verdade em pelo menos um modelo, e \textbf{insatisfazivel} caso contrario.\\
 $A \wedge \neg A$ é um exemplo de uma preposição instatisfazivel.\\[0.2cm]
 A insatisfabilidade pode ser relacionado com a consequência (pelo teorema acima) da seguinte forma:
 \begin{center}
 KB $\models \alpha$ é valida apenas se KB $\wedge \neg \alpha$ for insatisfazivel.
 \end{center}
 Um exemplo da utilização da utilidade deste caso do teorema é a prova por redução ao absurdo.
+\subsection{Regras de inferência}
+Existem padrões utilizados para efetuar inferência em lógica proposicional, são as \textbf{regras de inferência}.\\
+Uma regra de inferência comum é designada \textbf{Modus Ponens} sendo escrita (no caso da implicação):
+$$\frac{\alpha\to \beta, \quad \alpha}{\beta}$$
+A leitura desta regra é ``\textit{se $\alpha$ implica $\beta$, e $alpha$ é verdade, então $\beta$ é verdade}".\\[0.2cm]
+Uma \textbf{prova} é uma sequência de aplicações de regras de inferência que nos permite retirar uma conclusão.
+\subsection{Monotonicidade}
+A \textbf{monotonicidade} é uma propriedade que uma base de conhecimento pode verificar que formalmente é dada por:
+$$(\text{KB}\models \alpha) \Rightarrow (\text{ KB}\wedge \beta \models \alpha)$$
+Informalmente, indica que as conclusões não se perdem, que a base de conhecimento não ``muda de ideias" quanto ao seu raciocínio.
+Um exemplo de uma base de conhecimento não-nonotónica é a mente humana.
+\subsection{Formas conjuntivas}
+Uma frase de lógica proposicional que seja dada por uma conjunção de disjunções está na \textbf{forma normal conjuntiva} (abreviada \textbf{FNC} ou \textbf{CNF}).\\
+Todas as frases tem uma equivalente na forma normal conjuntiva. Para se obter essa forma os passos são (recorrendo ás equivalências):
+\begin{enumerate}
+\item Eliminar bicondicionais:\\
+$(\alpha \Leftrightarrow \beta) \equiv ((\alpha \Rightarrow \beta) \wedge (\beta \Rightarrow \alpha))$
+\item Eliminar implicações:\\
+$(\alpha \Rightarrow \beta) \equiv (\neg \alpha \vee \beta)$
+\item Eliminar negações que não em símbolos. Deixa-las ``penetrar" nas frases.\\
+$\neg(\neg \alpha) \equiv \alpha$\\
+$\neg(\alpha \wedge \beta) \equiv (\neg \alpha \vee \neg \beta)$\\
+$\neg(\alpha \vee \beta) \equiv (\neg \alpha \wedge \neg \beta)$
+\item Aplicar a distributividade.\\
+$(\alpha \wedge (\beta \vee \gamma)) \equiv ((\alpha \wedge \beta) \vee (\alpha \wedge \gamma))$\\
+$(\alpha \vee (\beta \wedge \gamma)) \equiv ((\alpha \vee \beta) \wedge (\alpha \vee \gamma))$
+\end{enumerate}
+\pagebreak
 \section{Exemplo: Mundo do Wumpus}
 O mundo do Wumpus é um exemplo de um puzzle que pode ser resolvível com um agente.\\
 É caraterizado por um mapa em grelha com diversas armadilhas, um inimigo, e um tesouro que se pretende obter.\\
