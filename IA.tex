@@ -7,27 +7,8 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{tikz}
-
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\lstset{frame=tb,
-  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3
-}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 
 \begin{document}
 \begin{titlepage}
@@ -300,16 +281,20 @@ Tendo os mesmos de ser capazes de:
 \item Deduzir ações apropriadas.
 \end{itemize}
 Exemplo da formulação de um agente simples:
-\begin{lstlisting}
-function KB-Agent(percept) returns action
-    static KB, base de conhecimento
-           t, um contador que indica tempo
-    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, t))
-    action = ASK(KB, MAKE-ACTION-QUERY(t))
-    TELL(KB, MAKE-ACTION-SENTENCE(action, t))
-    t = t + 1
-    return action
-\end{lstlisting}
+\begin{algorithm}
+\caption{Exemplo da utilização de uma base de conhecimento}
+\begin{algorithmic}
+\Function{KB-Agent}{percept}
+\State    static KB, base de conhecimento
+\State           $t$, um contador que indica tempo
+\State    TELL(KB, MAKE-PERCEPT-SENTENCE(percept, $t$))
+\State    action $\gets$ ASK(KB, MAKE-ACTION-QUERY($t$))
+\State    TELL(KB, MAKE-ACTION-SENTENCE(action, $t$))
+\State    $t \gets t + 1$
+\State \Return action
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 \section{Lógica}
 \subsection{Noções}
 Linguagens \textbf{lógicas} são linguagens formais para representação de informação que permitem extração de conclusões.\\[0.2cm]
