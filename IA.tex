@@ -484,4 +484,24 @@ $$\{<\text{João}, \text{Ana}>, <\text{Inês}, \text{António}>\}$$
 \item Existem \textbf{quantificadores}. O \textbf{universal} ($\forall$) e o \textbf{existencial} ($\exists$).
 \item O operador de igualdade ($=$) define que dois símbolos se referem ao mesmo objeto.
 \end{itemize}
+\chapter{Incerteza}
+Quando se lida com informação parcial(ambientes parcialmente observáveis ou não determinísticos) um agente tem de tratar todas as hipóteses que não são refutadas pela lógica como sendo possíveis, e ainda de saber lidar com a possibilidade de não chegar ao seu estado objetivo. Por exemplo um veiculo autónomo tem a possibilidade de avariar ou ter um acidente, independentemente de quanto tempo tenha para chegar.\\[0.2cm]
+Perante incerteza todos os casos possíveis podem ser enumerados, de tal forma que todos os estados do mundo estejam implicados como uma enorme disjunção de causas possíveis, mas tal não é viável, tanto por desconhecimento do mundo, do estado ou por haverem demasiadas causas.
+
+Quando um agente tem de decidir perante incerteza recorre à \textbf{utilidade} das suas ações de acordo com as respetivas \textbf{probabilidades} de sucesso. Idealmente opta pela sequência de ações que causem a maior utilidade esperada.\\[0.2cm]
+Afirmações probabilísticas em mundos incertos não incidem sobre mundos possíveis, mas sim sobre \textbf{eventos}, com um evento sendo um \underline{conjunto} de mundos possíveis. Estes conjuntos são descritos com preposições que verificam.
+\section{Probabilidades}
+As probabilidades são dependentes de interpretação, e existem diversas formas de pensar nelas:
+\begin{itemize}
+\item Frequentista: Rácio de experiências que verifica uma condição mediante infinitas experiências.
+\item Objetivista: Aspetos do universo. (controversa)
+\item Bayesiana: Crenças que o agente pode ter perante circunstâncias desconhecidas.
+\end{itemize}
+As probabilidades em torno de uma variável aleatória, como $P(X=x)$, são probabilidades \textbf{incondicionais}.
+Quando já se sabem detalhes de uma variável aleatória podem querer sabendo as probabilidades de um evento por base nas caraterísticas da variável, sendo estas probabilidades \textbf{condicionais}. Por exemplo, com dois dados, $P(\text{duplo}|D_1 = 4)$.\\[0.5cm]
+Relembrar que a probabilidade condicionada é dada por: $P(a|b) = \frac{P(a \wedge b)}{P(b)}$\\
+E que a partir dela pode ser vista a regra do produto: $P(a \wedge b) = P(a|b)P(b)$\\[0.2cm]
+Com a regra do produto pode intuitivamente calcular-se a probabilidade de se acabar nos mundos em que variáveis aleatórias correspondem a valores desejados:
+$$P(\text{Vegetariano, Saúdavel}) = P(\text{Vegetariano}|\text{Saúdavel})P(\text{Saúdavel})$$
+Perante duas variáveis aleatórias pode ser-se feita a \textbf{tabela de probabilidade conjunta}, que estuda as combinações dos valores possíveis de ambas para variáveis aleatórias discretas (e possivelmente de intervalos para continuas).
 \end{document}
