@@ -499,9 +499,26 @@ As probabilidades são dependentes de interpretação, e existem diversas formas
 \end{itemize}
 As probabilidades em torno de uma variável aleatória, como $P(X=x)$, são probabilidades \textbf{incondicionais}.
 Quando já se sabem detalhes de uma variável aleatória podem querer sabendo as probabilidades de um evento por base nas caraterísticas da variável, sendo estas probabilidades \textbf{condicionais}. Por exemplo, com dois dados, $P(\text{duplo}|D_1 = 4)$.\\[5mm]
-Relembrar que a probabilidade condicionada é dada por: $P(a|b) = \frac{P(a \wedge b)}{P(b)}$\\
-E que a partir dela pode ser vista a regra do produto: $P(a \wedge b) = P(a|b)P(b)$\\[2mm]
-Com a regra do produto pode intuitivamente calcular-se a probabilidade de se acabar nos mundos em que variáveis aleatórias correspondem a valores desejados:
+Relembrar que a \textbf{probabilidade condicionada} é dada por: $P(a|b) = \frac{P(a \wedge b)}{P(b)}$\\
+E que a partir dela pode ser vista a \textbf{regra do produto}: $P(a \wedge b) = P(a|b)P(b)$\\[2mm]
+Com a regra do produto pode intuitivamente calcular-se a \textbf{probabilidade conjunta}, que consiste na probabilidade de se acabar nos mundos em que várias variáveis aleatórias correspondem a valores desejados:
 $$P(\text{Vegetariano, Saúdavel}) = P(\text{Vegetariano}|\text{Saúdavel})P(\text{Saúdavel})$$
-Perante duas variáveis aleatórias pode ser-se feita a \textbf{tabela de probabilidade conjunta}, que estuda as combinações dos valores possíveis de ambas para variáveis aleatórias discretas (e possivelmente de intervalos para continuas).
+Perante duas variáveis aleatórias pode ser-se feita a \textbf{tabela de probabilidade conjunta}, que estuda as combinações dos valores possíveis de ambas para variáveis aleatórias discretas (e possivelmente de intervalos para continuas).\\[2mm]
+A soma de todas as probabilidades condicionadas ou conjuntas que envolvem uma variável aleatória corresponde á probabilidade de ocorrência dessa variável enquanto incondicional. Essas duas operações são formuladas:
+$$P(Y) = \sum_{z \in Z}{P(Y, z)} \qquad P(Y) = \sum_{z \in Z}{P(Y| z)P(z)}$$
+Designam-se \textbf{marginalização} e \textbf{condicionamento}, respetivamente. Da marginalização obtem-se a \textbf{probabilidade marginal}.\\
+Por exemplo a probabilidade de sair de casa sabendo que chove somada á probabilidade de sair de casa sabendo que não chove é a probabilidade de sair de casa.\\[5mm]
+Quando duas variáveis aleatórias não tem influência uma na outra dizem-se \textbf{independentes}.\\
+Variáveis aleatórias independentes ($X$ e $Y$ neste caso) verificam:
+$$P(X|Y)=P(X) \qquad P(Y|X)=X \qquad P(X,Y) = P(X)P(Y)$$\\[5mm]
+A partir da regra do produto é possível obter a \textbf{regra de Bayes}, um dos fundamentos da inferência em IA:
+$$P(X|Y)=\frac{P(Y|X)P(X)}{P(Y)} \qquad \text{sendo intrepretada:} \qquad 
+P(\textit{efeito}|\textit{causa})=\frac{P(\textit{causa}|\textit{efeito})P(\textit{efeito})}{P(\textit{causa})}$$
+Para simplificar contas ou por desconhecimento pode aplicar-se \textbf{normalização}, que corresponde á substituição do denominador do segundo termo por uma constante.
+$$P(X|Y) = \alpha P(Y|X)P(X)$$
+A regra de Bayes pode ser utilizada de uma forma \textbf{causal} quando se pretendem saber os efeitos a partir de causas ($P(\textit{efeito}|\textit{causa})$) ou de uma forma \textbf{diagnostica} quando se querem saber causas a partir de efeitos ($P(\textit{causa}|\textit{efeito})$).\\[2mm]
+No entanto a forma diagnóstica é muito mais frágil do que a causal. Se a probabilidade de uma causa se altera (como uma epidemia de uma doença) as probabilidades $P(\textit{causa}|\textit{efeito})$ dessa causa mudam, no entanto as diversas $P(\textit{efeito}|\textit{causa})$ mantém-se inalteradas..\\[5mm]
+A Regra de Bayes pode ser utilizada com tantas causas quão seja necessário:
+$$P(\textit{efeito}|\textit{causa}_1,\textit{causa}_2, \dots, \textit{causa}_n)$$
+No entanto sendo necessário conhecer a probabilidade conjunta entre todos os casos possíveis, muito rapidamente se torna impossível lidar com a complexidade exponencial.
 \end{document}
