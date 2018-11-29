@@ -398,6 +398,19 @@ $\neg(\alpha \vee \beta) \equiv (\neg \alpha \wedge \neg \beta)$
 $(\alpha \wedge (\beta \vee \gamma)) \equiv ((\alpha \wedge \beta) \vee (\alpha \wedge \gamma))$\\
 $(\alpha \vee (\beta \wedge \gamma)) \equiv ((\alpha \vee \beta) \wedge (\alpha \vee \gamma))$
 \end{enumerate}
+\subsection{Clausulas de Horn}
+Existe um formato especifico de frases na forma conjuntiva, as \textbf{clausulas de Horn} que consistem numa disjunção de símbolos em que no máximo uma é positiva. Por exemplo: $\neg a \vee \neg b \vee \dots \vee \neg y \vee z$\\
+As clausulas de Horn verificam as seguintes propriedades:
+\begin{itemize}
+\item Todas podem ser escritas como implicações cuja premissa é a conjunção de símbolos positivos.
+$$(a \wedge b \wedge \dots \wedge y) \Rightarrow z$$
+\item Quando uma não tem símbolo negativo é uma preposição, um \textbf{facto}.
+$$(\neg \text{Posição}_1 \vee \neg \text{Posição}_2) \equiv ((\text{Posição}_1 \wedge \text{Posição}_2) \Rightarrow \text{Falso})$$
+\item Permitem inferência por base em \textbf{encadeamento para a frente} e \textbf{encadeamento para trás}.
+\item Permitem verificar implicações é feito em tempo linear por base no tamanho da base de conhecimento.
+\end{itemize}
+\subsection{Encadeamento para a frente}
+\subsection{Encadeamento para trás}
 \pagebreak
 \section{Exemplo: Mundo do Wumpus}
 O mundo do Wumpus é um exemplo de um puzzle que pode ser resolvível com um agente.\\
@@ -440,4 +453,35 @@ Assim uma caraterização do mundo conclui que é:
 Dão-se situações em que não existe nenhum caminho livre de risco, como o jogador se encontrar na posição (1,1) e existir um poço na posição (2,2). Qualquer movimento admite uma chance de erro.\\
 Para os cenários desconhecidos estudam-se os modelos possíveis.
 No mundo do Wumpus a base de conhecimento é uma agregação das regras de jogo ás observações já efetuadas.
+\section{Lógica de primeira ordem}
+A lógica proposicional é \textbf{declarativa} e uma linguagem de programação é \textbf{procedimental}. Enquanto que a linguagem de programação é mais expressiva, não lida bem com informação parcial (como duas posições possíveis em simultâneo) requerendo abstrações.\\[0.2cm]
+A \textbf{lógica de primeira ordem}(abreviada \textbf{LPO}) é uma linguagem muito mais expressiva (e dispendiosa computacionalmente) do que a lógica proposicional, mantendo-se declarativa. Tem os seguintes elementos:
+\begin{itemize}
+\item \textbf{Objetos} - Entidades existentes no mundo.\\
+Batatas, segundos, números, ...
+\item \textbf{Relações} - Propriedades dos objetos que podem ser $n$-árias.\\
+Amigos(João, Ana), Azul(Céu)
+\item \textbf{Funções} - Um tipo particular de relação que é unária e representa um objeto.\\
+Nota(João)
+\end{itemize}
+
+Existem diversas lógicas baseadas nesta, para diversas especialidades, como a \textbf{lógica temporal}, que assume que as definições só são validas em pontos ou intervalos temporais ou as \textbf{lógicas de ordens elevadas} que tratam as relações como objetos que por sua vez podem ter relações.
+
+As lógicas são caraterizadas também pelos seus \textbf{compromissos epistémicos}, os estados de conhecimento admitidos em cada facto. Á semelhança da lógica proposicional, a lógica de primeira ordem admite valores booleanos. Lógicas como a \textbf{lógica difusa} permitem responder a questões como ``\textit{Lisboa é uma grande cidade}" com um grau de confiança.
+\subsection{Sintaxe}
+\begin{itemize}
+\item Os objetos são o domínio da linguagem, o qual não pode ser vazio.
+\item Uma relação é definida com um conjunto de tuplos. Por exemplo a relação amigos:
+$$\{<\text{João}, \text{Ana}>, <\text{Inês}, \text{António}>\}$$
+\item Os modelos em lógica de primeira ordem requerem funções totais, em que todos os objetos tem de estar relacionados, sendo que quando uma relação não existe ou não faz sentido existir pode ser definida entre o objeto e um outro objeto criado especificamente para representar ausência de relação.
+\item Tudo é um símbolo. Os objetos, as relações e as funções são \textbf{símbolos constantes}, \textbf{símbolos predicativos} e \textbf{símbolos funcionais}, respetivamente.
+\item Cada símbolo predicativo tem uma \textbf{aridade} que determina o numero de argumentos.
+\item Cada objeto pode ser dado por diversos símbolos, sendo a \textbf{interpretação} que dita o mapeamento.
+\item Uma frase atómica (átomo) é dada por uma lista de termos em parêntesis. Por exemplo $Amigos(\text{João}, \text{Ana})$.
+\item Podem ser utilizados conectivos lógicos, como visto na lógica proposicional.
+\item Os símbolos predicativos podem ser utilizados sobre outros símbolos.
+\item Podem ser declaradas variáveis que podem assumir símbolos constantes.
+\item Existem \textbf{quantificadores}. O \textbf{universal} ($\forall$) e o \textbf{existencial} ($\exists$).
+\item O operador de igualdade ($=$) define que dois símbolos se referem ao mesmo objeto.
+\end{itemize}
 \end{document}
