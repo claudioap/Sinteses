@@ -219,7 +219,7 @@ Um agente reativo puro perceciona o mundo pelos seus sensores e recorre a um con
 São programas definidos por um uma sequência de regras.
 $$\{\{c_1 \rightarrow a_1\}, \{c_2 \rightarrow a_2\}, \dots, \{c_n \rightarrow a_n\}\}$$
 Cada $c_k$ é uma condição dada por uma conjunção de preposições booleanas e cada $a_k$ é uma ação a executar.\\
-Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\[0.2cm]
+Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\[2mm]
 Um agente reativo puro é baseado num programa Teleo-Reativo.
 \subsection{Agente reativo baseado em modelos}
 Este agente é uma modificação do agente reativo puro que o permite memorizar as mudanças no mundo.
@@ -252,7 +252,7 @@ Não muda durante a resolução
 \chapter{Procura Heurística}
 \section{Algoritmos iterativos de melhoramento}
 Estes algoritmos partem de uma potencial solução ao problema em análise, e dispõem de uma medida de quão boa é a sua qualidade. Cada iteração tenta arranjar uma solução alternativa à atual que apresente mais qualidade.\\
-Note-se que não é no entanto garantida a obtenção da solução ótima.\\[0.5cm]
+Note-se que não é no entanto garantida a obtenção da solução ótima.\\[5mm]
 O problema tem de ser formulado como um problema de otimização ou seja, tem de ser definido:
 \begin{itemize}
 \item O espaço de potenciais soluções, e o que pode ser uma solução (representada $x$).
@@ -268,7 +268,7 @@ As bases de conhecimento permitem construir agentes de forma \textbf{declarativa
 \begin{tabular}{r l}
 $TELL \Leftarrow $ & A ação da base de conhecimento informar o sistema.\\
 $ASK \Leftarrow $ & A ação do sistema questionar a sua base de conhecimento.
-\end{tabular}\\[0.2cm]
+\end{tabular}\\[2mm]
 Os agentes podem então ser analisados pelo:
 \begin{itemize}
 \item Nível de conhecimento\\
@@ -300,14 +300,14 @@ Exemplo da formulação de um agente simples:
 \end{algorithmic}
 \end{algorithm}
 \section{Lógica}
-Linguagens \textbf{lógicas} são linguagens formais para representação de informação que permitem extração de conclusões.\\[0.2cm]
+Linguagens \textbf{lógicas} são linguagens formais para representação de informação que permitem extração de conclusões.\\[2mm]
 A \textbf{sintaxe} define as frases permitidas na linguagem.\\
-\indent Ex: Em aritmética $x + 2 \geq y$ é uma frase (preposição), no entanto $x2 + y >$ não é.\\[0.2cm]
+\indent Ex: Em aritmética $x + 2 \geq y$ é uma frase (preposição), no entanto $x2 + y >$ não é.\\[2mm]
 A \textbf{semântica} define o significado das frases.\\
 \indent Ex: Em preposições aritméticas a semântica define a verdade da preposição.
 \subsection{Conclusões}
-A uma \textbf{conclusão} (ou consequência) lógica, designa-se ao que obteve o seu valor semântico indiretamente, por via de outros elementos linguísticos. Por exemplo o numero 7 ser primo é uma consequência da sua não divisibilidade por outros números que não 1.\\[0.2cm]
-Havendo uma base de conhecimento KB, conclui-se dela uma frase $\alpha$, se $\alpha$ é verdade sempre que KB é verdade. (representando-se esta conclusão $\text{KB }\models \alpha$, isto é KB consequência de $\alpha$).\\[0.2cm]
+A uma \textbf{conclusão} (ou consequência) lógica, designa-se ao que obteve o seu valor semântico indiretamente, por via de outros elementos linguísticos. Por exemplo o numero 7 ser primo é uma consequência da sua não divisibilidade por outros números que não 1.\\[2mm]
+Havendo uma base de conhecimento KB, conclui-se dela uma frase $\alpha$, se $\alpha$ é verdade sempre que KB é verdade. (representando-se esta conclusão $\text{KB }\models \alpha$, isto é KB consequência de $\alpha$).\\[2mm]
 Chama-se de \textbf{conclusão lógica} a uma relação entre frases que se baseia em \textbf{semântica}.
 \subsection{Modelos}
 Em lógica modelos são mundos formalmente estruturados dos quais se pode avaliar a veracidade de preposições.\\
@@ -316,7 +316,7 @@ Designa-se $M(\alpha)$ o conjunto de todos os modelos de $\alpha$.\\
 Conclui-se portanto que se KB modela $\alpha$ ($\text{KB } \models \alpha$) então os modelos de KB são um subconjunto (ou iguais) aos modelos de $\alpha$ ($M(\text{KB}) \subseteq M(\alpha)$).\\
 Ex: Sendo KB uma base de conhecimento que define as cadeiras que os alunos fizeram. Se $\alpha$ for a aprovação do João a Análise, então KB modela $\alpha$, é possível apurar $\alpha$ a partir de KB e $M(\text{KB}) \subseteq M(\alpha)$ verifica-se.
 \subsection{Inferência}
-Uma inferência lógica a método de obtenção de uma consequência lógica por base numa base de conhecimento. Representa-se de KB $\vdash_i \alpha$ obtenção da preposição $\alpha$ a partir de KB por base na inferência $i$.\\[0.2cm]
+Uma inferência lógica a método de obtenção de uma consequência lógica por base numa base de conhecimento. Representa-se de KB $\vdash_i \alpha$ obtenção da preposição $\alpha$ a partir de KB por base na inferência $i$.\\[2mm]
 O procedimento de inferência $i$ é:
 \begin{itemize}
 \item \textbf{Fidedigno} (ou sólido): Se KB $\vdash_i \alpha$ implica que KB $\models \alpha$.\\
@@ -337,8 +337,8 @@ Se $P_1, P_2$ forem proposições, o seguinte também o é:
 \item $P_1 \Leftrightarrow P_2$ (Bicondicional)
 \end{itemize}
 Os modelos atribuem valores booleanos aos símbolos proposicionais.\\
-$n$ símbolos admitem no máximo $2^n$ modelos, consoante as preposições existentes.\\[0.5cm]
-A avaliação da veracidade de um modelo $m$ é feita por disjunção das suas preposições, sendo cada preposição decomposta em sub-preposições até ser constituída apenas por símbolos e as operações descritas acima. O valor da expressão final dita a validade do modelo.\\[0.2cm]
+$n$ símbolos admitem no máximo $2^n$ modelos, consoante as preposições existentes.\\[5mm]
+A avaliação da veracidade de um modelo $m$ é feita por disjunção das suas preposições, sendo cada preposição decomposta em sub-preposições até ser constituída apenas por símbolos e as operações descritas acima. O valor da expressão final dita a validade do modelo.\\[2mm]
 Uma tabela de verdade permite enumerar todos os $2^n$ modelos teoricamente possíveis, verificar quais é que respeitam a base de conhecimento, e se uma dada preposição é sempre verdade.
 \subsection{Equivalências}
 Quando duas preposições são sempre iguais entre si, em todos os modelos, então são ditas \textbf{equivalentes}.\\
@@ -365,7 +365,7 @@ A validade está relacionada com a consequência pelo \textbf{teorema da deduç�
 KB $\models \alpha$ é valida apenas se KB $\Rightarrow \alpha$ é valida.
 \end{center}
 Uma proposição é \textbf{satisfazível} for verdade em pelo menos um modelo, e \textbf{insatisfazivel} caso contrario.\\
-$A \wedge \neg A$ é um exemplo de uma preposição instatisfazivel.\\[0.2cm]
+$A \wedge \neg A$ é um exemplo de uma preposição instatisfazivel.\\[2mm]
 A insatisfabilidade pode ser relacionado com a consequência (pelo teorema acima) da seguinte forma:
 \begin{center}
 KB $\models \alpha$ é valida apenas se KB $\wedge \neg \alpha$ for insatisfazivel.
@@ -375,7 +375,7 @@ Um exemplo da utilização da utilidade deste caso do teorema é a prova por red
 Existem padrões utilizados para efetuar inferência em lógica proposicional, são as \textbf{regras de inferência}.\\
 Uma regra de inferência comum é designada \textbf{Modus Ponens} sendo escrita (no caso da implicação):
 $$\frac{\alpha\to \beta, \quad \alpha}{\beta}$$
-A leitura desta regra é ``\textit{se $\alpha$ implica $\beta$, e $alpha$ é verdade, então $\beta$ é verdade}".\\[0.2cm]
+A leitura desta regra é ``\textit{se $\alpha$ implica $\beta$, e $alpha$ é verdade, então $\beta$ é verdade}".\\[2mm]
 Uma \textbf{prova} é uma sequência de aplicações de regras de inferência que nos permite retirar uma conclusão.
 \subsection{Monotonicidade}
 A \textbf{monotonicidade} é uma propriedade que uma base de conhecimento pode verificar que formalmente é dada por:
@@ -449,12 +449,12 @@ Assim uma caraterização do mundo conclui que é:
 \item \textbf{Discreto} - As ações são atómicas.
 \item \textbf{Agente único} - Mais nada interage com o ambiente.
 \end{itemize}
-[Ilustrar mapa, Tikz?]\\[0.5cm]
+[Ilustrar mapa, Tikz?]\\[5mm]
 Dão-se situações em que não existe nenhum caminho livre de risco, como o jogador se encontrar na posição (1,1) e existir um poço na posição (2,2). Qualquer movimento admite uma chance de erro.\\
 Para os cenários desconhecidos estudam-se os modelos possíveis.
 No mundo do Wumpus a base de conhecimento é uma agregação das regras de jogo ás observações já efetuadas.
 \section{Lógica de primeira ordem}
-A lógica proposicional é \textbf{declarativa} e uma linguagem de programação é \textbf{procedimental}. Enquanto que a linguagem de programação é mais expressiva, não lida bem com informação parcial (como duas posições possíveis em simultâneo) requerendo abstrações.\\[0.2cm]
+A lógica proposicional é \textbf{declarativa} e uma linguagem de programação é \textbf{procedimental}. Enquanto que a linguagem de programação é mais expressiva, não lida bem com informação parcial (como duas posições possíveis em simultâneo) requerendo abstrações.\\[2mm]
 A \textbf{lógica de primeira ordem}(abreviada \textbf{LPO}) é uma linguagem muito mais expressiva (e dispendiosa computacionalmente) do que a lógica proposicional, mantendo-se declarativa. Tem os seguintes elementos:
 \begin{itemize}
 \item \textbf{Objetos} - Entidades existentes no mundo.\\
@@ -485,10 +485,10 @@ $$\{<\text{João}, \text{Ana}>, <\text{Inês}, \text{António}>\}$$
 \item O operador de igualdade ($=$) define que dois símbolos se referem ao mesmo objeto.
 \end{itemize}
 \chapter{Incerteza}
-Quando se lida com informação parcial(ambientes parcialmente observáveis ou não determinísticos) um agente tem de tratar todas as hipóteses que não são refutadas pela lógica como sendo possíveis, e ainda de saber lidar com a possibilidade de não chegar ao seu estado objetivo. Por exemplo um veiculo autónomo tem a possibilidade de avariar ou ter um acidente, independentemente de quanto tempo tenha para chegar.\\[0.2cm]
+Quando se lida com informação parcial(ambientes parcialmente observáveis ou não determinísticos) um agente tem de tratar todas as hipóteses que não são refutadas pela lógica como sendo possíveis, e ainda de saber lidar com a possibilidade de não chegar ao seu estado objetivo. Por exemplo um veiculo autónomo tem a possibilidade de avariar ou ter um acidente, independentemente de quanto tempo tenha para chegar.\\[2mm]
 Perante incerteza todos os casos possíveis podem ser enumerados, de tal forma que todos os estados do mundo estejam implicados como uma enorme disjunção de causas possíveis, mas tal não é viável, tanto por desconhecimento do mundo, do estado ou por haverem demasiadas causas.
 
-Quando um agente tem de decidir perante incerteza recorre à \textbf{utilidade} das suas ações de acordo com as respetivas \textbf{probabilidades} de sucesso. Idealmente opta pela sequência de ações que causem a maior utilidade esperada.\\[0.2cm]
+Quando um agente tem de decidir perante incerteza recorre à \textbf{utilidade} das suas ações de acordo com as respetivas \textbf{probabilidades} de sucesso. Idealmente opta pela sequência de ações que causem a maior utilidade esperada.\\[2mm]
 Afirmações probabilísticas em mundos incertos não incidem sobre mundos possíveis, mas sim sobre \textbf{eventos}, com um evento sendo um \underline{conjunto} de mundos possíveis. Estes conjuntos são descritos com preposições que verificam.
 \section{Probabilidades}
 As probabilidades são dependentes de interpretação, e existem diversas formas de pensar nelas:
@@ -498,9 +498,9 @@ As probabilidades são dependentes de interpretação, e existem diversas formas
 \item Bayesiana: Crenças que o agente pode ter perante circunstâncias desconhecidas.
 \end{itemize}
 As probabilidades em torno de uma variável aleatória, como $P(X=x)$, são probabilidades \textbf{incondicionais}.
-Quando já se sabem detalhes de uma variável aleatória podem querer sabendo as probabilidades de um evento por base nas caraterísticas da variável, sendo estas probabilidades \textbf{condicionais}. Por exemplo, com dois dados, $P(\text{duplo}|D_1 = 4)$.\\[0.5cm]
+Quando já se sabem detalhes de uma variável aleatória podem querer sabendo as probabilidades de um evento por base nas caraterísticas da variável, sendo estas probabilidades \textbf{condicionais}. Por exemplo, com dois dados, $P(\text{duplo}|D_1 = 4)$.\\[5mm]
 Relembrar que a probabilidade condicionada é dada por: $P(a|b) = \frac{P(a \wedge b)}{P(b)}$\\
-E que a partir dela pode ser vista a regra do produto: $P(a \wedge b) = P(a|b)P(b)$\\[0.2cm]
+E que a partir dela pode ser vista a regra do produto: $P(a \wedge b) = P(a|b)P(b)$\\[2mm]
 Com a regra do produto pode intuitivamente calcular-se a probabilidade de se acabar nos mundos em que variáveis aleatórias correspondem a valores desejados:
 $$P(\text{Vegetariano, Saúdavel}) = P(\text{Vegetariano}|\text{Saúdavel})P(\text{Saúdavel})$$
 Perante duas variáveis aleatórias pode ser-se feita a \textbf{tabela de probabilidade conjunta}, que estuda as combinações dos valores possíveis de ambas para variáveis aleatórias discretas (e possivelmente de intervalos para continuas).
