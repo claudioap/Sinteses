@@ -510,7 +510,7 @@ Designam-se \textbf{marginalização} e \textbf{condicionamento}, respetivamente
 Por exemplo a probabilidade de sair de casa sabendo que chove somada á probabilidade de sair de casa sabendo que não chove é a probabilidade de sair de casa.\\[5mm]
 Quando duas variáveis aleatórias não tem influência uma na outra dizem-se \textbf{independentes}.\\
 Variáveis aleatórias independentes ($X$ e $Y$ neste caso) verificam:
-$$P(X|Y)=P(X) \qquad P(Y|X)=X \qquad P(X,Y) = P(X)P(Y)$$\\[5mm]
+$$P(X|Y)=P(X) \qquad P(Y|X)=P(Y) \qquad P(X,Y) = P(X)P(Y)$$\\[5mm]
 A partir da regra do produto é possível obter a \textbf{regra de Bayes}, um dos fundamentos da inferência em IA:
 $$P(X|Y)=\frac{P(Y|X)P(X)}{P(Y)} \qquad \text{sendo intrepretada:} \qquad 
 P(\textit{efeito}|\textit{causa})=\frac{P(\textit{causa}|\textit{efeito})P(\textit{efeito})}{P(\textit{causa})}$$
@@ -518,7 +518,17 @@ Para simplificar contas ou por desconhecimento pode aplicar-se \textbf{normaliza
 $$P(X|Y) = \alpha P(Y|X)P(X)$$
 A regra de Bayes pode ser utilizada de uma forma \textbf{causal} quando se pretendem saber os efeitos a partir de causas ($P(\textit{efeito}|\textit{causa})$) ou de uma forma \textbf{diagnostica} quando se querem saber causas a partir de efeitos ($P(\textit{causa}|\textit{efeito})$).\\[2mm]
 No entanto a forma diagnóstica é muito mais frágil do que a causal. Se a probabilidade de uma causa se altera (como uma epidemia de uma doença) as probabilidades $P(\textit{causa}|\textit{efeito})$ dessa causa mudam, no entanto as diversas $P(\textit{efeito}|\textit{causa})$ mantém-se inalteradas..\\[5mm]
-A Regra de Bayes pode ser utilizada com tantas causas quão seja necessário:
-$$P(\textit{efeito}|\textit{causa}_1,\textit{causa}_2, \dots, \textit{causa}_n)$$
-No entanto sendo necessário conhecer a probabilidade conjunta entre todos os casos possíveis, muito rapidamente se torna impossível lidar com a complexidade exponencial.
+A Regra de Bayes pode ser utilizada com tantos factos quão seja necessário. Com $n$ causas:
+$$P(\textit{causa}|\textit{efeito}_1,\textit{efeito}_2, \dots, \textit{efeito}_n) =
+\alpha P(\textit{efeito}_1,\textit{efeito}_2, \dots, \textit{efeito}_n| \textit{causa}) P(\textit{causa})$$
+No entanto sendo necessário conhecer a probabilidade conjunta entre todos os casos possíveis, muito rapidamente se torna impossível lidar o numero exponencial de combinações de variáveis aleatórias.\\[2mm]
+A \textbf{independência condicional} entre variáveis simplifica muito a aplicação da regra de Bayes.\\
+Com todos os $X_i,X_j \in X$ independentes entre si:
+$$P(X_1,X_2,\dots|Z)=\prod_i P(X_i | Z) \qquad \text{e} \qquad P(Z | X_1,X_2,\dots)= P(Z)\prod_i P(X_i | Z) \qquad \text{ portanto:}$$
+$$P(\textit{efeito}_1 \wedge \dots \wedge \textit{efeito}_n|\textit{causa}) =
+P(\textit{efeito}_1|\textit{causa})P(\dots|\textit{causa})P(\textit{efeito}_n|\textit{causa})$$
+$$\qquad\qquad P(\textit{causa}|\textit{efeito}_1 \wedge \dots \wedge \textit{efeito}_n) =
+\alpha P(\textit{efeito}_1|\textit{causa})P(\dots|\textit{causa})P(\textit{efeito}_n|\textit{causa})P(\textit{causa})$$
+A ``\textit{causa}" não pode ser simplificada não ser independente dos seus efeitos. A este modelo chama-se de \textbf{naive Bayes}.
+\section{Redes Bayesianas}
 \end{document}
