@@ -35,6 +35,7 @@
 	Adaptação licenciada:\\
 	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
 \end{titlepage}
+\tableofcontents
 \chapter{Introdução}
 \section{O que é}
 A aprendizagem automática (machine learning em inglês) é a ciência que estuda sistemas que se melhoram com dados.
@@ -79,14 +80,55 @@ Escolher a melhor classe de hipóteses é o problema chamado de \textbf{seleçã
 Veja-se dois modelos (classes de hipóteses) representativos dos dados, ainda que com enviesamentos distintos. Um separa as classes com linhas horizontais $y=\theta$ e o outro com recurso à equação do circulo proposta acima:\\
 .[imagem]\par
 O $\theta$ utilizado para se obter uma hipótese a partir da classe de hipóteses é o vetor dos \textbf{parâmetros}.
+\section{Aprendizagem supervisionada}
+A aprendizagem supervisionada consiste em aprender a prever atributos a partir de dados com esses atributos.
+O objetivo dos problemas de aprendizagem é encontrar-se a função $g(\theta,X):X\rightarrow Y$
+que melhor corresponda as caraterísticas $X$ encontradas nos dados do conjunto $Y$.
+$g(\theta,X)$ é uma aproximação à função desconhecida $F(X):X\rightarrow Y$ que sabe mapear qualquer $X$ (mesmo que desconhecido) para um valor de $Y$.
+Como a aprendizagem é supervisionada, já se conhecem alguns relacionamentos $X\rightarrow Y$ que permitem que se determine uma boa $g(\theta,X)$.\\[0.2cm]
+Por exemplo seja uma pessoa o objeto de análise, a pessoa tem altura $x_1$, peso $x_2$ e vive em $x_3$ e pretende-se saber se a pessoa é saudável ou doente ($Y \in \{\text{saudável,doente}\}$).\\[0.2cm]
+Pode formular-se um problema de aprendizagem supervisionada como:
+\begin{enumerate}
+\item \textbf{Tarefa}: Prever $Y$ no conjunto $\{(x_1,y_2),\dots,(x_n,y_n)\}$
+\item \textbf{Medida de performance}: Erro de treino em $Y$.
+\item \textbf{Dados}: O conjunto $\{(x_1,y_2),\dots,(x_n,y_n)\}$.
+\end{enumerate}
+No entanto esta formulação não é correta porque o objetivo é prever valores que podem ser desconhecidos, mas a medida de performance é baseada nos dados de treino.
+A não ser que o conjunto de treino seja imensamente grande, então existiriam erros mensuráveis entre $g$ e $F$.\par
+É simples assumir que existem tais erros.
+Assuma-se que $g$ é definida para coincidir sempre com os dados de treino.
+Se for encontrado um par $(X,Y)$ que não esteja definido em $g$, mesmo que $g$ possa estar muito próxima se não tiver exatamente o mesmo valor então não tem erro nulo.
+Intuitivamente, quanto menor for o conjunto de treino, menor a precisão de $g$.
+
+Existem varias técnicas para minimização deste enviesamento no treino (que serão vistas adiante).
+Uma prática comum é a separação do conjunto de treino em dois conjuntos distintos, um que serve para treino e outro para validação.
+\chapter{Regressão}
+\section{Regressão Linear}
+Uma regressão linear é uma regressão em que a classe de hipóteses corresponde ao modelo $y = \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n + \theta_{n+1}$, constituído apenas por parâmetros e termos lineares. [continuar]
+\section{Método dos mínimos quadrados}
+\section{Sub e sobre-ajustamento}
+\section{Tipos de erro}
+\section{Regularização}
+Prevenir que um modelo se ajuste demasiado e cause sobre-ajustamento.[continuar]
+\subsection{Regressão de Ridge}
+$$J(\theta) \sum_{t=1}^n[y^t - g(x^t | \theta)]^2 + \sum_{j=1}^m \theta^2_j$$
+\section{Enviesamento}
 \chapter{Classificação}
 \section{Introdução}
 Uma classificação é um tipo de análise de caraterísticas. Enquanto que uma regressão ambiciona prever os valores valores de novos elementos por base nos elementos utilizados para treino, uma classificação agrupa os elementos de treino em classes disjuntas e por resultado indica em qual das classes é que um novo elemento se encontra.\\[0.2cm]
 Veja-se a seguinte figura que representa a reação de células a dois genes distintos: [imagem]\\
 Na figura apresentada existem duas classes (com ou sem tumor), sendo que a classificação de um nova célula entende-se por concluir se tem ou não tumor por base na reação da mesma aos genes.
 \subsection{Separabilidade}
-A separabilidade é uma propriedade das classes de classificação que indica se é possível serem isoladas.
-Por exemplo, duas classes dizem-se linearmente separáveis se puderem ser separadas por um polinómio de primeiro grau.
+A separabilidade é uma propriedade das classes de classificação que indica se é possível serem isoladas entre si. Quando podem, à fronteira de separação dá-se o nome de \textbf{discriminante}.\\
+Duas classes dizem-se linearmente separáveis se puderem ser separadas por um polinómio de primeiro grau.\\[0.5cm]
+Relembre-se que em duas dimensões se pode definir uma reta com dois parâmetros ($y=mx+b$), e tal é suficiente para indicar qual classe é qual. Quando as classes são separadas por hiperplanos é igualmente necessário distinguir qual dos lados do hiperplano contem que classe, pelo que a convenção é definir um vetor $\vec w$ perpendicular ao hiperplano de separação.
+$$\vec w^T \vec x + w_0 = 0$$
+Para simplificar a representação e computação abrevia-se:
+$$\widetilde{w} = (w_0, \vec w),\quad \widetilde x = (1, \vec x),\quad y(\vec x) = \widetilde w^T \widetilde x$$
+\subsection{Normalização}
+$$x_{new} = \frac{x-min(X)}{max(x)-min(X)}$$
+\subsection{Estandardização}
+$$x_{new} = \frac{x - \mu(X)}{\sigma(X)}$$
 \subsection{Hipóteses}
 Para se estabelecer uma hipótese de classificação, não se podem utilizar os métodos utilizados nas regressões como o método dos mínimos quadrados uma vez que esses métodos tentam minimizar distância entre a hipótese e os elementos.
 O que se pretende para classificação é utilizar probabilidade e não distância como fator de separação.
@@ -126,4 +168,44 @@ Tem-se que para caraterísticas independentes a seguinte expressão está corret
 $$ p(x_i | C_k, x_1, \dots , x_{n-1}) $$
 Por base nesse facto, é possível alterar o classificador de Bayes para se tornar:
 $$C^{\text{Naïve Bayes}} = \underset{k\in \{0,1,\dots,K\}}{argmax} \> ln\> p(C_k) + \sum^N_{j=1} ln \> p(x_j | C_k)$$
+\section{Máquina de Vetores de Suporte}
+Uma máquina de vetores de suporte (normalmente chamada de SVM, do inglês \textit{support vector machine}) é um conceito para criação de classificadores.
+\subsection{Classificador de margem máxima}
+A classificação por base numa regressão logística permite o ajuste da fronteira.\\
+Relembre-se que a regressão logística se baseia na minimização de:
+$$-\sum^N_{n=1}{[t_m ln(g_n) + (1-t_n) ln(1-g_n)]}$$
+Com:
+$$g_n = \frac{1}{1 + e^{(\vec{w}^T \vec{x_n} + w_0)}}$$
+Portanto uma alteração na magnitude de $\tilde{w}$ coloca o discriminante em locais diferentes. [ilustração]\\[0.2cm]
+Com regularização pode obrigar-se $\tilde{w}$ a ser menor, o que distancia o discriminante dos seus pontos mais próximos, maximizando a sua margem. [porquê?]\\[0.2cm]
+Um \textbf{classificador de margem} obtém uma margem até ao discriminante. Se esse classificador for de \textbf{margem máxima}, então a margem é a maior que pode ser obtida perante todos os discriminantes possíveis.\\[0.2cm]
+Sabendo (álgebra linear) que a distância absoluta até ao discriminante é dada por:
+$$\frac{\vec{w}^T \vec{x_n} + w_0}{||\vec{w}||}$$
+É conceptualmente possível obter o discriminante que obtém a margem máxima perante todas as $Y$ classes.\\
+Os pontos que incidem na margem designam-se os \textbf{vetores de suporte}, e para classes linearmente separáveis são os pontos mais próximos do discriminante.\\
+Para encontrar o hiperplano que maximiza a distância aos vetores de suporte tem-se o seguinte problema:
+$$\underset{\vec{w}, w_0}{argmax}
+\left(
+\underset{j}{min}
+\frac{y_j(\vec{w}^T \vec{x_j} + w_0)}{||w||}
+\right)$$
+Não fosse o facto desta função não ser diferenciável e portanto não ter resultados conclusivos.\\[0.2cm]
+Este problema pode no entanto ser resolvido com as condições de Karush-Kuhn-Tucker, recorrendo a multiplicadores de Lagrange.
+\subsection{Classificador com margens suaves}
+Uma SVM (linear) só funciona se as classes forem linearmente separáveis. Quando não são se pode implementar um SVM com margens fixas, pode relaxar-se esse requerimento e permitir que as margens sejam "suaves", isto é, permitam a penetração por parte de alguns pontos para lá do limiar da margem.\\
+No lugar do requerimento para dimensionamento da margem coloca-se $\xi$, uma variável de folga.
+$$\text{Margens rigidas: } y_n(\vec{w}^T \vec{x}_n + w_0) \geq 1, \forall n \in N$$
+$$\text{Margens suaves: } y_n(\vec{w}^T \vec{x}_n + w_0) \geq 1 - \xi_n, \forall n \in N$$
+\begin{itemize}
+\item $\xi \geq 0$ visto ser a uma distância.
+\item $1 > \xi_n > 0$ então o ponto encontra-se dentro da margem.
+\item $\xi_n > 1$ então o ponto $\vec{x}$ foi mal classificado.
+\item Quer-se maximizar a margem, minimizando $||\vec{w}||^2$ mas penalizando desvios da margem\\
+$\displaystyle C \sum_{n=1}^N \xi_n + \frac{1}{2}||\vec{w}||^2$
+\end{itemize}
+Este classificador funciona se houver uma quase linearidade, em que poucos pontos entram nas margens e não as excedem muito.
+\subsection{Kernel tricks}
+Um \textit{\textbf{kernel trick}} é a aplicação de uma \textbf{kernel function} função cujo resultado é o produto interno de dois vetores após aplicação de uma função.
+$$K(\vec{x}_1,\vec{x}_2) = \phi(\vec{x}_1)^T \phi(\vec{x}_2)^T$$
+É útil nos cenários em que é mais eficiente pré-computar as operações dada potencial simplificação de cálculos.\\[5mm]
 \end{document}
