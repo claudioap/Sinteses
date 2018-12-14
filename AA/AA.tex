@@ -6,6 +6,10 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{amsmath}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -33,7 +37,7 @@
 	{\large \today\par}
 	\vfill
 	Adaptação licenciada:\\
-	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{../ccbysa.png}}
 \end{titlepage}
 \tableofcontents
 \chapter{Introdução}
@@ -207,5 +211,116 @@ Este classificador funciona se houver uma quase linearidade, em que poucos ponto
 \subsection{Kernel tricks}
 Um \textit{\textbf{kernel trick}} é a aplicação de uma \textbf{kernel function} função cujo resultado é o produto interno de dois vetores após aplicação de uma função.
 $$K(\vec{x}_1,\vec{x}_2) = \phi(\vec{x}_1)^T \phi(\vec{x}_2)^T$$
-É útil nos cenários em que é mais eficiente pré-computar as operações dada potencial simplificação de cálculos.\\[5mm]
+É útil nos cenários em que é mais eficiente pré-computar as operações dada potencial simplificação de cálculos.
+\chapter{Classificação com multiplas classes}
+Existem classificadores que naturalmente lidam bem com diversas classes, como o k-NN que opta pela classe com mais vizinhos ou o Naïve Bayes que opta pela maior probabilidade conjunta.
+\section{Uma classe contra as restantes}
+Neste cenário criam-se para $k$ classes $k-1$ classificadores.
+\begin{itemize}
+\item Cada um dos classificadores classifica individualmente uma das classes.\\
+As restantes classes são consideradas uma só durante a classificação.
+\item O classificador final é a sobreposição dos classificadores individuais.
+\item A ausência de classificação no classificador final representa a classe que não foi classificada.
+\item Este método deixa áreas de ambiguidade, onde os classificadores sobrepõem.
+\end{itemize}
+\section{Um contra um}
+Criam-se para $k$ classes $k(k-1)/2$ classificadores, que correspondem ás combinações de classes duas a duas.\\
+Classifica-se assim por exclusão de classes.\\
+Este método também resulta em locais ambíguos em que podia ser uma de varias classes.
+\section{Uma contra todas}
+\begin{itemize}
+\item Obtém-me os classificadores como se fosse no procedimento de uma contra as restantes.
+\item Unem-se os classificadores, mas nas interseções vigora o classificador cujo máximo da função de decisão é maior.
+\end{itemize}
+Este método tem o problema de que os classificadores podiam ter níveis de confiança diferentes, arriscando-se a fazer má classificação em algumas classes.
+\chapter{Enviesamento e variância}
+Quando um modelo não se consegue ajustar aos dados existe um grande enviesamento nas previsões efetuadas por base nesse modelo.\\
+A \textbf{enviesamento} é o desvio da estimação média ao valor real. O mesmo pode ser definido
+$$\text{enviesamento} = (\text{média previsões} - \text{valor real})^2$$
+Num modelo o enviesamento médio é:
+$$\text{enviesamento} = \frac{1}{N}\sum_{n=1}^N(\text{média previsões} - \text{valor real})^2$$
+A \textbf{variância} é a dispersão das previsões em torno da sua média. Para um ponto (e perante $M$ hipóteses):
+$$\text{variância} = \frac{1}{M}\sum_{m=1}^M (\text{média previsões} - \text{hipotese}_m)^2$$
+Num modelo a variância é dada:
+$$\text{variância} = \frac{1}{NM}\sum_{n=1}^n \sum_{m=1}^M (\text{média previsões}_{\text{ponto }n} - \text{hipotese}_m)^2$$
+Numa função de erro quadrático o erro esperado é:
+$$E((\text{previsão} - \text{valor real})^2) =\text{enviesamento} + \text{variância} + \text{ruido} =$$
+$$= \left(E(\text{previsão}) - E(\text{valor real})\right)^2 +
+E\left((\text{previsão}-E(\text{previsão}))^2)\right) +
+E\left((\text{valor real}-E(\text{valor real})\right)^2)$$
+\chapter{Clustering}
+\section{K-Means}
+O algoritmo \textbf{K-Means} funciona definindo $k$ \textbf{protótipos} de \textbf{cluster} e ajustando-os iterativamente até serem \textit{clusters}.
+Esses \textbf{protótipos} são \textbf{centroides}, que representam os centros das partições de um diagrama de \textit{Voronoy}.
+\begin{wrapfigure}{r}{0.3\textwidth}
+  \vspace{-20pt}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{images/centroids.png}
+  \end{center}
+  \vspace{-20pt}
+  \caption{O \textbf{centroide} de um triângulo, a média aritmética dos seus pontos.}
+  \vspace{10pt}
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{images/kmeans-classification-issues.png}
+  \end{center}
+  \vspace{-20pt}
+  \caption{A classificação de um conjunto de dados com duas caraterísticas utilizando o k-Means. Autoria: \textit{Chire}/Wikimédia}
+  \vspace{-50pt}
+\end{wrapfigure}
+\begin{enumerate}
+\item O algoritmo começa definindo as localizações iniciais $L$ dos protótipos $p$.
+$$p_1=L_1,\quad p_2=L_2 \quad \dots \quad p_k = L_k$$
+Essas localizações podem ser aleatórias se nada se souber do problema.\\
+Também podem ser o resultado de métodos como o ``\textbf{Forgy}" que gera protótipos a partir de conjuntos aleatórios de pontos.
+\item Todos os pontos no conjunto de treino são atribuídos ao protótipo mais próximo.
+Nesta atribuição é utilizada a distância euclidiana.\\
+Seja $X$ o conjunto dos dados:
+$$\forall i \in \text{dados},\quad min = \underset{j}{\operatorname{argmin}} \text{ Distância}(X_i, p_j),\quad X_i \in p_{min}, X_i \notin p_{\neq min}$$
+\item Todo o protótipo é ajustado para voltar a ser o centroide do conjunto que representa.
+$$\forall i, c_j = \frac{1}{\#c_j}\sum_{i \in c_j} X_i$$
+\item Se no passo anterior fez os pontos mudarem de protótipo o algoritmo volta ao segundo passo, caso contrario os protótipos tornam-se \textit{clusters}.
+\end{enumerate}
+Este algoritmo é simples e rápido. Os cálculos são simples para um computador e não são sujeitos a erros de computação como arredondamentos.
+Em contrapartida, o algoritmo assume que todos os protótipos tem a mesma influência sobre o espaço adjacente, criando uma partição de \textit{Voronoy} com erros graves quando se lida com \textit{clusters} adjacentes de magnitudes diferentes.
+\pagebreak
+\section{DBSCAN}
+O algoritmo \textbf{DBSCAN} (abreviação para \textbf{D}ensity-\textbf{B}ased \textbf{S}patial \textbf{C}lustering of \textbf{A}pplications with \textbf{N}oise) é um algoritmo que funciona recursivamente por via de árvores. Os pontos dos dados como \textbf{núcleo}, \textbf{fronteira} ou \textbf{ruído} consoante a sua vizinhança, e são ligados a alguns dos seus vizinhos de forma a que os clusters fiquem em árvores distintas.
+\vspace{5mm}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{images/dbscan_point_types.png}
+        \caption{Core in red, border as yellow, noise as blue. Copyright \textit{Chire}/Wikimédia}
+	\end{center}
+	\vspace{-50pt}
+\end{wrapfigure}
+A atribuição dos pontos é a seguinte:
+\begin{itemize}
+\item \textbf{Núcleo} - Pontos que tenham pelo menos \textit{minPontos} na sua vizinhança.
+\item \textbf{Fronteira} - Pontos que tenham menos de \textit{minPontos} na sua vizinhança.
+\item \textbf{Ruído} - Pontos que não tenham pontos núcleo na sua vizinhança.
+\end{itemize}
+Para definir o algoritmo são necessários dois critérios um valor para \textit{minPontos} e a distancia máxima na qual um ponto é considerado vizinhança (um raio de uma hiperesfera portanto).\\
+Estes requisitos moldam o algoritmo aos dados com o qual vai trabalhar, o que infelizmente o torna pouco genérico.\\[2mm]
+Quando se trabalha com dados esparsos os critérios tem de aumentar, caso contrario os pontos são classificados indevidamente como ruído.
+Por outro lado, quando se trabalha com dados densos, os critérios tem de diminuir ou os \textit{clusters} são unificados.\\[2mm]
+A aplicação do algoritmo começa por se marcar um ponto, atribuir um tipo, e saltar para a sua vizinhança, com uma construção em profundidade.\\
+Assim que não existam mais pontos não anexados na vizinhança de qualquer ponto da árvore, repete-se o mesmo procedimento até se esgotarem todos os pontos do conjunto de dados.
+\clearpage
+\section{Modelo Mistura Gaussiano}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{center}
+        \vspace{-20pt}
+        \includegraphics[width=0.3\textwidth]{images/mixture-model.png}
+        \caption{Um modelo mistura com duas distribuições gaussianas.}
+    \end{center}
+    \vspace{-50pt}
+\end{wrapfigure}
+O \textbf{Modelo Mistura Gaussiano}(abreviado \textbf{GMM}) é um algoritmo de \textit{clustering} baseado em probabilidade.\\
+\textbf{Gaussiano} refere-se à \textbf{distribuição probabilística Gaussiana}(Normal $(\mu=0, \sigma=1)$), com um \textbf{modelo mistura} sendo o modelo probabilístico que assume que as probabilidades são dada por uma distribuição mista (com Gaussianas neste caso).\\
+Com este método os modelos probabilísticos são tipicamente calculados de forma iterativa.
+\begin{figure}[ht]
+\captionsetup{singlelinecheck = false, justification=justified}
+\includegraphics[width=0.42\textwidth]{images/gaussian-level-curves.png}
+\caption{Ilustração do GMM.}
+\end{figure}
 \end{document}
