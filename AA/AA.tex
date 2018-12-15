@@ -110,10 +110,11 @@ Uma prática comum é a separação do conjunto de treino em dois conjuntos dist
 \section{Regressão Linear}
 Uma regressão linear é uma regressão em que a classe de hipóteses corresponde ao modelo $y = \theta_1 x_1 + \theta_2 x_2 + \dots + \theta_n x_n + \theta_{n+1}$, constituído apenas por parâmetros e termos lineares. [continuar]
 \section{Método dos mínimos quadrados}
-\section{Sub e sobre-ajustamento}
+\section{Ajuste dos dados}
+(Falar Subajuste sobreajuste)
 \section{Tipos de erro}
 \section{Regularização}
-Prevenir que um modelo se ajuste demasiado e cause sobre-ajustamento.[continuar]
+Prevenir que um modelo se ajuste demasiado e cause sobre-ajuste.[continuar]
 \subsection{Regressão de Ridge}
 $$J(\theta) \sum_{t=1}^n[y^t - g(x^t | \theta)]^2 + \sum_{j=1}^m \theta^2_j$$
 \section{Enviesamento}
@@ -258,8 +259,7 @@ Com $T$ classificadores com probabilidade de sucesso $p$, a probabilidade da cla
 $$\sum_{k=T/2+1}^{T}\binom{T}{k} p^k (1-p)^{T-k}$$
 No entanto isto é assumindo completa independência entre os classificadores. Se houver correlação entre os resultados de diversos classificadores a eficácia de \textit{bagging} desce significativamente. Alem disso idealmente os classificadores desejados são \textbf{classificadores instáveis}, que tem alta variância.\\
 Classificadores como SVM com baixa constante de regularização ou k-NN não são bons candidatos a \textit{bagging} por serem \textbf{classificadores estáveis} que são pouco afetados por alterações no conjunto de treino.
-
-\begin{minipage}{0.9\textwidth}
+\clearpage
 \section{Boosting}
 Um algoritmo de \textbf{boosting} resulta uma ponderação de classificadores.
 \subsection{AdaBoost}
@@ -286,7 +286,38 @@ Ajusta-se um novo classificador ao conjunto de treino com os novos pesos e repet
 O classificador final é dado por:
 $$\text{AdaBoost}(x) = sign \sum^M_{m=1} a_m y_m(x)$$\\[2mm]
 À utilização de AdaBoost com \textbf{decision stumps}(por fazer: secção) chama-se de \textbf{stumping}.
-\end{minipage}
+\chapter{Análise de dados}
+\section{Visualização}
+\subsection{Histograma}
+(Por fazer)
+\subsection{Diagrama de Extremos e Quartis}
+(Por fazer)
+\subsection{Diagrama de Dispersão}
+(Por fazer)
+\clearpage
+\section{Seleção de Caraterísticas}
+Os dados frequentemente tem mais detalhe do que o necessário para a aprendizagem. Podem incluir caraterísticas desnecessárias ou com pouca correlação com o que se procura concluir.
+Quando existem demasiadas caraterísticas em análise aumenta-se substancialmente o tempo de computação e pode resultar em problemas como sobreajuste.\\
+Tipicamente faz-se \textbf{seleção de caraterísticas}, a escolha de caraterísticas com alto relevo em detrimento das pouco relevantes.
+\subsection{Filtragem}
+À exclusão das caraterísticas pouco relevantes do processo de aprendizagem chama-se de \textbf{filtragem}. Uma filtragem pode ser \textbf{univariável} ou \textbf{multivariável} consoante resulte da análise individual ou conjunta das caraterísticas.\\[2mm]
+Filtragem univariável pode resultar de diversos critérios.\\
+A \textbf{independência estatística} é um desses critérios uma vez que uma caraterística que é independente das diversas classes não é útil para as prever. A independência pode ser avaliada recorrendo ao \textbf{teste qui-quadrado} ($\chi ^2$), que calcula a probabilidade de obtenção de uma amostra durante a tiragem.\\
+Para frequências observadas $O_n$ e frequências esperadas $E_n$, o valor do teste qui-quadrado é:
+$$\chi^2 = \sum_{i=1}^N \frac{(O_i - E_i)^2}{E_i}$$
+Haja uma caraterística com $K$ categorias de valores a ser utilizada para um problema com $C$ classes, e sejam $O_{kc}$ a frequência de observações e $E_{kc}$ a frequência esperada, respetivamente.\\
+O teste tem $(K-1)(C-1)$ graus de liberdade e é dado por:
+$$\chi^2 = \sum_{k=1}^K \sum_{c=1}^C \frac{(O_{kc} - E_{kc})^2}{E_{kc}}$$
+Quanto menos o valor de $\chi^2$ maior a independência entre a caraterística e a classe.\\[5mm]
+Outro critério pode ser a variância de grupos (de dados/de caraterísticas?), sendo aplicado o \textbf{teste-F} para análise de variância (\textbf{ANOVA}), um teste que compara a variância entre grupos com a variância dentro dos grupos. Um teste-F com um valor baixo implica uma independência provável e denuncia a caraterística como pouco relevante.\\[2mm]
+Já a filtragem multivariável baseia-se na correlação entre variáveis. Quando duas caraterísticas estão correlacionadas são redundantes e uma delas pode ser descartada.\\[2mm]
+Quando uma má caraterística irrelevante não é descartada causa má performance nas hipóteses que a usam extensivamente, sendo a performance outro fator que denuncia a qualidade de uma caraterística. \\ Existem \textbf{wrapper methods}, algoritmos de classificação de caraterísticas, que efetuam testes de performance em subconjuntos das caraterísticas.\\
+Quando um \textit{wrapper method} itera em todos os subconjuntos de caraterísticas é determinístico.\\
+\textbf{Seleção sequencial para a frente} é o processo de começar com um conjunto vazio, e iterativamente testar qual a melhor caraterística a juntar ao conjunto.\\
+Para contraste, com \textbf{eliminação sequencial para a trás} faz-se o reverso, parte-se de um conjunto com todas as caraterísticas  e iterativamente retira-se a pior.\\[2mm]
+Existem ainda \textbf{wrapper methods não-determinísticos} que tentam alcançar o mesmo objetivo recorrendo a métodos como a recristalização simulada ou algoritmos genéticos.\\[2mm]
+Por fim existem algoritmos de aprendizagem que selecionam por si as melhores caraterísticas. A esta propriedade designa-se de \textbf{seleção de caraterísticas embutida}.\\
+Um exemplo de um algoritmo que a verifica são as árvores de decisão com limite de profundidade.
 \chapter{Clustering}
 \section{K-Means}
 O algoritmo \textbf{K-Means} funciona definindo $k$ \textbf{protótipos} de \textbf{cluster} e ajustando-os iterativamente até serem \textit{clusters}.
