@@ -212,9 +212,9 @@ Este classificador funciona se houver uma quase linearidade, em que poucos ponto
 Um \textit{\textbf{kernel trick}} é a aplicação de uma \textbf{kernel function} função cujo resultado é o produto interno de dois vetores após aplicação de uma função.
 $$K(\vec{x}_1,\vec{x}_2) = \phi(\vec{x}_1)^T \phi(\vec{x}_2)^T$$
 É útil nos cenários em que é mais eficiente pré-computar as operações dada potencial simplificação de cálculos.
-\chapter{Classificação com multiplas classes}
+\section{Classificação com múltiplas classes}
 Existem classificadores que naturalmente lidam bem com diversas classes, como o k-NN que opta pela classe com mais vizinhos ou o Naïve Bayes que opta pela maior probabilidade conjunta.
-\section{Uma classe contra as restantes}
+\subsection{Uma classe contra as restantes}
 Neste cenário criam-se para $k$ classes $k-1$ classificadores.
 \begin{itemize}
 \item Cada um dos classificadores classifica individualmente uma das classes.\\
@@ -223,17 +223,17 @@ As restantes classes são consideradas uma só durante a classificação.
 \item A ausência de classificação no classificador final representa a classe que não foi classificada.
 \item Este método deixa áreas de ambiguidade, onde os classificadores sobrepõem.
 \end{itemize}
-\section{Um contra um}
+\subsection{Um contra um}
 Criam-se para $k$ classes $k(k-1)/2$ classificadores, que correspondem ás combinações de classes duas a duas.\\
 Classifica-se assim por exclusão de classes.\\
 Este método também resulta em locais ambíguos em que podia ser uma de varias classes.
-\section{Uma contra todas}
+\subsection{Uma contra todas}
 \begin{itemize}
 \item Obtém-me os classificadores como se fosse no procedimento de uma contra as restantes.
 \item Unem-se os classificadores, mas nas interseções vigora o classificador cujo máximo da função de decisão é maior.
 \end{itemize}
 Este método tem o problema de que os classificadores podiam ter níveis de confiança diferentes, arriscando-se a fazer má classificação em algumas classes.
-\chapter{Enviesamento e variância}
+\subsection{Enviesamento e variância}
 Quando um modelo não se consegue ajustar aos dados existe um grande enviesamento nas previsões efetuadas por base nesse modelo.\\
 A \textbf{enviesamento} é o desvio da estimação média ao valor real. O mesmo pode ser definido
 $$\text{enviesamento} = (\text{média previsões} - \text{valor real})^2$$
@@ -248,6 +248,45 @@ $$E((\text{previsão} - \text{valor real})^2) =\text{enviesamento} + \text{vari�
 $$= \left(E(\text{previsão}) - E(\text{valor real})\right)^2 +
 E\left((\text{previsão}-E(\text{previsão}))^2)\right) +
 E\left((\text{valor real}-E(\text{valor real})\right)^2)$$
+\chapter{Ensembling}
+\textbf{Ensembling} chama-se aos métodos que agregam diversos algoritmos de classificação.
+\section{Bootstrap aggregating - Bagging}
+O método de \textbf{bootstrap aggregating} (abreviado \textbf{bagging}) é um método de \textbf{ensembling} que consiste no treino de diversos modelos com algoritmos distintos e subsequente aplicação aos dados em modo análogo a uma votação.\\[2mm]
+Em regressões a votação do resultado pode por exemplo ser feita por base na média dos diversos modelos. Se for feita por base na mediana o método designa-se \textbf{bragging}.\\[2mm]
+Em problemas de classificação a votação é por maioria.\\
+Com $T$ classificadores com probabilidade de sucesso $p$, a probabilidade da classificação por maioria ser correta é:
+$$\sum_{k=T/2+1}^{T}\binom{T}{k} p^k (1-p)^{T-k}$$
+No entanto isto é assumindo completa independência entre os classificadores. Se houver correlação entre os resultados de diversos classificadores a eficácia de \textit{bagging} desce significativamente. Alem disso idealmente os classificadores desejados são \textbf{classificadores instáveis}, que tem alta variância.\\
+Classificadores como SVM com baixa constante de regularização ou k-NN não são bons candidatos a \textit{bagging} por serem \textbf{classificadores estáveis} que são pouco afetados por alterações no conjunto de treino.
+
+\begin{minipage}{0.9\textwidth}
+\section{Boosting}
+Um algoritmo de \textbf{boosting} resulta uma ponderação de classificadores.
+\subsection{AdaBoost}
+O \textbf{adaptative boosting} (\textbf{AdaBoost}) obtém uma combinação linear de classificadores fracos (pouco melhores que aleatoriedade) que resultam num classificador forte.
+$$\text{Com }
+I(a \neq b) =
+\begin{cases}
+1 , a\neq b\\
+0 , a=b
+\end{cases}$$
+O algoritmo é dado por:
+\begin{enumerate}
+\item Inicializa-se os pesos de todos os $N$ classificadores:
+$$w_n = \frac{1}{N}$$
+\item Um classificador é treinado de forma a minimizar o erro ponderado do conjunto de treino:
+$$J_m = \sum_{n=1}^{N}w_m^n I(y_m(x^n)\neq t^n)$$
+\item Computa-se o erro ponderado do classificador e o peso do classificador no \textit{ensembling}:
+$$\epsilon_m = \frac{\sum\limits_{n=1}^N w_m^n I(y_m(x^n)\neq t^n)}{\sum\limits_{n=1}^N w_m^n} \quad \quad \alpha_m = ln \frac{1 - \epsilon_m}{\epsilon_m}$$
+\item Então usa-se $\alpha_m$ para atualizar os pesos dos pontos:
+$$w^n_{m+1} = w_m^n exp (a_m I(y_m(x_n) \neq t^n))$$
+A função $I$ aumenta os pesos dos pontos mal classificados (?).\\
+Ajusta-se um novo classificador ao conjunto de treino com os novos pesos e repete-se o processo até que o erro ponderado de treino seja 0 ou $\geq 0.5$.
+\end{enumerate}
+O classificador final é dado por:
+$$\text{AdaBoost}(x) = sign \sum^M_{m=1} a_m y_m(x)$$\\[2mm]
+À utilização de AdaBoost com \textbf{decision stumps}(por fazer: secção) chama-se de \textbf{stumping}.
+\end{minipage}
 \chapter{Clustering}
 \section{K-Means}
 O algoritmo \textbf{K-Means} funciona definindo $k$ \textbf{protótipos} de \textbf{cluster} e ajustando-os iterativamente até serem \textit{clusters}.
