@@ -32,7 +32,7 @@
 	{\large \today\par}
 	\vfill
 	Adaptação licenciada:\\
-	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{../ccbysa.png}}
 \end{titlepage}
 \tableofcontents
 \chapter{Calculo Matricial}
@@ -661,5 +661,98 @@ det A & 0 & 0\\
 \end{bmatrix}
 $$
 \section{Regra de Cramer}
-(Por fazer)
+Seja $AX=B$ um sistema de Cramer ($A \in \mathcal{M}_{n \times n}$ e invertível).\\[0.2cm]
+\textbf{Notação}: $A_j$ é a matriz que se obtém de $A$  substituindo a coluna $j$ por $B$.\\[0.2cm]
+A regra de Cramer é um método para a obtenção do valor de $X$ que satisfaz o sistema.\\
+Pretende-se portanto obter: $X^T=[s_1, s_2, \dots, s_n]$.\\
+A regra define que cada $s_i$ é dado pela formula:
+$$s_j = \frac{det A_j}{det A}$$
+A regra de Cramer não é particularmente rápida de aplicar sendo preferível o método que recorre á inversa.
+\section{???}
+Só existe uma única aplicação $D: \mathcal{M}_{n \times n}(\mathbb{C}) \rightarrow \mathbb{C}$ que satisfaz simultaneamente as propriedades:
+(por continuar, página 153 do livro)
+\section{???}
+Permutação (Por continuar)
+\chapter{Espaços}
+\section{Espaço Vetorial}
+Um \textbf{espaço vetorial} $E$ é todo o conjunto não vazio que verifica as operações:
+\begin{itemize}
+\item \textbf{Adição} - Associação de pares de elementos a um outro elemento, todos de $E$.\\
+Representada $a+b=c$ com $a,b,c \in E$\\
+Esta adição tem de verificar associatividade, comutatividade, elemento neutro e elemento simétrico.
+\item \textbf{Multiplicação externa} - Associação de um numero real/complexo a um elemento de $E$.\\
+Representada $\alpha \cdot d$ com $\alpha \in \mathbb{C}, d \in E$\\
+Esta multiplicação tem de verificar distributividade, associatividade e tem de ter um elemento neutro.
+\end{itemize}
+Um espaço vetorial diz-se \textbf{sobre} outro espaço vetorial quando a sua construção depende desse espaço.
+\begin{itemize}
+\item $\mathbb{R, C, R}^n$ são espaços vetoriais sobre $\mathbb{R}$.
+\item $\mathcal{M}_{m \times n}(\mathbb{R})$ é um espaço vetorial sobre $\mathbb{R}$.
+\item $\mathbb{R}_n[x]$ é o espaço com todos os polinómios de grau $<n\in \mathbb{N}_0$ na variável $x$ e um espaço vetorial sobre $\mathbb{R}$.
+\end{itemize}
+\section{Subespaço Vetorial}
+Um \textbf{subespaço} é um conjunto de elementos de um espaço que só por si conseguem verificar a adição e multiplicação externa e o que isso implica (como a existência de um elemento neutro) em todos os seus elementos.\\
+Qualquer ponto, reta ,plano ou hiperplano que passe na origem de um espaço é um subespaço.
+\section{Combinação Linear de Vetores}
+Um espaço é \textbf{combinação linear de vetores} se para um conjunto de vetores \underline{nele contidos} existirem coeficientes que permitam representar a totalidade do espaço.\\[2mm]
+Um subespaço é dito \textbf{gerado} quando existe uma \textbf{sequência geradora}, uma combinação linear de vetores.
+$$\left\langle u_1, u_2, \dots, u_n \right\rangle = \left\lbrace \alpha_1 u_1, \alpha_2 u_2, \dots, \alpha_n u_n \right\rbrace$$
+Exemplos:\\
+Os vetores unitários $\hat{i}$ e $\hat{j}$ são uma sequência geradora porque qualquer ponto pode ser dado por eles.\\
+$\hat{i} = (1, 0)$ e $\hat{j} = (0, 1)$ define os vetores, logo a sequência geradora é definida: $\mathbb{R}^2 = \left\langle(1,0),(0,1)\right\rangle$\\[2mm]
+Defina-se que $e_i$ é um vetor nulo exceto na posição $i$, na qual tem ``1" (exemplo: $e_3 = (0, 0, 1, \dots)$)\\
+A sequência geradora para qualquer real com $n$ dimensões é $\mathbb{R}^n=\left\langle e_1, \dots, e_n\right\rangle$.\\[2mm]
+Identicamente defina-se que $E_{ij}$ é a matriz nula exceto na posição $i,j$ na qual tem  ``1".\\
+A sequência geradora para qualquer matriz é $\mathcal{M}_{m, n}=\left\langle E_{11}, \dots,  E_{1n}, E_{21}, \dots, E_{2n}, \dots, E_{m1}, \dots, E_{mn} \right\rangle$.\\[5mm]
+Um espaço diz-se \textbf{finitamente gerado} se existir um numero finito de vetores na sua sequência geradora.\\
+Exemplo: $\mathbb{R}_n[x]$ é finitamente gerado, mas $\mathbb{R}[x]$ já não.\\[2mm]
+Podem ser efetuadas algumas operações nas sequências geradoras que não alteram o espaço gerado:
+\begin{itemize}
+\item Trocar a posição de dois vetores da sequência.
+\item Multiplicar um vetor da sequência por um escalar.
+\item Substituir um vetor da sequência pela sua soma com um múltiplo de outro vetor da sequência.
+\end{itemize}
+\section{Independência Linear}
+Uma sequência geradora é \textbf{linearmente independente} quando nenhum dos seus vetores é redundante na definição do espaço.\\
+Imagine-se que a $\hat{i}$ e $\hat{j}$ se junta $\hat{z}$, um vetor arbitrário com duas dimensões. Não há nenhum vetor que possa ser feito com uma combinação linear destes três vetores que não pudesse ser feita com uma combinação linear de $\hat{i}$ e $\hat{j}$, pelo que a sequência é \textbf{linearmente dependente}.\\[2mm]
+Uma sequência com um vetor é linearmente dependente se esse vetor é o elemento nulo do espaço.\\
+Uma sequência com múltiplos vetores é linearmente dependente se um deles for combinação linear dos restantes.\\
+Pelo contrario, se numa sequência nenhum dos vetores for combinação linear dos restantes, a sequência é linearmente independente.
+\section{Bases}
+$(u1, \dots, u_n)$ é uma \textbf{base} de um espaço se é uma das suas sequências geradoras e for linearmente independente.\\
+Todas as bases de um espaço tem o mesmo numero de elementos, o mínimo admissível para a definição do espaço.\\
+Um espaço $E$ cujas bases tem $n$ elementos tem \textbf{dimensão} $n$ é denotado $dim E = n$.\\
+Espaços que não são finitamente gerados tem \textbf{dimensão infinita}.\\[2mm]
+Exemplos:\\
+$dim \mathbb{R}^n = n \quad \quad
+dim \mathcal{M}_{m, n} = mn \quad \quad
+dim \mathbb{R}_n[x] = n+1 \quad \quad
+dim \mathbb{C} = n$
+\subsection{Propriedades}
+\begin{itemize}
+\item Todas as sequências geradoras tem uma subsequência que é base do mesmo espaço.
+\item Uma sequência de $r$ vetores linearmente independentes pode ser base de um espaço de dimensão $n$ (com $r<n$) perante a adição de outros $n-r$ vetores á sequência.
+\item  Dois espaços terem a mesma dimensão não implica serem iguais. (exemplo: $dim \mathbb{R}^4 = dim \mathcal{M}_{2, 2} $)
+\item  Um subespaço tem sempre uma dimensão menor ou igual que o espaço original.\\
+Um subespaço é igual ao espaço original se a suas dimensões forem as mesmas.
+\item  A uma combinação de coeficientes de uma base chama-se de \textbf{coordenadas} e resultam num vetor único, em que mais nenhuma combinação resulta.\\
+Pelo mesmo motivo, todos os vetores de um espaço são dados por aplicação (única) de coeficientes na sua base.
+\item \textbf{Base canónica} é a base cujos vetores tem 1 num dos seus componentes e os restantes componentes nulos.\\
+Exemplo: $\left\langle (1, 0, 0), (0, 1, 0), (0, 0, 1) \right\rangle$
+\end{itemize}
+\section{Interseção, União e Soma de Subespaços}
+A \textbf{interseção} de sub-espaços de um espaço também é um sub-espaço desse espaço.\\[2mm]
+A \textbf{união} de subespaços de um espaço \underline{não} é um subespaço desse espaço.\\
+No entanto, se um dos subespaços estiver contido noutro, a união já é um subespaço.\\
+Exemplo: A união dos eixos coordenados permite qualquer ponto fora do espaço dos mesmos.\\[2mm]
+A \textbf{soma} de dois subespaços de um espaço também é um subespaço desse espaço.\\[2mm]
+Sejam $F, G$ subespaços de um espaço $E$.
+\begin{itemize}
+\item $(f_1, \dots, f_r , g_1, \dots, g_s)$ é uma base e $F \cap G$ é nulo. (? algo estranho aqui!)
+\item A soma $F+G$ é \textbf{direta} se cada vetor resultante existir um único par que o constituiu: $(\forall w \in F+G) \Rightarrow (\exists^1 (f, g))$\\
+Nesse caso a soma é representada $F \oplus G$.
+\item Os subespaços são \textbf{subespaços suplementares} se a soma direta resulta no espaço ($E = F \oplus G$).\\
+Todo o subespaço de dimensão finita tem um suplementar.
+\item $dim(F + G) = dim F + dim G - dim (F \cap G)$
+\end{itemize}
 \end{document}
