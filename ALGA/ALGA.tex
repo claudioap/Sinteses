@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{forest}
@@ -754,5 +755,159 @@ Nesse caso a soma é representada $F \oplus G$.
 \item Os subespaços são \textbf{subespaços suplementares} se a soma direta resulta no espaço ($E = F \oplus G$).\\
 Todo o subespaço de dimensão finita tem um suplementar.
 \item $dim(F + G) = dim F + dim G - dim (F \cap G)$
+\end{itemize}
+\section{Matrizes e espaços vetoriais}
+As sequências geradoras de um espaço podem ser representadas matricialmente. (?)\\
+Uma sequência $(u_1, \dots, u_p)$ é linearmente independente só se a caraterística da matriz $[u_1 \dots u_p]^T$ for $p$.
+$$r \left( \begin{bmatrix}
+u_1 \\ \vdots \\ u_p
+\end{bmatrix} \right)
+= p$$
+As linhas não nulas de uma matriz em forma de escada são portanto linearmente independentes.\\
+Um vetor $\vec v$ só pertence a uma sequência geradora $\left\langle u_1, \dots, u_p \right\rangle$ se:
+$$r \left( \begin{bmatrix}
+u_1 \\ \vdots \\ u_p
+\end{bmatrix} \right)
+= r \left( \begin{bmatrix}
+u_1 \\ \vdots \\ u_p \\ v
+\end{bmatrix} \right)$$
+(por completar, página 251)
+\vspace{5mm}
+Seja $A \in \mathcal{M}_{m \times n}$.\\
+Designa-se \textbf{espaço de linhas} de $A$ o subespaço gerado pelas linhas de $A$. É representado $L(A)$.\\
+O \textbf{espaço de colunas} é similar, nesse caso representa-se $C(A)$.\\
+A $dim L(A)$ e $dim C(A)$ designa-se \textbf{caraterística de linha} e \textbf{caraterística de coluna} respetivamente.\\[2mm]
+Seja $A$ uma matriz e $B$ uma transformada por linhas sua.\\
+$(L(A) = L(B))$ mas $(C(A) = C(B))$
+As transformações por linha não alteram a caraterística de coluna de $A$.\\
+A caraterística de linha e a caraterística de coluna de $A$ são iguais e coincidem com a caraterística de $A$.
+$dim L(A) = dim C(A) = r(A)$\\
+As seguintes afirmações são todas equivalentes. A caraterística de uma matriz $A$ é:\\
+\begin{itemize}
+\item O numero de linhas não nulas de qualquer matriz equivalente por linhas a $A$ em forma de escada.
+\item A dimensão do espaço das linhas de $A$.
+\item A dimensão do espaço das colunas de $A$.
+\item O numero máximo de linhas linearmente independentes de $A$.
+\item O numero máximo de colunas linearmente independentes de $A$.
+\end{itemize}
+Havendo uma matriz $A \in \mathcal{M}_{m \times n}$, o subespaço de $\mathbb{R}^n$ com vetores que são soluções do sistema $AX=0$ é designado \textbf{espaço nulo} ou \textbf{núcleo} e representa-se $N(A)$.
+$$N(A) = \left\lbrace
+(a_1, \dots, a_n) \in \mathbb{R}^n :
+A \begin{bmatrix}
+\alpha_1 \\ \vdots \\ \alpha_n
+\end{bmatrix} = 0
+\right\rbrace$$
+A dimensão do espaço nulo, $dim N(A)$, é designada \textbf{nulidade} e é igual ao grau de indeterminação do sistema $AX=0$.
+$$dim N(A) = n - r(A)$$
+A sequência geradora do espaço nulo é linearmente independente.
+\section{Aplicações Lineares}
+$f:E \to E'$ é \textbf{aplicação linear} se os elementos de $E$ verificarem as propriedades da soma e multiplicação externa:
+$$\forall_{u,v \in E} \> f(u+v) = f(u) + f(v) \quad \quad \quad
+\forall_{\alpha \in \mathbb{C}}, \forall_{u \in E} \> f(\alpha u) = \alpha f(u)$$
+Pela definição obtém-se os seguintes axiomas:
+\begin{itemize}
+\item Uma aplicação $f: \mathbb{R} \to \mathbb{R}, f(x) = mx + b$ é linear tiver $b=0$.
+\item $\forall_{u \in E} f(-u) = -f(u)$
+\end{itemize}
+\vspace{2mm}
+Seja $\beta \in \mathbb{R}$ e $f:E \to E$.
+\begin{itemize}
+\item Se $\forall_{w \in E} \> f(w) = \beta w$ então $f$ é \textbf{homotetia} de razão $\beta$.
+\item Se $\forall_{w \in E} \> f(w) = 0_E$ então $f$ é uma \textbf{aplicação nula}.
+\item Se $\forall_{w \in E} \> f(w) = w$ então $f$ é uma \textbf{aplicação identidade} (representada $id_E(W)$).
+\end{itemize}
+Aplicações notaveis:
+\begin{itemize}
+\item $(f+g)(u) = f(u)+g(u)$ é uma \textbf{aplicação soma}.
+\item $(\alpha f)(u) = \alpha f(u)$ é uma \textbf{aplicação produto}.
+\item Se $f:A \to B$ e $g:B \to C$ então a \textbf{aplicação composta} ``$g$ após $f$" é representada $(g \circ f)(a) = g(f(a))$.\\
+Uma aplicação que seja a composição de aplicações lineares também é linear.
+\end{itemize}
+Seja $f:E \to E$:\\
+$f^k: E \to E$ é designada \textbf{potência de exponente $k$}.\\
+Uma potência exponente é definida: $f^k = f^{k-1} \circ f$ exceto em $k=0$ para o qual é $id_E$.\\
+A $f(E)$ (ou $Im \> f$), o conjunto resultante da aplicação designa-se de \textbf{contradomínio} ou \textbf{imagem}.\\[2mm]
+Seja $f:E \to E'$:\\
+O \textbf{núcleo} de uma aplicação são todos os valores $a$ tais que $f(a) = 0_{E'}$.\\
+Um núcleo designa-se $Nuc \> f$ e tem sempre o elemento $0_E$.\\
+O núcleo é um subespaço de $E$ e a imagem um subespaço de $E'$.\\[2mm]
+A \textbf{imagem reciproca} (ou \textbf{imagem inversa}) é o elemento do conjunto de partida que corresponde a um elemento do conjunto de chegada\\
+A aplicação inversa é a que obtém as imagens inversas: $f^{\leftarrow}(E') = \{u \in E : f(u) \in E'\}$\\[5mm]
+Uma aplicação é:
+\begin{itemize}
+\item \textbf{Sobrejetiva} - se toda a imagem tem uma inversa na conjunto de partida.
+\item \textbf{Injetiva} - Se cada valor tiver uma imagem distinta.\\
+Uma aplicação injetiva tem núcleo $\{0_E\}$.
+\item \textbf{Bijetiva} - Se cada valor tiver uma imagem distinta, e todas as imagens tem valor.\\
+Ou seja: Injetiva e sobrejetiva.
+\end{itemize}
+Seja $E=(v_1, \dots, v_n)$ um espaço, $f$ uma aplicação linear finitamente gerada:\\
+O espaço da imagem é dado pela aplicação nos vetores da base: $Im \> f = \left\langle f(v_1), \dots, f(v_n) \right\rangle$\\
+Se os vetores $(u_1, \dots, u_n) \in E$ forem linearmente independentes, e $f$ for injetiva, então $(f(u_1), \dots, f(u_n))$ são linearmente independentes.\\
+Se $f$ injetiva a dimensão do conjunto de partida é a dimensão do conjunto de chegada: $dim\> W = dim\> f(W)$.\\[2mm]
+No contexto de uma aplicação ($f$):
+\begin{itemize}
+\item \textbf{Nulidade} - A dimensão do núcleo, representa-se $n(f)$.
+\item \textbf{Caraterística} - A dimensão da imagem da imagem, representa-se $c(f)$.
+\end{itemize}
+Seja $f:E \to E'$:
+\begin{itemize}
+\item $dim E = dim \> Nuc \> F + dim \> Im \> F$
+\item Se $dim E < dim E'$ a aplicação não é sobrejetiva.
+\item Se $dim E > dim E'$ a aplicação não é injetiva.
+\item Se $dim E = dim E'$ a aplicação é bijetiva.
+\end{itemize}
+Sejam $E$ e $E'$ espaços vetoriais, $B=(u_1, \dots, u_n)$ uma base de $E$ e $(v_1, \dots, v_n)$ vetores arbitrários de $E'$.\\
+Só existe uma aplicação $f:E \to e$ que verifica $f(u_1) = v_1, \dots, f(u_n) = v_n$.\\[2mm]
+Uma aplicação é \textbf{invertível} se existir outra aplicação tal que a composta de ambas resulte na aplicação identidade.\\
+I.E: $f:A\to B$ invertível se $\exists^1 (f^{-1}:B\to A) | (f^{-1} \circ f) = id(A)$.\\[2mm]
+Uma aplicação tem, \textbf{isomorfismo linear} quando é linear e bijetiva.\\
+Perante uma aplicação isomorfa $f: E \to E'$, $E$ diz-se \textbf{isomorfo} a $E'$ e a relação representa-se $E \simeq E'$.\\
+O isomorfismo é comutativo e transitivo. Seja $E''$ um espaço arbitrário:
+\begin{itemize}
+\item Se $E \simeq E'$ então $E' \simeq E$.
+\item Se $E \simeq E'$ e $E' \simeq E''$ então $E \simeq E''$.
+\item Se $E \simeq E'$ então $dim E = dim E'$\\
+Exemplo: $\mathcal{M}_{2 \times 3} \simeq \mathbb{R}^6 \simeq \mathbb{R}_{5}[x]$
+\end{itemize}
+\subsection{Matrizes relacionais}
+Seja $F: E \to E'$ uma aplicação linear, $B=(u_1, \dots, u_m)$ uma base de $E$ e $B'=(v_1, \dots, v_n)$ uma base de $E'$:\\
+Se $A$ for uma matriz na qual cada coluna $(a_{1j}, \dots, a_{mj})$ corresponde á sequência de coordenadas de $f(u_j)$ (na base $B'$), então é designada \textbf{matriz de $f$ em relação ás bases $B$ e $B'$}, e representada $\mathcal{M}(f; B, B')$.\\
+A caraterística de $A$ corresponde á dimensão da $B'$: $r(R) = dim \> Im \> f$.\\[2mm]
+Com a aplicação $f: E \to E'$  e $u = (\alpha_1, \dots, \alpha_m) \in E$, a matriz $A = \mathcal{M}(f; B, B')$ serve para calcular $v = (\beta_1, \dots, \beta_n)$ o vetor resultante da aplicação a $u$: $f(u)$.
+$$A
+\begin{bmatrix}
+\alpha_1 \\ \vdots \\ \alpha_m
+\end{bmatrix}
+=
+\begin{bmatrix}
+\beta_1 \\ \vdots \\ \beta_n
+\end{bmatrix}$$
+$\mathcal{M}(id_E; B, B')$, transforma uma coordenada numa base para outra coordenada noutra base no mesmo espaço.\\
+Designa-se de \textbf{matriz de mudança de base}.\\[2mm]
+Sejam $f: E \to E'$, $g: E \to E'$ aplicações lineares, $B, B'$ bases de $E, E'$ e $F = M(f: B, B')$ e $G = \mathcal{M}(g: B, B')$.\\
+Verificam-se as propriedades:
+\begin{itemize}
+\item $\mathcal{M}(f + g: B, B') = F + G$
+\item $\mathcal{M}(\alpha f: B, B') = \alpha F$
+\end{itemize}
+\vspace{2mm}
+Sejam $f: E \to E'$, $g: E' \to E''$ duas aplicações lineares, e $B, B', B''$ as bases dos espaços, respetivamente:\\
+Se $F = \mathcal{M}(f: B, B')$ e $G = \mathcal{M}(f: B, B')$ então $\mathcal{M}(g \circ f: B, B'') = GF$.\\
+Ou seja $\mathcal{M}(f: B, B') \mathcal{M}(f: B, B') = \mathcal{M}(g \circ f: B, B'')$.\\[5mm]
+Se uma aplicação $f: E \to E'$ dada pela matriz $A$ for invertível, então $A^{-1} = \mathcal{M}(f^{-1}; B', B)$.\\[5mm]
+Toda a matriz de mudança de base é invertível $\left(\mathcal{M}(id_E; B, B')\right)^{-1} = \mathcal{M}(id_E; B', B)$.\\[5mm]
+Sejam $f: E \to E'$, $g: E' \to E''$ uma aplicação linear, $B_1, B_1$ bases de $E$ e $B_1', B_2'$ bases de $E'$:\\
+Se $A_1 = \mathcal{M}(f; B_1, B_1')$,  $A_2 = \mathcal{M}(f; B_2, B_2')$, $Q = \mathcal{M}(id_E; B_1', B_2')$ e  $P = \mathcal{M}(id_E; B_2, B_1)$ então:
+\begin{itemize}
+\item $\mathcal{M}(f, B_1, B_2') = QA_1$
+\item $\mathcal{M}(f, B_2, B_1') = A_1P$
+\item $A_2 = QA_1 P$
+\end{itemize}
+Sejam $A_1, A_2 \in \mathcal{M}_{m \times n}, Q \in \mathcal{M}_{n \times m}$ e $P \in \mathcal{M}_{n \times n}$:
+\begin{itemize}
+\item $A_1$ é \textbf{equivalente} a $A_2$ se $Q, P$ são invertíveis e $A_2 = QA_1P$.
+\item Se $A_1$ equivalente a $A_2$ então $A_2$ é equivalente a $A_1$.
+\item $A_1$ é \textbf{semelhante} a $A_2$ se $\exists P^{-1}$ que verifique $A_2 = P^{-1}A_1P$.
 \end{itemize}
 \end{document}
