@@ -48,7 +48,7 @@ a_{m1} & a_{m2} & \dots & a_{mn}
 \end{bmatrix}$$
 Assim sendo, $a_{ij}$ é dito elemento na linha $i$ e coluna $j$.\\
 Os elementos pode pertencer aos reais ($\mathbb{R}$) ou aos complexos ($\mathbb{C}$).\\
-Se $\forall i,j : a_{ij} \in \mathbb{R}$ a matriz acima é declarada $\mathcal{M}_{m \times n} \in \mathbb{R}$.\\
+Se $\forall i,j : a_{ij} \in \mathbb{R}$ a matriz acima é declarada $\mathcal{M}_{m \times n} \in \mathbb{R}$.
 \subsection{Matrizes notáveis}
 Alguns formatos matrizes são especialmente importantes:
 \begin{itemize}
@@ -782,7 +782,7 @@ $(L(A) = L(B))$ mas $(C(A) = C(B))$
 As transformações por linha não alteram a caraterística de coluna de $A$.\\
 A caraterística de linha e a caraterística de coluna de $A$ são iguais e coincidem com a caraterística de $A$.
 $dim L(A) = dim C(A) = r(A)$\\
-As seguintes afirmações são todas equivalentes. A caraterística de uma matriz $A$ é:\\
+As seguintes afirmações são todas equivalentes. A caraterística de uma matriz $A$ é:
 \begin{itemize}
 \item O numero de linhas não nulas de qualquer matriz equivalente por linhas a $A$ em forma de escada.
 \item A dimensão do espaço das linhas de $A$.
@@ -910,4 +910,75 @@ Sejam $A_1, A_2 \in \mathcal{M}_{m \times n}, Q \in \mathcal{M}_{n \times m}$ e 
 \item Se $A_1$ equivalente a $A_2$ então $A_2$ é equivalente a $A_1$.
 \item $A_1$ é \textbf{semelhante} a $A_2$ se $\exists P^{-1}$ que verifique $A_2 = P^{-1}A_1P$.
 \end{itemize}
+\clearpage
+\section{Vetores próprios}
+\textbf{Definição informal}: Um \textbf{vetor próprio}(também conhecido como \textit{eigenvector}) de uma transformação é o vetor que não sofre transformação alguma alem da mudança de magnitude. Não é deslocado ou rodado.\\
+O \textbf{valor próprio} é a proporção que um vetor próprio tem em relação ao seu original antes da transformação, ou seja, o escalamento que sofreu.\\
+Um \textbf{subespaço próprio} é o subespaço em que um vetor próprio está confinado, ou seja, uma reta.\\[5mm]
+Seja $A \in \mathcal{M}_{n \times n}$. Se um vetor $X$ e um escalar $\alpha$ verificam $AX = \alpha X$ então:
+\begin{itemize}
+\item $\alpha$ é \textbf{valor próprio} da transformação $A$.
+\item $X$ é \textbf{vetor próprio} de $A$ associado ao valor próprio $\alpha$.
+\end{itemize}
+Uma aplicação linear é \textbf{endomórfica} se tiver conjunto de partida igual á imagem ($f: E \to E$).\\
+Se uma aplicação linear é endomórfica e verifica $f(\vec u)= \alpha \vec u$, então $\vec u$ é um \textbf{vetor próprio} $\alpha$ é o seu \textbf{valor próprio}.\\
+$E_\alpha$ é um \textbf{subespaço próprio} de $E$ associado ao valor próprio $\alpha$, contem os vetores próprios com esse valor:
+$$E_\alpha = \{\vec u \in E : f(\vec u) = \alpha \vec u\} = Nuc(f-\alpha id_E)$$
+$E_\alpha$ sendo um subespaço de $E$ tem a dimensão limitada: $1 \leq dim E_\alpha \leq dim E$.\\[2mm]
+Seja $A \in \mathcal{M}_{n \times n}$, e seja $\alpha$ um dos seus valores próprios:\\
+$\mathcal{M}_\alpha = \{X \in \mathcal{M}_{n \times 1} : AX = \alpha X\}$ é um subespaço vetorial com os vetores próprios de $A$ e um vetor nulo $\{0_{n \times 1}\}$.\\
+A dimensão de $\mathcal{M}_{\alpha}$ é designada \textbf{multiplicidade geométrica} do valor próprio $\alpha$ e representada $mg(\alpha)$.
+$$mg(\alpha) = dim \mathcal{M}_\alpha \leq dim \mathcal{M}_{n \times 1} = n$$
+Seja $A \in \mathcal{M}_{n \times n}$ e seja $\alpha$ um dos seus valores próprios.\\
+$mg(\alpha) = n - r(A - \alpha I_n)$\\[2mm]
+Seja $A \in \mathcal{M}_{n \times n}$ uma transformação e $X$ um vetor próprio com valor próprio $\alpha$:\\
+A aplicação sucessiva da transformação $A$ é equivalente ao dimensionamento sucessivo do vetor próprio $X$.\\
+Formalmente: $\forall k \in \mathbb{N} : A^k X = \alpha^k X$
+\subsection{Teorema Fundamental da Álgebra}
+Qualquer equação na variável $x$ na forma
+$$a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0 = 0$$
+com $a_n \neq 0$ e $a \subset \mathbb{C}$ tem exatamente $n$ zeros.
+\subsection{Polinómio caraterístico}
+Seja $A\in \mathcal{M}_{n \times n}$, $X$ um vetor próprio seu e $\alpha$ o seu valor próprio.\\[5mm]
+Todo o polinómio  $q(x) = b_r x^r + b_{r-1} x^{r-1} + \dots + b_1 x + b_0 \in \mathbb{C}_r[x]$ quando definido por base em $A$:\\
+.\hspace{25mm} $q(x) = b_r A^r + b_{r-1} A^{r-1} + \dots + b_1 A x + b_0 I_n$ verifica $q(A)X = q(\alpha)X$.\\
+Alem disso, se $q(A) = 0$ então $q(\alpha) = 0$.\\[2mm]
+$\alpha$ só é valor próprio de $A \in \mathcal{M}_{n \times n}$ se $|A - \alpha I_n| = 0$.\\
+Chama-se \textbf{polinómio caraterístico} de $A$ ao polinómio na variável $x$ dado por:
+$$p_A(x) = |A - x I_n|$$
+$p_A(x) = 0$ é a \textbf{equação caraterística} de $A$.\\
+O seu polinómio caraterístico de $A$ é:
+$$p_A(x) = (-1)^n x^n + a_{n-1} x ^{n-1} + \dots + a_1 x + a_0$$
+Com $a_i \in \mathbb{R}$ para $i=1, \dots , n-1$ e $a_0 = det A$.\\
+Os valores próprios de $A$ são os zeros do polinómio caraterístico.\\[2mm]
+À multiplicidade de $\alpha$ enquanto zero do polinómio caraterístico designa-se de \textbf{multiplicidade algébrica}, representa-se $ma(\alpha)$ e  pode ser interpretada como o maior $k$ tal que $(\alpha - x)^k$ divide $p_A(x)$.\\[2mm]
+Se $\beta = (\beta_1, \dots, \beta_n)$ forem os zeros do polinómio caraterístico de $A$ então $det A = \prod \beta$.\\[2mm]
+Os valores próprios de uma matriz diagonal triangular são os elementos da diagonal principal.\\[2mm]
+As seguintes preposições são equivalentes:
+\begin{itemize}
+\item $A$ é invertível ($det A \neq 0$).
+\item $A$ não tem valor próprio $0$ ($|A - 0 I_n| \neq 0$).
+\item O termo constante do polinómio caraterístico de $A$ não é nulo.
+\end{itemize}
+A multiplicidade geométrica é sempre menor ou igual à multiplicidade algébrica. $mg(\alpha) \leq ma(\alpha)$\\[2mm]
+Sejam $\alpha, \beta$ valores próprios de $A$ com $\alpha \neq \beta$:\\
+Quaisquer vetores próprios com valor próprio $\alpha$ que sejam linear independentes entre si, são também linearmente independentes dos vetores próprios de valor $\beta$.
+\subsection{Diagonalização}
+Seja $A\in \mathcal{M}_{n \times n}$, $\alpha$ um valor próprio $E$ é um espaço com dimensão finita.\\[2mm]
+$A$ é \textbf{diagonalizavel} se for semelhante a uma matriz diagonal, ou seja:
+$$\exists P, D \in \mathcal{M}_{n \times n}: P^{-1}AP = D$$
+Sendo $P$ invertível e $D$ matriz diagonal. $P$ é dita a \textbf{diagonalizante} de $A$.\\
+Caso isto se verifique, então os valores próprios de $A$ são os elementos da diagonal principal de $D$.\\
+Isso implica que $A$ só é diagonalizavel se tem $n$ vetores próprios linearmente independentes.\\[5mm]
+Se $\vec u_1, \dots, \vec u_k \in \mathcal{M}_{m \times 1}$ são os vetores próprios linearmente independentes de $A$, correspondentes aos valores próprios $\alpha, \dots, \alpha_n$, então $P = [\vec u_1 | \dots | \vec u_n] $ é a matriz diagonalizante de $A$.
+$$P^{-1}AP =
+\begin{bmatrix}
+\alpha_1 & 0 & \dots & 0 \\
+0 & \alpha_2 & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \alpha_n \\
+\end{bmatrix}$$
+$A$ só é diagonalizavel se $\sum_{i=1}^r mg(\alpha_i) = n$ sendo $\alpha_1, \dots, \alpha_r$ os distintos valores próprios.\\[5mm]
+Uma aplicação linear $f: E \to E$ diz-se diagonalizavel se existe uma base tal que $\mathcal{M}(f; B, B)$ é uma matriz diagonal.\\
+Se $dim E = n$, então $f$ só é diagonalizavel se tem $n$ vetores próprios linearmente independentes.
 \end{document}
