@@ -822,6 +822,8 @@ Aplicações notaveis:
 \item $(\alpha f)(u) = \alpha f(u)$ é uma \textbf{aplicação produto}.
 \item Se $f:A \to B$ e $g:B \to C$ então a \textbf{aplicação composta} ``$g$ após $f$" é representada $(g \circ f)(a) = g(f(a))$.\\
 Uma aplicação que seja a composição de aplicações lineares também é linear.
+\item Uma aplicação $D: \mathbb{R}_n[x] \to \mathbb{R}_n[x]$ que deriva um polinómio é designada \textbf{aplicação derivada}.\\
+$D(a_n x^n + a_{n-1}x^{n-1} + \dots + a_1 x + a_0) = na_n x^{n-1} + (n-1) a_{n-1} x^{n-1} + \dots + a_1$
 \end{itemize}
 Seja $f:E \to E$:\\
 $f^k: E \to E$ é designada \textbf{potência de exponente $k$}.\\
@@ -931,6 +933,11 @@ A dimensão de $\mathcal{M}_{\alpha}$ é designada \textbf{multiplicidade geomé
 $$mg(\alpha) = dim \mathcal{M}_\alpha \leq dim \mathcal{M}_{n \times 1} = n$$
 Seja $A \in \mathcal{M}_{n \times n}$ e seja $\alpha$ um dos seus valores próprios.\\
 $mg(\alpha) = n - r(A - \alpha I_n)$\\[2mm]
+Seja $f: E \to E$ uma aplicação linear num espaço $E$ com dimensão finita e $\mathcal{B}$ uma base de $E$ e $A=\mathcal{M}(f; \mathcal{B},\mathcal{B})$.
+\begin{itemize}
+\item $\vec u$ só é vetor próprio de $f$ se as coordenadas de $\vec u$ em $\mathcal{B}$ forem vetor próprio de $A$.
+\item $\alpha$ só é o valor próprio de $f$ se for o valor próprio de $A$.
+\end{itemize}
 Seja $A \in \mathcal{M}_{n \times n}$ uma transformação e $X$ um vetor próprio com valor próprio $\alpha$:\\
 A aplicação sucessiva da transformação $A$ é equivalente ao dimensionamento sucessivo do vetor próprio $X$.\\
 Formalmente: $\forall k \in \mathbb{N} : A^k X = \alpha^k X$
