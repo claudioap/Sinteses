@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
+\usepackage{wrapfig}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{forest}
 \usepackage{tikz}
@@ -988,4 +989,147 @@ $$P^{-1}AP =
 $A$ só é diagonalizavel se $\sum_{i=1}^r mg(\alpha_i) = n$ sendo $\alpha_1, \dots, \alpha_r$ os distintos valores próprios.\\[5mm]
 Uma aplicação linear $f: E \to E$ diz-se diagonalizavel se existe uma base tal que $\mathcal{M}(f; B, B)$ é uma matriz diagonal.\\
 Se $dim E = n$, então $f$ só é diagonalizavel se tem $n$ vetores próprios linearmente independentes.
+\chapter{Operações Vetoriais}
+\section{Produto interno}
+Com $\vec u = (a_1, a_2, \dots), \vec v = (b_1, b_2, \dots)$, o \textbf{produto interno}, representado $u|v$ é dado:
+$$\vec u | \vec v = a_1 b_1 + a_2 b_2 + \dots $$
+\begin{wrapfigure}{r}{0.4\textwidth}
+	\vspace{-15mm}
+    \begin{center}
+        \includegraphics[width=5cm]{./images/produto_interno.png}
+    \end{center}
+	\vspace{-5mm}
+    \caption{Projeção de um vetor.}
+	\vspace{-10mm}
+\end{wrapfigure}
+Pode ser intrepretado como a projeção de um vetor no outro, e multiplicação pelo seu tamanho.\\[2mm]
+Verifica os seguintes axiomas:
+\begin{itemize}
+\item $\vec u| \vec v = \vec v| \vec u$
+\item $(\vec u+\vec v)|\vec w = \vec u| \vec w + \vec v|\vec u$
+\item $(\alpha \vec u)|\vec v = \alpha (\vec u | \vec v)$
+\item $\vec u | \vec u$ é nulo só e apenas se $\vec u$ for nulo.
+\end{itemize}
+\section{Norma}
+A \textbf{norma} de um vetor $\vec u = (a_1, a_2, \dots)$, representada $\parallel \vec u \parallel$ é o comprimento do vetor.
+$$\parallel \vec u \parallel = \sqrt{\vec u | \vec u} = \sqrt{a_1^2 + a_2^2 + \dots}$$
+Axiomas:
+\begin{itemize}
+\item Um vetor só tem norma nula se for nulo.
+\item $\parallel \alpha \vec u \parallel = | \alpha| \parallel \vec u \parallel$
+\item $| \vec u | \vec v | \leq \parallel \vec u \parallel \parallel \vec v \parallel$ (Desigualdade de Schwarz)
+\item $\parallel \vec u  + \vec v \parallel \leq \parallel \vec u \parallel + \parallel \vec v \parallel$ (Desigualdade Triangular)
+\end{itemize}
+Um vetor de norma unitária ($\parallel \vec u \parallel = 1$) é dito \textbf{unitário} ou \textbf{normalizado}.\\
+Um vetor $\vec u$ arbitrário pode ser escalado até ser unitário com a formula $\frac{1}{\parallel \vec u \parallel} \vec u$.\\
+Ao resultado dessa transformação transformação designa-se \textbf{versor} de $\vec u$ e representa-se $\hat u$.
+\section{Angulos}
+A partir da desigualdade de Schwarz é possível concluir:
+$$-1 \leq \frac{\vec u | \vec v}{\parallel \vec u \parallel \parallel \vec v \parallel} \leq 1$$
+A alteração constante do angulo entre dois vetores faz a expressão acima produzir a função cosseno.
+$$cos \measuredangle (\vec u, \vec v) = \frac{\vec u | \vec v}{\parallel \vec u \parallel \parallel \vec v \parallel}$$
+Pelo que a obtenção do angulo entre dois vetores pode ser feita com a função:
+$$\measuredangle (\vec u, \vec v) = arccos \frac{\vec u | \vec v}{\parallel \vec u \parallel \parallel \vec v \parallel}$$
+Axiomas:
+\begin{itemize}
+\item $\measuredangle (\vec u, \vec v) = \measuredangle (\vec v, \vec u)$
+\item $\vec u | \vec v = \parallel \vec u \parallel \parallel \vec v \parallel cos \measuredangle (\vec u, \vec v)$
+\end{itemize}
+Dois vetores são \textbf{perpendiculares} se $\vec u | \vec v = 0$ representando-se $u \perp v$.\\
+Vetores são \textbf{ortogonais} se: $\parallel \vec u + \vec v \parallel^2 = \parallel \vec u \parallel^2 + \parallel \vec v \parallel^2$\\
+Uma sequência de vetores é \textbf{ortogonal} se todos os vetores são perpendiculares aos restantes.\\
+A uma sequência de vetores ortogonais unitários designa-se \textbf{sequência ortonormada}.\\[2mm]
+Seja $\mathcal{B} = (\vec b_1, \vec b_2, \dots)$ uma base ortonormada:\\
+Sejam $\vec u$ e $\vec v$ vetores com as coordenadas $\alpha_1, \alpha_2, \dots$ e $\beta_1, \beta_2, \dots$ na base $\mathcal{B}$.
+\begin{itemize}
+\item $\vec u | \vec b = \alpha_1 \beta_1 + \alpha_2 \beta_2 + \dots$
+\item $\parallel \vec u \parallel = \sqrt{\alpha_1^2 + \alpha_2^2 + \dots}$
+\item $\alpha_1 = \vec u | \vec b_1,\quad \alpha_2 = \vec u | \vec b_2,\quad \dots$
+\end{itemize}
+Qualquer sequência ortogonal de vetores é linearmente independente.
+\subsection{Processo de Ortogonalização de Gram-Schmidt}
+Para definir uma sequência ortogonal $V$ a partir de uma base $(\vec u_1, \vec u_2, \dots, \vec u_n)$ podem efetuar-se $n$ vezes os passos:
+\begin{itemize}
+\item $\vec v_1 = \vec u_1$
+\item $\vec v_2 = \vec u_2 - \frac{\vec u_2 | \vec v_1}{ \parallel \vec v_1 \parallel } \vec v_1$
+\item $\vec v_3 = \vec u_3 - \frac{\vec  u_3 | \vec  v_1}{\parallel \vec  v_1 \parallel} \vec  v_1 - \frac{ \vec u_3 | \vec  v_2}{\parallel \vec  v_2 \parallel} \vec v_2$
+\item $\dots$
+\end{itemize}
+\subsection{?}
+Seja $E$ um espaço e $F$ um dos seus subespaços.\\
+Ao conjunto de todos os vetores de $E$ que são ortogonais a qualquer vetor de $F$ designa-se de \textbf{complemento ortogonal} e representa-se $F^{\perp}$.
+$$F^{\perp} = \{\vec u \in E: \forall_{\vec v \in F} \vec u | \vec v = 0\}$$
+Um vetor de $F^{\perp}$ também é dito ortogonal a $F$.
+%TODO slide 23
+\subsection{?}
+Seja $\mathcal{B}$ uma base de $E$ e $P = \mathcal{M}(id_E; \mathcal{B}, b.c._E)$ com $b.c._E$ a base canónica de $E$:\\
+\indent $\mathcal{B}$ é uma \textbf{base direta} se  $det P > 0$ e uma \textbf{base indireta} se $det P < 0$.\\
+Informalmente: Bases diretas ocorrem quando o espaço não é "espelhado".\\[2mm]
+Definam-se dois vetores linearmente independentes em $\mathbb{R}^3$, $\vec u, \vec v$ e um real positivo $\theta$ .
+\begin{itemize}
+\item Só existe um única reta que é ortogonal simultaneamente a $\vec u$ e $\vec v$.
+\item Só existem dois pontos que verificam a linha anterior e tem norma $\theta$.
+\item Só existe um único ponto que verifica as duas linhas anteriores e tem base direta.
+\end{itemize}
+\clearpage
+\section{Produto Externo}
+Informalmente: O \textbf{produto externo} de dois vetores é um vetor que lhes é perpendicular, cujo comprimento é a area do paralelograma definido pelos dois vetores, e o sentido é o dado pela regra da mão direita.
+\vspace{2mm}
+\begin{wrapfigure}{r}{0.25\textwidth}
+	\vspace{-5mm}
+    \begin{center}
+        \includegraphics[width=0.24\textwidth]{./images/regra_mao_direita.png}
+    \end{center}
+	\vspace{-5mm}
+    \caption{Produto externo. Por Acdx, Wikimédia.}
+	\vspace{-10mm}
+\end{wrapfigure}
+O \textbf{produto externo} de dois vetores $\vec u$ e $\vec v$ é representado $\vec u \times \vec v$.\\
+Para vetores numa base ortonormada e directa $(\vec b_1, \vec b_2, \vec b_3)$ é dado por:
+$$\vec u \times \vec v = det\left(
+\begin{bmatrix}
+b_1 & u_1 & v_1\\
+b_2 & u_2 & v_2\\
+b_3 & u_3 & v_3
+\end{bmatrix}
+\right)$$
+Outro método de obtenção:
+\begin{itemize}
+\item Se $\vec u$ e $\vec v$ são linearmente independentes é $0_{\mathbb{R}^3}$.
+\item Se $\vec u$ e $\vec v$ linearmente independentes, é o vetor que obedece ás restrições:
+\begin{itemize}
+\item Está na reta simultaneamente ortogonal a $\vec u$ e $\vec v$.
+\item Tem comprimento $\parallel \vec u \parallel \parallel \vec v \parallel sin \measuredangle(\vec u, \vec v)$
+\item Juntamente com $\vec u$ e $\vec v$ forma uma base direta ao espaço $\mathbb{R}^2$
+\end{itemize}
+\end{itemize}
+Axiomas:
+\begin{itemize}
+\item $\vec u \times \vec v = -(\vec v \times \vec u)$
+\item $\lambda(\vec u) \times \vec v = \vec u \times \lambda(\vec v) = \lambda(\vec u \times \vec v)$
+\item $(\vec u + \vec v) \times \vec w = (\vec u \times \vec w) + (\vec v \times \vec w)$
+\item $\vec u \times (\vec v + \vec w) = (\vec u \times \vec v) + (\vec u \times \vec w)$
+\item $(\vec u \times \vec v) \times \vec w \neq \vec u \times (\vec v \times \vec w)$
+\end{itemize}
+\clearpage
+\section{Produto Misto}
+O produto \textbf{misto misto} de três vetores $\vec u, \vec v, \vec w \in \mathbb{R}^3$ é a operação definida:
+$$(\vec u \times \vec v) | \vec w$$
+Se $\mathcal{B}$ for uma base ortonormada e directa de $\mathbb{R}^3$, e os vetores $\vec u, \vec v, \vec w$ forem tiver nessa base coordenadas $(\alpha_1, \alpha_2, \alpha_3)$, 
+$(\beta_1, \beta_2, \beta_3)$ e $(\gamma_1, \gamma_2, \gamma_3)$, respetivamente, então o produto misto é dado por:
+$$\vec u \times \vec v = det\left(
+\begin{bmatrix}
+\alpha_1 & \beta_1 & \gamma_1\\
+\alpha_2 & \beta_2 & \gamma_2\\
+\alpha_3 & \beta_3 & \gamma_3
+\end{bmatrix}
+\right)$$
+Axiomas:
+\begin{itemize}
+\item $(\vec u \times \vec v)|\vec w = -(\vec u \times \vec w)|\vec v$
+\item $(\vec u \times \vec v)|\vec w = -(\vec v \times \vec u)|\vec w$
+\item $(\vec u \times \vec v)|\vec w = -(\vec w \times \vec v)|\vec u$
+\item $(\vec u \times \vec v)|\vec w = (\vec v \times \vec w)|\vec u = (\vec w \times \vec u)|\vec v$
+\item $(\vec u \times \vec v)|\vec w = \vec u|(\vec v \times \vec w)$
+\end{itemize}
 \end{document}
