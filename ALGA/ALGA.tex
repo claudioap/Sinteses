@@ -1132,4 +1132,93 @@ Axiomas:
 \item $(\vec u \times \vec v)|\vec w = (\vec v \times \vec w)|\vec u = (\vec w \times \vec u)|\vec v$
 \item $(\vec u \times \vec v)|\vec w = \vec u|(\vec v \times \vec w)$
 \end{itemize}
+\chapter{Geometria Analítica}
+\section{Definição de uma Reta}
+Um vetor não nulo paralelo a uma reta é o \textbf{vetor diretor} dessa reta.\\
+Com $A$ e $B$ dois pontos distintos de uma reta, $\overrightarrow{AB}$ é um vetor diretor dessa reta.\\[2mm]
+Uma reta $r$ pode ser definida com:
+\begin{itemize}
+\item Dois pontos.
+\item Um ponto e o seu vetor diretor:
+$$r = A + \lambda \vec u, \quad \lambda \in \mathbb{R}$$
+$$r: (x, y, z) = (a_1, a_2, a_3) + \lambda(u_1, u_2, u_3)$$
+\end{itemize}
+\vspace{2mm}
+As expressão da reta pode ser colocada nas suas \textbf{equações cartesianas} que são:
+\begin{itemize}
+\item As suas \textbf{equações paramétricas}:
+$$
+\begin{cases}
+x = a_1 + \lambda u_1\\
+y = a_2 + \lambda u_2\\
+z = a_3 + \lambda u_3
+\end{cases}
+$$
+\item As suas \textbf{equações normais} (obtidas colocando $\lambda$ no termo separado):
+$$\frac{x - a_1}{u_1} = \frac{y - a_2}{u_2} = \frac{z - a_3}{u_3}$$
+\item Ou as suas \textbf{equações reduzidas} (que assumem neste caso que $u_3 \neq 0$):
+$$
+\begin{cases}
+x = mz + p\\
+y = nz + q
+\end{cases}
+\quad
+\text{ com }
+\quad
+m = \frac{u_1}{u_3}
+\quad
+n = \frac{u_2}{u_3}
+\quad
+p = a_1 - \frac{a_3 u_1}{u_3}
+\quad
+p = a_2 - \frac{a_3 u_2}{u_3}
+$$
+\end{itemize}
+\clearpage
+\section{Definição de um Plano}
+Um plano pode ser definido com:
+\begin{itemize}
+\item Um ponto e dois vetores não paralelos entre si.\\
+Esses vetores são os \textbf{vetores diretores} do plano.
+$$p = A + \lambda \vec u + \mu \vec v, \quad \lambda, \mu \in \mathbb{R}$$
+$$p: (x, y, z) = (a_1, a_2, a_3) + \lambda(u_1, u_2, u_3) + \mu(v_1, v_2, v_3)$$
+\item Três pontos não colineares.\\
+Se os pontos forem $A,B$ e $C$, os vetores $\overrightarrow{AB}$ e $\overrightarrow{BC}$ (por exemplo) atuam como vetores diretores.
+\item Um ponto e um vetor perpendicular ao plano.\\
+Sendo $\vec u, \vec v$ quaisquer dois vetores diretores, o vetor perpendicular poderia ser $\vec u \times \vec v$.
+\end{itemize}
+
+As expressão do plano pode ser colocada nas suas \textbf{equações cartesianas} que são:
+\begin{itemize}
+\item As suas \textbf{equações paramétricas}:
+$$
+\begin{cases}
+x = a_1 + \lambda u_1 + \mu v_1\\
+y = a_2 + \lambda u_2 + \mu v_3\\
+z = a_3 + \lambda u_3 + \mu v_2
+\end{cases}
+$$
+\item A sua \textbf{equação geral}:
+$$ax + by + cz + d = 0$$
+\end{itemize}
+\section{Problemas Comuns}
+A \textbf{distância entre dois pontos} $P$ e $Q$ é dada por:
+$$d(P, Q) = \parallel \overrightarrow{AB} \parallel$$
+A \textbf{distância entre um ponto $P$ e uma reta} $\mathcal{R}$ com um ponto $A$ e vetor diretor $\vec u$ é dada por:
+$$
+d(P, \mathcal{R}) = \parallel \overrightarrow{AP} \parallel sin \theta =
+\frac{\parallel \overrightarrow{AP} \parallel \parallel \vec u \parallel sin \theta}{\parallel \vec u \parallel} =
+\frac{\parallel \overrightarrow{AP}  \times \vec u \parallel}{\parallel \vec u \parallel}
+$$
+$$\text{Com } \theta = \measuredangle(\vec u, \overrightarrow{AP})$$
+\textbf{Distância de um ponto $P$ a um plano $\mathcal{P}$} com um ponto $A$ e um vetor perpendicular $\vec w$:
+$$
+d(P, \mathcal{P}) = \parallel \overrightarrow{AP} \parallel | cos \theta |=
+\frac{\parallel \overrightarrow{AP} \parallel \parallel \vec w \parallel | cos \theta|}{\parallel \vec w \parallel} =
+\frac{| \overrightarrow{AP} | \vec w |}{\parallel \vec w \parallel}
+$$
+$$\text{Com } \theta = \measuredangle(\vec w, \overrightarrow{AP})$$
+\section{?}
+Num plano bidimensional duas retas são podem ser estritamente \textbf{paralelas} ou podem ser \textbf{concorrêntes} (intersectam-se algures).\\
+Num espaço com mais de duas dimensões podem ainda ser \textbf{enviesadas} se não forem paralelas e ainda assim nunca se toquem.
 \end{document}
