@@ -9,6 +9,7 @@
 \usepackage{tikz}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage{multicol}
 
 \begin{document}
 \begin{titlepage}
@@ -34,7 +35,7 @@
 	{\large \today\par}
 	\vfill
 	Adaptação licenciada:\\
-	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{ccbysa.png}}
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{../ccbysa.png}}
 \end{titlepage}
 \tableofcontents
 \chapter{Definição}
@@ -51,20 +52,20 @@ Sistemas que pensam racionalmente & Sistemas que agem racionalmente \\
 \end{tabular}
 \end{table}
 \subsection{Sistemas que pensam como humanos}
-Pensar como humanos requer uma teoria a detalhar a mente humana para validar o comportamento do sistema de inteligência artificial.\\
-Tal teoria pode ser obtida das seguintes formas:
+Fazer um sistema que pense como humanos requer uma teoria que descreva a mente humana para validar o comportamento do sistema de inteligência artificial.\\
+Tal teoria pode ser obtida por:
 \begin{itemize}
-\item \textbf{Introspeção} - Por captação de pensamentos
-\item \textbf{Experiências Psicológicas} - Por observação de ações
-\item \textbf{Imagens cerebrais} - Por observação do cérebro
+\item \textbf{Introspeção} - captação de pensamentos
+\item \textbf{Experiências Psicológicas} - observação de ações
+\item \textbf{Imagens cerebrais} - observação do cérebro
 \end{itemize}
 Perante uma teoria suficientemente detalhada, é possível implementar a mesma num computador.\\
 As áreas que tentam desenvolver teorias da mente são:
 \begin{itemize}
-\item \textbf{Ciência cognitiva} - Por técnicas psicológicas
-\item \textbf{Neurociência Cognitiva} - Por técnicas neurológicas
+\item \textbf{Ciência cognitiva} - técnicas psicológicas
+\item \textbf{Neurociência Cognitiva} - técnicas neurológicas
 \end{itemize}
-A desvantagem deste método de conceção de inteligência artificial é que a obtenção de dados e posterior validação é efetuada por via de experimentação em humanos, e após décadas de investigação ainda não foi possível explicar a inteligência humana.\\
+A desvantagem deste método de conceção de inteligência artificial é que a obtenção de dados e posterior validação é efetuada por via de experimentação em humanos, e após décadas de investigação ainda não foi possível formular a inteligência humana.\\
 Por estes motivos esta área de estudo é considerada distinta da inteligência artificial, apesar de ter muito em comum.
 \subsection{Sistemas que pensam racionalmente}
 Um sistema que pensa racionalmente é um que tem fundamentos em lógica.\\
@@ -87,16 +88,17 @@ Um \textbf{agente} é entidade uma definida por:
 Um agente é racional quando age para obter o melhor resultado, ou, perante incerteza, o melhor resultado esperado.\\
 É mais adequado para desenvolvimento cientifico do que as abordagens baseadas no comportamento humano.
 \section{Fundações}
-A inteligência artificial é constituída por muitas áreas de estudo, e pode ser aplicada a muitas mais. 
+A inteligência artificial exige avanços em muitas áreas de estudo, sendo que a execução responde questões das mesmas.
+\begin{multicols}{2}
 \subsection{Filosofia}
-Para que se faça inteligência artificial tem de se conseguir responder às questões:
+Respondendo ás questões:
 \begin{itemize}
-\item Podem regras formais ser usadas para inferir conclusões válidas?
+\item Pode-se inferir conclusões válidas por regras formais?
 \item Como é que a mente emerge de um cérebro físico?
 \item De onde vem o conhecimento?
 \item Como é que o conhecimento leva à ação?
 \end{itemize}
-No entanto a inteligência artificial contribui para a filosofia no estudo de:
+Contribui-se para o estudo de:
 \begin{itemize}
 \item Lógica
 \item Métodos de raciocínio
@@ -106,21 +108,75 @@ No entanto a inteligência artificial contribui para a filosofia no estudo de:
 \item Racionalidade
 \end{itemize}
 \subsection{Matemática}
-Tem de se conseguir responder as questões:
+Respondendo ás questões:
 \begin{itemize}
-\item Quais são as regras formais para inferir conclusões válidas?
+\item Que regras formais inferem conclusões válidas?
 \item O que pode ser computado?
 \item Como raciocinar com informação incerta?
 \end{itemize}
-Sendo o retorno no estudo de:
+Contribui-se para o estudo de:
 \begin{itemize}
 \item Representação formal e prova
 \item Algoritmos
 \item Computação
 \item Determinação da decibibilidade
-\item Determinação da tractibilidade [rever e acabar isto]
+\item Determinação da tractibilidade (o que é?)
 \item Probabilidades
 \end{itemize}
+\subsection{Economia}
+Respondendo ás questões:
+\begin{itemize}
+	\item O que decidir para maximizar o ganho?
+	\item Como lidar com a falta de cooperação?
+	\item Como agir perante ganhos distantes no futuro?
+\end{itemize}
+Contribui-se para o estudo de:
+\begin{itemize}
+	\item Teoria formal de decisões formais.
+	\item Teoria da utilidade.
+	\item Teoria de jogos.
+\end{itemize}
+\subsection{Neurociência}
+Respondendo à questão:\\
+\indent Como é que os cérebros processam informação?\\
+Contribui-se para o estudo da atividade mental.
+\subsection{Psicologia}
+Respondendo à questão:\\
+\indent Como é que os animais pensam e agem?\\
+Contribui-se para o estudo de:
+\begin{itemize}
+    \item Cognição
+    \item Comportamento
+    \item Adaptação
+    \item Perceção e controlo motor
+\end{itemize}
+\subsection{Informática}
+Respondendo à questão:\\
+\indent Como construir um computador eficiente?\\
+Contribui-se para o estudo de:
+\begin{itemize}
+\item Conceção de hardware.
+\item Fundamentos dos sistemas operativos.
+\item Otimização de programas e linguagens de programação.
+\end{itemize}
+\subsection{Teoria de controlo e cibernética}
+Respondendo à questão:\\
+\indent Como é que artefactos se podem controlar?\\
+Contribui-se para o estudo de:
+\begin{itemize}
+	\item Sistemas homoestáticos.
+	\item Estabilidade.
+	\item Desenhos ótimos para agentes simples.
+\end{itemize}
+\subsection{Linguística}
+Respondendo à questão:\\
+\indent Qual a relação da linguagem com o pensamento?\\
+Contribui-se para o estudo de:
+\begin{itemize}
+\item Representação de conhecimento.
+\item Gramática.
+\end{itemize}
+\end{multicols}
 \chapter{Agentes}
 \section{Caraterísticas dos agentes}
 Agentes são sistemas que agem num dado \textbf{ambiente}.
