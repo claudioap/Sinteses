@@ -46,10 +46,12 @@ A compreensão científica dos mecanismos subjacentes ao pensamento e ao comport
 \end{quote}
 Pode no entanto ser interpretada de diversas formas distintas:
 \begin{table}[htbp]
+	\begin{center}
 \begin{tabular}{l | l}
 Sistemas que pensam como humanos & Sistemas que agem como humanos \\ \hline
-Sistemas que pensam racionalmente & Sistemas que agem racionalmente \\
+Sistemas que pensam racionalmente & Sistemas que agem racionalmente
 \end{tabular}
+\end{center}
 \end{table}
 \subsection{Sistemas que pensam como humanos}
 Fazer um sistema que pense como humanos requer uma teoria que descreva a mente humana para validar o comportamento do sistema de inteligência artificial.\\
@@ -78,6 +80,7 @@ A lógica pode ser vista neste contexto como uma interseção de Matemática e F
 \subsection{Sistemas que agem racionalmente}
 Sistemas que agem racionalmente são construidos por base em \textbf{agentes racionais}.\\
 Um \textbf{agente} é entidade uma definida por:
+\begin{multicols}{2}
 \begin{itemize}
 \item Agir autonomamente
 \item Percecionar o ambiente
@@ -85,6 +88,7 @@ Um \textbf{agente} é entidade uma definida por:
 \item Adaptar-se a mudanças
 \item Criar e perseguir objetivos
 \end{itemize}
+\end{multicols}
 Um agente é racional quando age para obter o melhor resultado, ou, perante incerteza, o melhor resultado esperado.\\
 É mais adequado para desenvolvimento cientifico do que as abordagens baseadas no comportamento humano.
 \section{Fundações}
@@ -120,7 +124,7 @@ Contribui-se para o estudo de:
 \item Algoritmos
 \item Computação
 \item Determinação da decibibilidade
-\item Determinação da tractibilidade (o que é?)
+\item Determinação da tractibilidade %TODO (o que é?)
 \item Probabilidades
 \end{itemize}
 \subsection{Economia}
@@ -177,16 +181,27 @@ Contribui-se para o estudo de:
 \item Gramática.
 \end{itemize}
 \end{multicols}
+\section{Contributos importantes}
+\begin{itemize}
+	\item Teorema de incompletude de Gödel (1931)\\
+	As questões matemáticas não são todas computáveis.
+	\item Problema da paragem de Turing (1936)\\
+	Não é possível criar um programa que determina se outro programa tem fim.
+	\item Teorema por Warren McCulloch e Walter Pitts (1943)\\
+	Uma máquina de Turing pode ser implementada numa rede finita de neurónios.
+\end{itemize}
 \chapter{Agentes}
 \section{Caraterísticas dos agentes}
-Agentes são sistemas que agem num dado \textbf{ambiente}.
-Um agente perceciona o ambiente através de \textbf{sensores} e age nele com \textbf{atuadores}.
+Agentes são sistemas num \textbf{ambiente}, a partir qual retiram informação com \textbf{sensores} e agem com \textbf{atuadores}.\\
+Tem:
+\begin{multicols}{2}
 \begin{itemize}
-\item Corpo
-\item Localização (No tempo e espaço)
+\item Um corpo físico
+\item Uma localização (No tempo e espaço)
 \item Capacidades (Sensores e atuadores)
-\item Decisão
+\item Capacidade de decisão (Deliberativa ou não)
 \end{itemize}
+\end{multicols}
 Existem diversos tipos de agentes conhecidos:
 \begin{itemize}
 \item Biológicos\\
@@ -202,73 +217,88 @@ Os \textbf{atuadores} são o ecrã, uma placa de controlo, um email enviado, ...
 \section{Definição sistemática}
 Um \textbf{ambiente} carateriza-se por conjuntos de \textbf{estados} $E$.\\
 Os estados sofrem transições não deterministas:
-$$[ \text{Ambiente: } E \times A \rightarrow 2^E] \text{(o que é isto?)}$$
+$$[ \text{Ambiente: } E \times A \to 2^E]$$ %TODO Explicar o que é isto
 O agente é constituído por duas funções:
-$$[\text{Percepção: }: E \rightarrow P]$$
-$$[\text{Ação }: P^{\star} \rightarrow A]$$
-e implementa a função:
-$$[\text{Agente }: E^\star \rightarrow A]$$
+$$[\text{Percepção: }: E \to P] \hspace{3cm} [\text{Ação }: P^{\star} \to A]$$
+e implementa: $[\text{Agente }: E^\star \to A]$
 \section{Agentes racionais}
-Um agente racional faz o que lhe é mais benéfico.\\
-O beneficio é medido por via de uma \textbf{medida de desempenho} que é o critério de avaliação do agente.
-Assim sendo, um agente racional é um agente que maximiza o valor esperado da medida de desempenho.\\
-Note-se que racionalidade não implica:
+Um agente tem uma \textbf{medida de desempenho}. Um agente racional é um agente que maximiza o valor esperado da medida de desempenho, tentando sempre fazer o que lhe é mais benéfico.\\[2mm]
+Racionalidade não implica:
+\begin{multicols}{3}
 \begin{itemize}
 \item \textbf{Omnisciência} (Tudo saber)
 \item \textbf{Derividência} (Tudo prever)
 \item \textbf{Sucesso}
 \end{itemize}
-No entanto pressupõe:
+\end{multicols}
+\noindent No entanto pressupõe:
+\begin{multicols}{2}
 \begin{itemize}
-\item \textbf{Obtenção de informação} e \textbf{exploração}
+\item \textbf{Obtenção de informação}
+\item \textbf{Exploração}
 \item \textbf{Aprendizagem}
 \item \textbf{Autonomia}
 \end{itemize}
-\section{Performance measure environment}
-PEAS
-[Por fazer]
+\end{multicols}
+\section{Performance measure environment, actuators, sensors (PEAS)}
+O \textbf{PEAS} é uma especificação do ambiente de execução de um agente, com os seguintes atributos:
+\begin{itemize}
+	\item Medida desempenho\\
+	Um critério para avaliar o agente. Pode ser composto de sub-critérios.\\
+	Ex: Eficácia, satisfação, eficiência, etc ...
+	\item Ambiente\\
+	Ambiente em que o agente se encontra inserido.\\
+	Ex: Maquina com dimensões $x, y, z$, na estrada, a interagir com peões.
+	\item Atuadores\\
+	Ex: Ecrã, braço robótico, coluna, etc ...
+	\item Sensores\\
+	Ex: Câmara, placa de pressão, botões, etc ...
+\end{itemize}
 \clearpage
 \section{Propriedades dos ambientes}
+\begin{multicols}{2}
 \subsection{Observabilidade}
 Um ambiente é \textbf{totalmente observável} se o agente for omnisciente, isto é, souber o estado atual de tudo.\\
 Por outro lado é \textbf{parcialmente observável} se o agente só conseguir obter alguma informação em cada instante.
-\subsection{Determinismo}
-Um ambiente é \textbf{determinista} se as ações do agente sobre o ambiente forem deterministas.\\
-Se apenas as ações do próprio agente forem determinísticas, no entanto as dos restantes agentes não forem, o ambiente é \textbf{estratégico}.\\
+\subsection{Determinístico ou estocástico}
+Um ambiente é \textbf{determinista} se as ações do agente sobre o ambiente forem deterministas.
+Se as ações do próprio agente forem determinísticas, mas não as de terceiros, então o ambiente é \textbf{estratégico}.
 Caso o ambiente não seja determinístico é \textbf{estocástico}.
-\subsection{Coiso atómico cenas}
-[Por fazer]
-\subsection{Dinamismo}
-Se o ambiente não alterar durante a deliberação do agente, então é \textbf{estático}.\\
-Se a o ambiente se alterar por fatores externos é \textbf{dinâmico}.\\
-Se a medida de desempenho alterar e com ela a perceção do ambiente, o ambiente é \textbf{semi-dinâmico}.
-\subsection{Espaço de ações}
-Se o ambiente tiver um numero finito de ações e todas elas estejam bem definidas, o ambiente é \textbf{discreto}.\\
-Caso contrario é \textbf{continuo}.
-\subsection{Partilha}
+\subsection{Episódico ou sequencial}
+Um ambiente é \textbf{episódico} se as experiências são atómicas e cada perceção é seguida de uma única ação, sem dependência das anteriores.\\
+O oposto é um ambiente \textbf{sequencial}.
+\subsection{Estático ou dinâmico}
+Um ambiente é \textbf{estático} se não altera durante a deliberação do agente.
+Pelo contrário é \textbf{dinâmico} caso se altere.\\
+É ainda \textbf{semi-dinâmico} caso seja estático mas a medida de desempenho se alterar com o tempo.
+\subsection{Discreto ou continuo}
+Se o ambiente tiver um numero finito de ações e perceções forem e todas bem definidas, o ambiente é \textbf{discreto}.\\
+Caso contrario, caso as ações ou perceções é \textbf{continuo}.
+\subsection{Agente único ou multi-agente}
 Se o agente for o único no ambiente, o ambiente tem \textbf{agente único}.\\
-Caso contrario é \textbf{multi-agente}.
-\clearpage
+Caso contrario é um ambiente \textbf{multi-agente}.
+\end{multicols}
 \section{Propriedades dos agentes}
 Um agente pode verificar uma combinação das seguintes propriedades:
-\subsection{Racionalidade}
+\begin{multicols}{2}
+\subsection{Racional}
 Maximiza o desempenho em função dos dados obtidos
-\subsection{Reatividade}
+\subsection{Reativo}
 Responde em tempo útil a mudanças no ambiente.
-\subsection{Proactividade}
+\subsection{Proativo}
 Tem iniciativa em vez de apenas reagir.
 \subsection{Comunicação}
 Comunica com os outros agentes.
-\subsection{Autonomo}
+\subsection{Autónomo}
 Aprende e adapta-se com experiências anteriores
-\subsection{Mobilidade}
+\subsection{Móvel}
 Consegue deslocar-se
 \subsection{Caráter}
-Apresenta um estado emocional e uma propriedade própria.
+Têm estado emocional e uma propriedade própria.
+\end{multicols}
 \clearpage
 \section{Arquiteturas de agentes}
-Os agentes tem uma arquitetura associada ao seu funcionamento.\\
-As seguintes são arquiteturas comuns, e todas elas podem ser transformadas em agentes com capacidades de aprendizagem. [needs sauce]
+Os agentes tem uma arquitetura associada ao seu funcionamento que dita como é que operam.
 \subsection{Agente reativo puro}
 Um agente reativo puro perceciona o mundo pelos seus sensores e recorre a um conjunto de regras suas para decidir o que fazer. Como o nome indica, para cada ação deverá de ter uma reação.
 \paragraph{Programas Teleo-Reativos (Nilsson)}.\\
