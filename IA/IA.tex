@@ -300,31 +300,63 @@ Têm estado emocional e uma propriedade própria.
 \section{Arquiteturas de agentes}
 Os agentes tem uma arquitetura associada ao seu funcionamento que dita como é que operam.
 \subsection{Agente reativo puro}
-Um agente reativo puro perceciona o mundo pelos seus sensores e recorre a um conjunto de regras suas para decidir o que fazer. Como o nome indica, para cada ação deverá de ter uma reação.
-\paragraph{Programas Teleo-Reativos (Nilsson)}.\\
+Um \textbf{agente reativo puro} perceciona o mundo pelos seus sensores e recorre a um conjunto de regras suas para decidir o que fazer. Como o nome indica, para cada ação deverá de ter uma reação.
+\begin{algorithm}
+	\caption{Conceito de um agente reativo simples}
+	\begin{algorithmic}
+		\Function{AGENTE-REATIVO-SIMPLES}{\textit{perceção}} \textbf{returns} \textit{ação}
+		\State \textbf{persistent:} \textit{regras}, um conjunto de regras ação-condição
+		\State \textit{estado} $\gets$ INTERPRETAR(\textit{perceção})
+		\State \textit{regra} $\gets$ OPTAR(\textit{estado, regras})
+		\State \textit{ação} $\gets$ EXECUTAR(\textit{regra})
+		\State \Return ação
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+\paragraph{Programas Teleo-Reativos (Nilsson)}
 São programas definidos por um uma sequência de regras.
 $$\{\{c_1 \rightarrow a_1\}, \{c_2 \rightarrow a_2\}, \dots, \{c_n \rightarrow a_n\}\}$$
 Cada $c_k$ é uma condição dada por uma conjunção de preposições booleanas e cada $a_k$ é uma ação a executar.\\
 Opta-se sempre por executar a primeira condição que se verifique verdadeira.\\[2mm]
 Um agente reativo puro é baseado num programa Teleo-Reativo.
-\subsection{Agente reativo baseado em modelos}
-Este agente é uma modificação do agente reativo puro que o permite memorizar as mudanças no mundo.
+\subsection{Agente reativo com estado}
+O \textbf{agente reativo com estado} (ou \textbf{agente baseado em modelos}) é uma modificação do agente reativo puro que o permite memorizar as mudanças no mundo.
+\begin{algorithm}
+	\caption{Conceito de um agente reativo com estado}
+	\begin{algorithmic}
+		\Function{AGENTE-REATIVO-COM-ESTADO}{\textit{perceção}} \textbf{returns} \textit{ação}
+		\State \textbf{persistent:} \textit{estado}, descrição do estado atual do mundo
+		\State \hspace{12mm} \textit{regras}, um conjunto de regras ação-condição
+		\State \hspace{12mm} \textit{ação}, ultima ação
+		\State \textit{estado} $\gets$ ATUALIZA-ESTADO(\textit{estado, ação, perceção})
+		\State \textit{regra} $\gets$ OPTAR(\textit{estado, regras})
+		\State \textit{ação} $\gets$ EXECUTAR(\textit{regra})
+		\State \Return ação
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
 \subsection{Agente guiado por objetivo}
-Um agente que considera o impacto das ações no mundo, tanto para as ações passadas (avalia o resultado que tiveram), como para ações futuras (tenta prever as eventuais consequências).\\
+Um agente que considera o impacto das ações no mundo, tanto para as ações passadas (avalia o resultado que tiveram), como para ações futuras (tenta prever as eventuais consequências).
 A partir das considerações, calcula o que pensa serem as melhores ações para chegar ao objetivo.
 \subsection{Agente guiado com função de utilidade}
-Um agente similar ao guiado por objetivo, mas considera a utilidade em vez dos objetivos, isto é, durante o seu tempo de execução, tenta maximizar a sua utilidade em todos os instantes de tempo
-\section{Agentes aprendizes}
-[TODO]
-\section{Representações internas dos agentes}
+Um agente similar ao guiado por objetivo, mas considera a utilidade em vez dos objetivos, isto é, durante o seu tempo de execução, tenta maximizar a sua utilidade em todos os instantes de tempo, mesmo que isso não o leve a nenhum ``objetivo".
+\subsection{Agente aprendiz}
+Um \textbf{agente aprendiz} é composto pelos componentes:
 \begin{itemize}
-\item Atómica\\
-Sem uma estrutura interna
-\item Fatorizada\\
-Com um numero finito de atributos atómicos
-\item Estruturada\\
-Com relações entre objetos
+	\item \textbf{Critico}, métricas de sucesso.
+	\item \textbf{Elemento de aprendizagem}, responsável por fazer melhorias por base no critico.
+	\item \textbf{Elemento de performance}, responsável por selecionar ações por base no elemento de aprendizagem.
+	\item \textbf{Gerador de problemas}, sugere ao elemento de performance ações que levam a aprendizagem de informação.
 \end{itemize}
+\section{Representações internas dos agentes}
+\subsection{Atómica}
+Representação sem uma estrutura interna, semelhante a uma caixa negra.
+\subsection{Fatorizada}
+Representação com um numero finito de atributos atómicos.\\
+Exemplo: Problemas de satisfação de restrições, lógica proposicional, etc..
+\subsection{Estruturada}
+Representação com relações entre objetos.\\
+Exemplo: Bases de dados relacionais, lógica de primeira ordem, modelos probabilísticos, etc..
 \chapter{Procura Cega}
 Um \textbf{problema de procura} é um problema cuja solução é uma sequência de ações que levam de um estado inicial ao estado final.\\
 Um problema de procura lida com \textbf{procura cega} se o ambiente só for observável nos estados já observados. [factualy correct?, ver formulação]
