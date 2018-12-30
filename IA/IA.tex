@@ -37,6 +37,7 @@
 	Adaptação licenciada:\\
 	\href{http://creativecommons.org/licenses/by-sa/4.0/}{\includegraphics[scale=0.8]{../ccbysa.png}}
 \end{titlepage}
+\setcounter{tocdepth}{1}
 \tableofcontents
 \chapter{Definição}
 \section{O que é}
@@ -357,15 +358,126 @@ Exemplo: Problemas de satisfação de restrições, lógica proposicional, etc..
 \subsection{Estruturada}
 Representação com relações entre objetos.\\
 Exemplo: Bases de dados relacionais, lógica de primeira ordem, modelos probabilísticos, etc..
-\chapter{Procura Cega}
-Um \textbf{problema de procura} é um problema cuja solução é uma sequência de ações que levam de um estado inicial ao estado final.\\
-Um problema de procura lida com \textbf{procura cega} se o ambiente só for observável nos estados já observados. [factualy correct?, ver formulação]
-\section{Formulação de um agente}
-Para se formular um agente que resolva problemas de procura [cega?] tem de se assumir que o ambiente é:
+\chapter{Procura}
+Um \textbf{problema de procura} é um problema cuja solução é uma sequência de ações que levam de um estado inicial ao estado final. Um problema de procura é \textbf{procura cega} se o agente só conseguir gerar estados sucessores e verificar se são o estado final.
+\section{Formulação de um agente de procura}
+Para se formular um agente que resolva problemas de procura tem de se assumir que o ambiente é estático (não muda durante a resolução), observável (sabe o estado corrente).\\[2mm]
+É necessário formular o problema e o objetivo.
 \begin{itemize}
-\item Estático
-Não muda durante a resolução
-\item Observável - O agente sabe o estado corrente
+	\item \textbf{Estado inicial}, estado associado á sequência vazia de ações.
+	\item \textbf{Teste objetivo}, critério que dita se o objetivo foi alcançado.
+	\item \textbf{Função sucessor}, uma função que gera sucessores a partir do estado atual
+	\item \textbf{Modelo de transição}, as transições para outros estados aquando das ações.
+	\item \textbf{Custo}, uma métrica que avalia a sequência de ações.
+\end{itemize}
+Para um agente que procure encontrar o caminho entre duas cidades:
+\begin{itemize}
+	\item O estado inicial é a cidade de origem.
+	\item O teste objetivo indica se a cidade atual é a cidade de destino.
+	\item A função sucessor indica as cidades sucessoras à cidade atual
+	\item O modelo de transição indica os meios a tomar para chegar ás cidades sucessoras.
+	\item O custo é a soma de uma propriedade dos meios utilizados (kilometros, euros, ...)
+\end{itemize}
+\clearpage
+\section{Árvores de Procura}
+As \textbf{árvores de procura} são um método de estruturar um problema de procura.
+\begin{itemize}
+	\item A raiz é o estado inicial.
+	\item Cada nó é um estado.
+	\item Filhos de um nó são os seus sucessores.
+	\item Arestas são modelos de transição.
+	\item Folhas são sucessores por explorar (fronteira) ou nós sem sucessor.
+\end{itemize}
+\begin{algorithm}
+	\caption{Algoritmo genérico de uma árvore de procura}
+	\begin{algorithmic}
+		\Function{ÁRVORE-PROCURA}{\textit{problema, fronteira}} \textbf{returns} \textit{solução, fracasso}
+		\State \textit{nó} $\gets$ \textit{problema.ESTADO-INICIAL}
+		\State \textit{fronteira} $\gets$ INSERIR(\textit{nó, fronteira})
+		\Loop
+		\If {VAZIA?(\textit{fronteira})}
+		\Return \textit{fracasso}
+		\EndIf
+		\State \textit{nó} $\gets$ SUCESSOR(\textit{fronteira})
+		\If {\textit{problema.TESTE-OBJETIVO}(\textit{nó})}
+		\Return SOLUÇÃO(nó)
+		\EndIf
+		\State \textit{fronteira} $\gets$ INSERIR(EXPANDIR(\textit{nó}), \textit{fronteira})
+		\EndLoop
+		\EndFunction
+		% TODO função EXPANDIR
+	\end{algorithmic}
+\end{algorithm}
+À árvore que estrutura um dado problema podem aplicados diversos algoritmos que tem diversas propriedades:
+\begin{itemize}
+	\item \textbf{Completude}: O algoritmo vai garantidamente chegar a soluções (caso existam).
+	\item \textbf{Ótimalidade}: A solução encontrada será a de menor custo.
+	\item \textbf{Complexidade temporal}: Proporção entre o tamanho do problema e o tempo necessário para resolver.
+	\item \textbf{Complexidade espacial}: Proporção entre o tamanho do problema e o espaço necessário para resolver.
+\end{itemize}
+No exemplo das cidades:
+\begin{quotation}
+\noindent Um algoritmo que possa ficar preso num conjunto de cidades não é completo.\\
+Um algoritmo que escolha percursos sem considerar custos não é ótimo.\\
+Algoritmos que não considerem (por exemplo) estados repetidos tem uma elevada complexidade temporal.\\
+Algoritmos que mantenham uma grande fronteira tem uma elevada complexidade espacial.
+\end{quotation}
+\section{Grafos de Procura}
+Os grafos de procura são similares ás árvores de procura, sendo intercambiáveis com as mesmas.\\
+Uma vez que um grafo não degenerado tem ciclos é preciso especial cuidado para garantir que um algoritmo de procura em grafos é completo.
+\clearpage
+\section{Algoritmos de Procura Cega}
+Seja $b$ o branching factor (numero máximo de sucessores de um nó), $d$ a profundidade da árvore.
+\subsection{Procura em Largura}
+Abreviado \textbf{BFS} (Breadth First Search)\\
+A fronteira é uma fila FIFO.\\
+Os sucessores de um nó expandido são colocados no fim da fila.\\
+Este algoritmo:
+\begin{itemize}
+	\item É completo para $b$ finito.
+	\item É ótimo se todas as ações tiverem o mesmo custo.
+	\item Tem uma complexidade temporal $O(b^{d+1})$.
+	\item Tem uma complexidade espacial $O(b^{d+1})$.\\
+\end{itemize}
+O espaço ocupado torna este algoritmo inviável para caminhos longos com branching elevados.
+\subsection{Procura de Custo Uniforme}
+A fronteira é uma fila ordenada pelo custo acumulado.\\
+Os sucessores de um nó expandido são colocados no fim da fila.\\
+Este algoritmo:
+\begin{itemize}
+	\item É completo se custos monótonos crescentes.
+	\item É ótimo.
+	\item Tem uma complexidade temporal $O(b^{1+ \lceil C^\star / \mathcal{E} \rceil})$ (com $C^\star$ o custo ótimo).
+	\item Tem uma complexidade espacial $O(b^{1+ \lceil C^\star / \mathcal{E} \rceil})$.\\
+\end{itemize}
+\subsection{Procura em Profundidade}
+Abreviado \textbf{DFS} (Depth First Search)\\
+A fronteira é uma fila LIFO.\\
+Os sucessores de um nó expandido são os primeiros a testar e expandir se necessário.\\
+Sendo $m$ a profundidade máxima, este algoritmo:
+\begin{itemize}
+	\item Não é completo em espaços de profundidade infinita ou com ciclos.
+	\item Não é ótimo.
+	\item Tem uma complexidade temporal $O(b^m)$.
+	\item Tem uma complexidade espacial $O(bm)$.\\
+\end{itemize}
+\subsection{Procura de Profundidade Limitada}
+Sendo $l$ o limite de profundidade imposto, este algoritmo:
+\begin{itemize}
+	\item Não é completo.
+	\item Não é ótimo.
+	\item Tem uma complexidade temporal $O(b^l)$.
+	\item Tem uma complexidade espacial $O(bl)$.\\
+\end{itemize}
+\subsection{Procura por Aprofundamento Progressivo}
+Opera como procura em profundidade até uma dada profundidade, após isso opera como procura em largura.\\
+Se tiver insucesso aumenta a profundidade progressivamente.
+Este algoritmo:
+\begin{itemize}
+	\item É completo.
+	\item É ótimo se os custos forem constantes.
+	\item Tem uma complexidade temporal $O(b^d)$.
+	\item Tem uma complexidade espacial $O(bd)$.\\
 \end{itemize}
 \chapter{Procura Heurística}
 \section{Algoritmos iterativos de melhoramento}
