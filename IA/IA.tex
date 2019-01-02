@@ -437,7 +437,7 @@ Este algoritmo:
 	\item É completo para $b$ finito.
 	\item É ótimo se todas as ações tiverem o mesmo custo.
 	\item Tem uma complexidade temporal $O(b^{d+1})$.
-	\item Tem uma complexidade espacial $O(b^{d+1})$.\\
+	\item Tem uma complexidade espacial $O(b^{d+1})$.
 \end{itemize}
 O espaço ocupado torna este algoritmo inviável para caminhos longos com branching elevados.
 \subsection{Procura de Custo Uniforme}
@@ -448,7 +448,7 @@ Este algoritmo:
 	\item É completo se custos monótonos crescentes.
 	\item É ótimo.
 	\item Tem uma complexidade temporal $O(b^{1+ \lceil C^\star / \mathcal{E} \rceil})$ (com $C^\star$ o custo ótimo).
-	\item Tem uma complexidade espacial $O(b^{1+ \lceil C^\star / \mathcal{E} \rceil})$.\\
+	\item Tem uma complexidade espacial $O(b^{1+ \lceil C^\star / \mathcal{E} \rceil})$.
 \end{itemize}
 \subsection{Procura em Profundidade}
 Abreviado \textbf{DFS} (Depth First Search)\\
@@ -459,7 +459,7 @@ Sendo $m$ a profundidade máxima, este algoritmo:
 	\item Não é completo em espaços de profundidade infinita ou com ciclos.
 	\item Não é ótimo.
 	\item Tem uma complexidade temporal $O(b^m)$.
-	\item Tem uma complexidade espacial $O(bm)$.\\
+	\item Tem uma complexidade espacial $O(bm)$.
 \end{itemize}
 \subsection{Procura de Profundidade Limitada}
 Sendo $l$ o limite de profundidade imposto, este algoritmo:
@@ -467,7 +467,7 @@ Sendo $l$ o limite de profundidade imposto, este algoritmo:
 	\item Não é completo.
 	\item Não é ótimo.
 	\item Tem uma complexidade temporal $O(b^l)$.
-	\item Tem uma complexidade espacial $O(bl)$.\\
+	\item Tem uma complexidade espacial $O(bl)$.
 \end{itemize}
 \subsection{Procura por Aprofundamento Progressivo}
 Opera como procura em profundidade até uma dada profundidade, após isso opera como procura em largura.\\
@@ -477,9 +477,127 @@ Este algoritmo:
 	\item É completo.
 	\item É ótimo se os custos forem constantes.
 	\item Tem uma complexidade temporal $O(b^d)$.
-	\item Tem uma complexidade espacial $O(bd)$.\\
+	\item Tem uma complexidade espacial $O(bd)$.
 \end{itemize}
 \chapter{Procura Heurística}
+A \textbf{pesquisa heurística} baseia-se na ideia de ter uma métrica que avalie quão promissores é que os estados são para alcançar o objetivo.
+A essa métrica designa-se de \textbf{heurística}.
+\section{Heurísticas}
+Uma \textbf{função de avaliação} $f(n)$ determina quão promissor é que um nó é.\\
+Uma \textbf{função heurística} $h(n)$ atribui um valor de proximidade ao objetivo a um nó.\\[2mm]
+Uma heurística é:
+\begin{itemize}
+	\item \textbf{Admissível} se nunca sobrestimar o custo dos nós.\\
+	Admissibilidade implica $h(n) \leq h^\star (n)$ (com $h^\star (n)$ a heurística com o custo real)
+	\item \textbf{Consistente} se a função de avaliação é monótona com o aumento do caminho, nunca decrescente.\\
+	Consistência implica que não existe um sucessor do nó $n$: $n'$ tal que o custo de alcançar o nó final por $n$ seja maior do que o custo de alcançar por $n'$ somado ao custo de alcançar $n'$ por $n$.
+	\begin{center}
+		\begin{tikzpicture}[scale=0.2]
+		\tikzstyle{every node}+=[inner sep=0pt]
+		\draw [black] (13.9,-22.7) circle (3);
+		\draw (13.9,-22.7) node {$n$};
+		\draw [black] (60.4,-22.7) circle (3);
+		\draw (60.4,-22.7) node {final};
+		\draw [black] (38.1,-30.2) circle (3);
+		\draw (38.1,-30.2) node {$n'$};
+		\draw [black] (16.9,-22.7) -- (57.4,-22.7);
+		\fill [black] (57.4,-22.7) -- (56.6,-22.2) -- (56.6,-23.2);
+		\draw (37.15,-23.2) node [below] {$h(n)$};
+		\draw [black] (16.77,-23.59) -- (35.23,-29.31);
+		\fill [black] (35.23,-29.31) -- (34.62,-28.6) -- (34.32,-29.55);
+		\draw (20.97,-27.22) node [below] {$custo(n,n')$};
+		\draw [black] (40.94,-29.24) -- (57.56,-23.66);
+		\fill [black] (57.56,-23.66) -- (56.64,-23.44) -- (56.96,-24.39);
+		\draw (51.79,-27.05) node [below] {$h(n')$};
+		\end{tikzpicture}
+	\end{center}
+\end{itemize}
+Diz-se que uma heurística \textbf{domina} outra se tem sempre um valor igual ou superior sendo melhor para procura.\\
+Podem combinar-se heurísticas não dominantes com $\text{max}\{h_1(n), h_2(n)\}$
+\subsection{Estimativa PathMax}
+O PathMax é uma otimização aplicada durante a execução para manter uma heurística consistente.\\
+Sendo $n$ um nó, $m$ um sucessor seu e $c(n,m)$ o custo para ir de $n$ até $m$ então a estimativa é dada por:
+$$\hat h(m) = \text{max}\{(h(n) - c(n,m));h(m)\}$$
+\clearpage
+\section{Algoritmos Heurísticos}
+\subsection{Procura Sôfrega}
+A \textbf{procura sôfrega} é um algoritmo de procura heurística em que a função de avaliação é a função heurística.
+$$f(n) = h(n)$$
+O algoritmo avança sempre para o nó que aparenta estar mais próximo do objetivo.
+\begin{itemize}
+	\item Não é completa\\
+	Pode ficar presa num ciclo de nós.\\
+	No contexto de um mapa isso seria um caminho sem saída, ou uma superfície côncava.
+	\item Não é ótima, pode rejeitar o caminho ótimo.\\
+	No contexto de um mapa quando visto da origem, o caminho que vai na direção do destino pode não ser o caminho mais curto.
+	\item Complexidade temporal $O(b^m)$, com uma má heurística.
+	\item Complexidade espacial $O(b^m)$, mantém todos os nós em memória.
+\end{itemize}
+\subsection{Procura A*}
+Na procura $A^\star$ (A-star) a função de avaliação é composta pela função heurística e pelo custo acumulado, considerando assim o esforço que já foi despendido e abandonando uma sequência se deixar de ser promissora.\\[2mm]
+Com $g(n)$ o custo acumulado para atingir o nó $n$, a função de avaliação é:
+$$f(n) = g(n) + h(h)$$
+\begin{itemize}
+	\item São expandidos todos os nós com função de avaliação inferior ao custo otimo.
+	\item Não é expandido nenhum nó com função de avaliação superior ao custo ótimo.
+	\item É completo, excetuando espaços com infinitos estados sub-ótimos.
+	\item Complexidade temporal exponencial se $|h(n)| - h^\star (n) \leq O(log \> h^\star (n))$. Subexponêncial caso contrario.
+	\item Mantêm todos os nós em memória.
+\end{itemize}
+Quando o algoritmo utiliza uma heurística não consistente, podem guardar-se associados aos nós explorados o menor custo já obtido e rejeitar caminhos piores, assim garante-se a ótimalidade da solução.
+\clearpage
+\section{Algoritmos Heurísticos em Espaço Limitado}
+\subsection{Iterative Deepening A*}
+O algoritmo \textbf{Iterative Deepening A*} (abreviado \textbf{IDA*}) é a execução do algoritmo A* com aprofundamento progressivo.
+O valor de corte do aprofundamento progressivo é o menor valor da função de avaliação $f(n)$ durante a iteração anterior.
+\begin{itemize}
+	\item Mantem-se completo e ótimo.
+	\item Tem uma complexidade espacial linear.
+	\item É prático se os passos tiverem custos unitários.\\
+	Em nós com custos reais pode as regenerações sucessivas podem implicar uma grande complexidade temporal.
+\end{itemize}
+\subsection{Recursive Best-First Search}
+O algoritmo \textbf{Recursive Best-First Search} (abreviado \textbf{RBFS}) efetua uma procura em profundidade primeiro recursivamente enquanto o caminho for promissor.\\
+Todos os nós expandidos tem associados uma variável \textit{limite} que indica o valor a partir do qual a atual sub-árvore deixa de ser vantajosa.
+\begin{enumerate}
+	\item Define na raiz da árvore um valor arbitrariamente grande.
+	\item Geram-se os sucessores e calcula-se para cada o valor da função de avaliação.
+	\item Enquanto o melhor valor for maior do que o \textit{limite} do pai, substitui-se o valor do pai por esse e sobe-se na árvore, apagando os sucessores no nível abandonado.
+	\item Regista-se na variável \textit{limite} do melhor sucessor o valor da sua melhor alternativa.
+	\item Se o melhor sucessor é nó final o algoritmo termina, senão expande-se o melhor sucessor e volta-se ao passo 2.
+\end{enumerate}
+\begin{itemize}
+	\item Mantém-se completo e ótimo (no caso de uma heurística admissível).
+	\item Complexidade temporal melhor que a do \textit{IDA*}.
+	\item Baixo consumo de memória, mas pode regenerar sucessivamente os mesmos nós.
+\end{itemize}
+\subsection{Simplified Memory-Bounded A*}
+O algoritmo \textbf{Simplified Memory-Bounded A*} (abreviado \textbf{SMA*}) aplica o A* até se atingir um limite de memória. Atingindo esse limite apaga da memória a folha com o pior valor. Esse nó só seria regenerado se todos os restantes caminhos se mostrarem piores, pelo que o seu valor é anexando ao pai para simplificação de cálculos.
+\begin{itemize}
+	\item Utilização ótima de memória.
+	\item Completo e ótimo se existir uma solução que caiba em memória.
+	\item Algoritmo ideal para procurar soluções ótimas, especialmente bom quando a geração de nós é mais dispendiosa do que a manutenção de memória.
+\end{itemize}
+\section{Outros Cenários}
+Existem ainda algoritmos que são especialmente bons em certos cenários de procura:
+\begin{itemize}
+	\item Em tempo real com ações deterministas conhecidas de efeito desconhecido:
+	\begin{itemize}
+		\item Pesquisa cega: \textbf{Online-DFS} (requer ações reversiveis).
+		\item Pesquisa informada: \textbf{LRTA*}.
+	\end{itemize}
+	\item Tolerância a alteração de custos em tempo real:
+	\begin{itemize}
+	\item \textbf{Dynamic A*} (\textbf{D*})
+	\item \textbf{D* Lite}
+	\end{itemize}
+	\item Incrementais a partir de soluções subótimas:
+	\begin{itemize}
+	\item \textbf{Anytime repairing A*} (\textbf{ARA*})
+	\item \textbf{Anytime dynamic A*} (\textbf{AD*})
+	\end{itemize}
+\end{itemize}
+\chapter{Procura Local}
 \section{Algoritmos iterativos de melhoramento}
 Estes algoritmos partem de uma potencial solução ao problema em análise, e dispõem de uma medida de quão boa é a sua qualidade. Cada iteração tenta arranjar uma solução alternativa à atual que apresente mais qualidade.\\
 Note-se que não é no entanto garantida a obtenção da solução ótima.\\[5mm]
@@ -490,7 +608,6 @@ O problema tem de ser formulado como um problema de otimização ou seja, tem de
 \item O que se entende por ``pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
 \end{itemize}
 \subsection{Aplicação ao problema do caixeiro viajante}
-\chapter{Procura Local}
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
