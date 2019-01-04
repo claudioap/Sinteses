@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{tikz}
@@ -797,10 +798,24 @@ Os \textbf{algoritmos meméticos} são composições de aplicações de aplicaç
 Estes algoritmos podem auxiliar a convergência para uma solução ótima.
 \section{Outras Classes de Algoritmos Inspirados na Evolução}
 \begin{itemize}
-	\item \textbf{Programação genética} - Evolução de programas.
+	\item \textbf{Programação genética} - Evolução de programas.\\
+	Programas são árvores de operadores. Alternam-se subarvores entre os pais para fazer filhos.\\ Verifica-se viabilidade com um conjunto de testes.
 	\item \textbf{Estratégias evolutivas} - Evolução de vetores reais como distribuições normais para resolução de problemas de engenharia.
 	\item \textbf{Programação evolutiva} - Indivíduos que são maquinas de estados.
 \end{itemize}
+\clearpage
+\section{Espaços contínuos}
+Problemas como a maximização de funções continuas ou obtenção de zeros podem ser resolvidos com procura local.\\
+Uma das formas é subindo o gradiente da função objetivo com passos iterativos até que os passos deixem de trazer ganhos significativos. Isto é:
+$$x_{n+1} = x_n + \gamma_n \nabla F(x_n)$$
+Enquanto $|x_{n+1} - x_n|$ estiver acima de um limiar.
+\subsection{Método de Newton-Raphson}
+O \textbf{método de Netwon-Raphson} é utilizado para obter as raizes de uma função real.\\
+O método corresponde à obtenção da reta tangente à função no ponto atual, e redefinição do ponto no 0 da tangente.\\
+O que pode ser generalizando para funções em $\mathbb{R}^n$:
+$$x_{n+1} = x_n - \gamma [H_{f(x_n)}]^{-1}\nabla f(x_n)$$
+No caso das funções reais isso traduz-se por:
+$$x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)}$$
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
