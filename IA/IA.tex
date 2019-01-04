@@ -358,7 +358,7 @@ Exemplo: Problemas de satisfação de restrições, lógica proposicional, etc..
 \subsection{Estruturada}
 Representação com relações entre objetos.\\
 Exemplo: Bases de dados relacionais, lógica de primeira ordem, modelos probabilísticos, etc..
-\chapter{Procura}
+\chapter{Procura Cega}
 Um \textbf{problema de procura} é um problema cuja solução é uma sequência de ações que levam de um estado inicial ao estado final. Um problema de procura é \textbf{procura cega} se o agente só conseguir gerar estados sucessores e verificar se são o estado final.
 \section{Formulação de um agente de procura}
 Para se formular um agente que resolva problemas de procura tem de se assumir que o ambiente é estático (não muda durante a resolução), observável (sabe o estado corrente).\\[2mm]
@@ -597,17 +597,210 @@ Existem ainda algoritmos que são especialmente bons em certos cenários de proc
 	\item \textbf{Anytime dynamic A*} (\textbf{AD*})
 	\end{itemize}
 \end{itemize}
-\chapter{Procura Local}
-\section{Algoritmos iterativos de melhoramento}
-Estes algoritmos partem de uma potencial solução ao problema em análise, e dispõem de uma medida de quão boa é a sua qualidade. Cada iteração tenta arranjar uma solução alternativa à atual que apresente mais qualidade.\\
-Note-se que não é no entanto garantida a obtenção da solução ótima.\\[5mm]
-O problema tem de ser formulado como um problema de otimização ou seja, tem de ser definido:
+\chapter{Problemas}
+\section{Classes de Complexidade}
+Os problema de decisão são separados em duas principais classes:
 \begin{itemize}
-\item O espaço de potenciais soluções, e o que pode ser uma solução (representada $x$).
-\item A função $f(x)$ a ser otimizada.
-\item O que se entende por ``pequenas alterações", ou seja, qual a vizinhança de um $x$, $V(x)$.
+	\item \textbf{P}\\
+	Podem ser resolvidos por uma máquina determinista em tempo polinomial.
+	\item \textbf{NP}\\
+	Podem ser resolvidos por uma máquina não determinista em tempo polinomial.
+	\begin{itemize}
+		\item \textbf{NP-Difícil}\\
+		Problemas pelo menos tão difíceis como os mais difíceis da classe NP.\\
+		Se um problema for tanto de classe NP como NP-Difícil diz-se \textbf{NP-Completo}.
+	\end{itemize}
 \end{itemize}
-\subsection{Aplicação ao problema do caixeiro viajante}
+É acreditado que $P \neq NP$, ainda que tal não esteja provado.
+\section{Espaço de Estados}
+O \textbf{espaço de estados} é um espaço com todas as soluções possíveis de uma função objetivo. A função objetivo pode ter de ser maximizada ou minimizada consoante o problema.
+\begin{itemize}
+	\item \textbf{Máximo/mínimo global}\\
+	Local do espaço que maximiza/minimiza a função objetivo em todo o espaço.
+	\item \textbf{Máximo local}\\
+	Local do espaço que maximiza/minimiza a função objetivo em dada vizinhança.\\
+	Um máximo local pode ser máximo global, no entanto um máximo global é sempre máximo local.
+	\item \textbf{``Planalto"}\\
+	Local do espaço de estados cuja vizinhança não muda a função objetivo.
+\end{itemize}
+\section{Problemas}
+\subsection{n-Rainhas}
+O problema das \textbf{n-Rainhas} é um problema de satisfabilidade na colocação de $n$ rainhas num tabuleiro de xadrez de tamanho $n \times n$.
+\subsection{Satisfabilidade Booleana}
+O problema da \textbf{satisfabilidade booleana} estuda se um conjunto de clausular proposicionais é satisfazivel, ou seja, se existe algum conjunto de valores que torne todas as clausulas verdadeiras em simultâneo.
+\subsection{Caixeiro Viajante}
+O \textbf{caixeiro viajante} é um problema em que um hipotético viajante pretende passar por diversas cidades uma vez minimizando os custos de deslocação.
+\chapter{Procura Local}
+A procura local pretende obter uma solução tão boa quão possível a partir de uma solução inicial.
+\section{Procura Local Estocástica}
+\subsection{Trepa-Colinas}
+O algoritmo \textbf{trepa-colinas} (\textbf{Hill climbing}) maximiza um valor inicial efetuando saltos sucessivos para o sucessor que apresenta o melhor melhoramento.
+É um algoritmo ganancioso que fica preso em qualquer máximo local.\\[2mm]
+Como este algoritmo é muito rápido, uma otimização frequente é o uso de \textbf{recomeços aleatórios}, isto é, recomeços sempre que o algoritmo fica preso num máximo, recomeça noutro local aleatório do espaço de estados. Conserva-se o melhor valor obtido entre recomeços.\\
+Em espaços contínuos ainda há a problemática da decisão do tamanho do passo.
+\subsection{Recristalização Simulada}
+A recristalização simulada é um algoritmo análogo ao arrefecimento de materiais,  admitindo mudanças drásticas quando a temperatura é elevada e restringindo-as á medida que oa arrefecimento progride.
+\begin{enumerate}
+\item É definida $T_0$ a temperatura no início da simulação.
+\item Seleciona-se aleatoriamente um movimento, sendo $\Delta E$ o ganho(ou perda) que o mesmo implica.
+\item O movimento é aceite com uma probabilidade $e^{\Delta E / T}$.
+\item A temperatura baixa.\\
+Esta mudança pode por exemplo ser geométrica ($T := \alpha T$).\\
+Quanto mais lento for o decremento maior a chance de se atingir a solução ótima.
+\item Enquanto muitas mudanças forem aceites, guarda-se a melhor solução encontrada e volta-se ao passo 2.\\
+(Podem ser utilizados diversos critérios de paragem, por exemplo um rácio mínimo de mudanças)
+\end{enumerate}
+\subsection{Procura Local em Feixe}
+\begin{enumerate}
+	\item Geram-se $k$ soluções aleatoriamente.
+	\item Em cada iteração as vizinhanças das soluções são geradas.
+	\item Selecionam-se as $k$ melhores e repete-se até bater na condição de paragem.
+\end{enumerate}
+\section{Algoritmos Genéticos}
+Os algoritmos genéticos são técnicas de otimização baseadas no processo da seleção natural.\\
+Uma \textbf{população} é um conjunto de \textbf{indivíduos} e respetivos \textbf{cromossomas}.\\
+Cada cromossoma é um conjunto de \textbf{genes}.\\
+Os valores possíveis para um gene são os seus \textbf{alelos}.\\
+Uma \textbf{função de fitness}, determina a qualidade de um cromossoma.
+\subsection{Seleção}
+A \textbf{seleção} é uma operação que filtra cromossomas de baixa qualidade da população.\\
+Sendo $x$ uma população e $f$ a função de fitness, a chance do individuo $i$ ser chamado para reproduzir é a sua aptidão ponderada pela aptidão da restante população:
+$$P(x_i) = \frac{f(x_i)}{\sum \limits_{j=1}^{k}f(x_j)}$$
+Métodos alternativos:
+\begin{itemize}
+	\item \textbf{Amostragem universal estocástica} - Mecanismo de amostragem que seleciona de uma só vez todos os indivíduos para reprodução.
+	\item \textbf{Posição} - Posição dos indivíduos determina probabilidade de seleção.
+	\item \textbf{Torneio} - Indivíduos selecionados dois a dois aleatoriamente e comparados por base num numero aleatório no intervalo $[0,1]$. Caso o numero não exceda um parâmetro, o melhor individuo reproduz, caso exceda o pior reproduz.
+	\item \textbf{Estado estável} - Substituem-se os piores indivíduos.
+	\item \textbf{Truncatura} - Apenas os melhores indivíduos reproduzem.
+	\item \textbf{Elitista} - Apenas se retém os melhores indivíduos.
+\end{itemize}
+\subsection{Reprodução}
+A \textbf{reprodução} é uma operação que combina cromossomas existentes para criação de um novo.\\
+Baseia-se num \textbf{locus}, um ponto de corte que seleciona as partes do gene de cada parente destinadas ao novo cromossoma.\\
+Existem diversas técnicas de recombinação, com comuns sendo:
+\begin{itemize}
+	\item \textbf{Ponto(s) de corte} - Fronteira que delimita quais os genes de cada parente.
+	\begin{table}[ht]
+		\begin{center}
+			\begin{tabular}{ll}
+				Parentes & Filhos \\ \hline
+				\color{red}1234\color{black}567890 & \color{red}1234\color{black}852963 \\
+				7410\color{red}852963 & 7410\color{red}567890
+			\end{tabular}
+			\caption{Exemplo com um ponto de corte}
+		\end{center}
+	\end{table}
+	\vspace{-5mm}
+	\item \textbf{Uniforme} - Utilização de uma mascara binária aleatória para ditar qual os genes a selecionar de cada parente.
+	\begin{table}[ht]
+		\begin{center}
+			\begin{tabular}{ll}
+				Parentes & Filhos \\ \hline
+				12\color{red}34\color{black}5\color{red}6\color{black}78\color{red}90 & 74\color{red}34\color{black}8\color{red}6\color{black}29\color{red}90 \\
+				\color{red}74\color{black}10\color{red}8\color{black}5\color{red}29\color{black}63 & \color{red}12\color{black}10\color{red}5\color{black}5\color{red}78\color{black}63
+			\end{tabular}
+			\caption{Exemplo com a mascara 0011010011}
+		\end{center}
+	\end{table}
+	\vspace{-5mm}
+\end{itemize}
+Em certos problemas quando existem repetições de genes a reprodução de dois indivíduos pode resultar num individuo inviável. Pode-se reparar ou rejeitar indivíduos inviáveis.
+\begin{itemize}
+\item \textbf{Recombinação PMX (partially mapped crossover)}
+	\begin{itemize}
+		\item São selecionados dois pontos de corte
+		$$
+		\binom{P_1 = \quad g_{1,1} \> g_{1,2} | g_{1,3} \> g_{1,4} \> g_{1,5} \> g_{1,6} | g_{1,7} \> g_{1,8}}
+		{P_2 = \quad g_{2,1} \> g_{2,2} | g_{2,3} \> g_{2,4} \> g_{2,5} \> g_{2,6} | g_{1,7} \> g_{2,8}}
+		$$
+		\item São definidas as equivalências $g_{1,k} \Leftrightarrow g_{2,k}$ para todo o $k \in [3, 6]$.
+		\item Atribuem-se os os genes dentro dos pontos de corte trocados:
+		$$
+		\binom{F_1 = \quad ? \quad ?  \quad | g_{2,3} \> g_{2,4} \> g_{2,5} \> g_{2,6} | \quad ? \quad ?}
+		{F_2 = \quad ? \quad ?  \quad | g_{1,3} \> g_{1,4} \> g_{1,5} \> g_{1,6} | \quad ? \quad ?}$$
+		\item Copiam-se:
+		\begin{itemize}
+			\item Para $F_1$ os valores de $P_1$ que não estão contidos em $\{ g_{2,3} \> g_{2,4} \> g_{2,5} \> g_{2,6} \}$.
+			\item Para $F_2$ os valores de $P_2$ que não estão contidos em $\{ g_{1,3} \> g_{1,4} \> g_{1,5} \> g_{1,6} \}$.
+		\end{itemize}
+		Assim nem $F_1$ nem $F_2$ tem valores duplicados, mas quando existem colisões não se atribui valor.
+		\item Nesses casos utilizam-se as equivalências definidas acima. Por exemplo, quando $f_{1,k}$ não pode ser atribuído devido a uma colisão, atribui-se o valor equivalente a $f_{1, k}$ que seria $f_{2,k}$.
+	\end{itemize}
+	Exemplo:
+	$$
+	\binom{P_1 = 1 2 3 | 4 5 6 7 | 8 9}
+	{P_2 = 4 5 2 | 1 8 7 6 | 9 3}
+	\Rightarrow
+	\binom{F_1 = ? ? ? | 1 8 7 6 | ? ?}
+	{F_2 = ? ? ? | 4 5 6 7 | ? ?}
+	\Rightarrow
+	\binom{F_1 = ? 2 3 | 1 8 7 6 | ? 9}
+	{F_2 = ? ? 3 | 4 5 6 7 | 9 3}
+	\Rightarrow
+	\binom{F_1 = 4 2 3 | 1 8 7 6 | 5 9}
+	{F_2 = 1 8 3 | 4 5 6 7 | 9 3}^*
+	$$
+	$$\text{*Com as equivalências: }4 \leftrightarrow 1, 5 \leftrightarrow 8, 6 \leftrightarrow 7, 7 \leftrightarrow 6$$
+\item  \textbf{Recombinação OX (order crossover)}
+	\begin{itemize}
+		\item São selecionados dois pontos de corte
+		$$
+		\binom{P_1 = \quad g_{1,1} \> g_{1,2} | g_{1,3} \> g_{1,4} \> g_{1,5} \> g_{1,6} | g_{1,7} \> g_{1,8}}
+		{P_2 = \quad g_{2,1} \> g_{2,2} | g_{2,3} \> g_{2,4} \> g_{2,5} \> g_{2,6} | g_{1,7} \> g_{2,8}}
+		$$
+		\item Copiam-se os os genes dentro dos pontos de corte:
+		$$
+		\binom{F_1 = \quad ? \quad ?  \quad | g_{1,3} \> g_{1,4} \> g_{1,5} \> g_{1,6} | \quad ? \quad ?}
+		{F_2 = \quad ? \quad ?  \quad | g_{2,3} \> g_{2,4} \> g_{2,5} \> g_{2,6} | \quad ? \quad ?}$$
+		\item Definem-se os genes indefinidos de $F_1$ com os genes de $P_2$ pela ordem encontrada, saltando repetições. Idem para $F_2$ com genes de $P_1$.
+	\end{itemize}
+	Exemplo:
+	$$
+	\binom{P_1 = 1 2 3 | 4 5 6 7 | 8 9}
+	{P_2 = 4 5 2 | 1 8 7 6 | 9 3}
+	\Rightarrow
+	\binom{F_1 = ? ? ? | 4 5 6 7 | ? ?}
+	{F_2 = ? ? ? | 1 8 7 6 | ? ?}
+	\Rightarrow
+	\binom{F_1 = 2 1 8 | 1 8 7 6 | 9 3}
+	{F_2 = 3 4 5 | 4 5 6 7 | 9 2}
+	$$
+\end{itemize}
+\subsection{Mutação}
+A \textbf{mutação} é uma operação que adiciona diversidade alterando os genes de um cromossoma aleatoriamente, evitando assim que a procura fique presa em máximos locais.\\
+Tipicamente o cromossoma de um filho sofre mutações aleatoriamente durante a reprodução.\\
+A mutação pode ser efetuada das seguintes formas:
+\begin{itemize}
+	\item \textbf{Inversão} - Inversão dos genes do corte:\\
+	$g_{1} \> g_{2} | g_{3} \> g_{4} \> g_{5} | g_{6} \> g_{7} \> g_{8} \to
+	g_{1} \> g_{2} | g_{5} \> g_{4} \> g_{3} | g_{6} \> g_{7} \> g_{8}$
+	\item \textbf{Inserção} - Movimento de um gene:\\
+	$g_{1} \> \textcolor{red}{g_{7}} \> g_{2} \> g_{3} \> g_{4} \> g_{5} \> g_{6} \> g_{8}$
+	\item \textbf{Deslocamento} - Movimento de corte:\\
+	$g_{1} \> g_{2} | g_{3} \> g_{4} \> g_{5} | g_{6} \> g_{7} \> g_{8} \to
+	g_{1} \> g_{2} \> g_{6} \> g_{7} | g_{3} \> g_{4} \> g_{5} | g_{8}$
+	\item \textbf{Troca} - Troca de dois genes:\\
+	$g_{1} \> \textcolor{red}{g_{7}} \> g_{3} \> g_{4} \> g_{5} \> g_{6} \> \textcolor{red}{g_{2}} \> g_{8}$
+\end{itemize}
+\subsection{Parâmetros Típicos}
+Parâmetros tipicamente ótimos em cenários genéricos de aplicação de algoritmos genéricos são:
+\begin{table}[ht]
+	\begin{tabular}{l|l|l}
+		\textbf{Indivíduos na população}& \textbf{100}	& \textbf{30}   \\\hline
+		Probabilidade de recombinação 	& 0.6			& 0.9  \\\hline
+		Probabilidade de mutação      	& 0.001			& 0.01
+	\end{tabular}
+\end{table}
+\subsection{Algoritmos Meméticos}
+Os \textbf{algoritmos meméticos} são composições de aplicações de aplicações de algoritmos genéticos sucedidas de aplicações de algoritmos de procura local.
+Estes algoritmos podem auxiliar a convergência para uma solução ótima.
+\section{Outras Classes de Algoritmos Inspirados na Evolução}
+\begin{itemize}
+	\item \textbf{Programação genética} - Evolução de programas.
+	\item \textbf{Estratégias evolutivas} - Evolução de vetores reais como distribuições normais para resolução de problemas de engenharia.
+	\item \textbf{Programação evolutiva} - Indivíduos que são maquinas de estados.
+\end{itemize}
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
