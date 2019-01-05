@@ -816,6 +816,48 @@ O que pode ser generalizando para funções em $\mathbb{R}^n$:
 $$x_{n+1} = x_n - \gamma [H_{f(x_n)}]^{-1}\nabla f(x_n)$$
 No caso das funções reais isso traduz-se por:
 $$x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)}$$
+\chapter{Procura com Adversários}
+A procura com adversários consiste em procurar a solução mais benéfica quanto quando existem outros agentes que pretendem o oposto. Por exemplo, durante um jogo de Xadrez.
+Portanto nesta procura o ambiente é estratégico.\\
+\section{Minimax}
+Assume-se que Min e Max são respetivamente um adversário e o agente.\\
+O agente pretende \textbf{max}imizar a pontuação enquanto o adversário a pretende \textbf{min}imizar.\\
+Um problema de pesquisa adversária pode ser definido com:
+\begin{itemize}
+	\item Um \textbf{estado inicial}.
+	\item Uma \textbf{ordem de jogada} para os jogadores.
+	\item As \textbf{ações} legais para cada estado.
+	\item Um \textbf{modelo de transição} de estados para as ações.
+	\item Um \textbf{teste a estados terminais}.
+	\item Uma \textbf{função de utilidade}, que indica quão promissor está o jogo.
+\end{itemize}
+O que pode ser traduzido numa \textbf{árvore de jogo}:
+\begin{itemize}
+	\item Cada nível de profundidade é o turno de um jogador.
+	\item Cada folha tem o seu valor de utilidade do ponto de vista do agente (max).
+\end{itemize}
+Assume-se que o adversário é ótimo, e planeia-se de acordo com o melhor que ele pode fazer.
+$$\text{VALOR-MINIMAX(nó)} =
+\begin{cases}
+	\text{UTILIDADE(nó)} & \text{Caso o nó seja terminal}\\
+	max_{s \in \text{sucessores(nó)}} \text{VALOR-MINIMAX(s)}& \text{Caso o nó pertença a max}\\
+	min_{s \in \text{sucessores(nó)}} \text{VALOR-MINIMAX(s)}& \text{Caso o nó pertença a min}
+\end{cases}$$
+\begin{figure}[ht]
+\begin{center}
+	\input{minimax.tex}
+	\caption{Exemplo de árvore de jogo com 3 jogadas possíveis a cada jogador. Max é o primeiro a jogar. Por baixo estão os cenários de fim de jogo com um numero a avaliar a vantagem que trazem a Max.}
+\input{minimax-3.tex}
+\caption{Árvore após jogadas ótimas terem sido efetuadas. Repare-se que min escolhe sempre a jogada que resulta num pior jogo para Max.}
+\end{center}
+\end{figure}
+O algoritmo minimax é:
+\begin{itemize}
+	\item Completo (em árvores finitas) e ótimo (quando contra um oponente perfeito).
+	\item Tem complexidade temporal $O(b^m)$ (muito elevada, todas as jogadas)\\
+	($b$ é o branching factor e $m$ a profundidade máxima da árvore.)
+	\item Tem complexidade espacial $O(bm)$ (baixa, só se guarda o caminho mais vantajoso)
+\end{itemize}
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
