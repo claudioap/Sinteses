@@ -818,7 +818,7 @@ No caso das funções reais isso traduz-se por:
 $$x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)}$$
 \chapter{Procura com Adversários}
 A procura com adversários consiste em procurar a solução mais benéfica quanto quando existem outros agentes que pretendem o oposto. Por exemplo, durante um jogo de Xadrez.
-Portanto nesta procura o ambiente é estratégico.\\
+Portanto nesta procura o ambiente é estratégico.
 \section{Minimax}
 Assume-se que Min e Max são respetivamente um adversário e o agente.\\
 O agente pretende \textbf{max}imizar a pontuação enquanto o adversário a pretende \textbf{min}imizar.\\
@@ -858,6 +858,33 @@ O algoritmo minimax é:
 	($b$ é o branching factor e $m$ a profundidade máxima da árvore.)
 	\item Tem complexidade espacial $O(bm)$ (baixa, só se guarda o caminho mais vantajoso)
 \end{itemize}
+\clearpage
+\subsection{Corte $\alpha-\beta$}
+A aplicação do minimax implica uma complexidade temporal imprática. É impossível ponderar todas as jogadas possíveis na maioria dos problemas de procura com adversários. O corte $\alpha-\beta$ é uma otimização que determina caminhos que não vale a pena explorar, isto é, que nem Min nem Max escolheriam.\\
+Seja:
+\begin{itemize}
+	\item $\alpha$ o valor da melhor escolha que Max já encontrou num caminho.
+	\item $\beta$ o valor da melhor escolha que Min já encontrou num caminho.
+\end{itemize}
+A otimização é executada:
+\begin{enumerate}
+	\item Define-se na raiz da árvore os valores $\alpha = -\infty, \beta = +\infty$.
+	\item Faz-se uma procura em profundidade pela solução do problema minimax.
+	\item Em cada nó que se passa durante a subida da árvore definem-se os valores $\alpha, \beta$ do pai.
+	\item Quando se determina o valor de uma sub-árvore, esse valor é atribuído ao:
+	\begin{itemize}
+		\item $\alpha$ do pai caso seja Min a jogar e o valor seja menor
+		\item $\beta$ do pai caso seja Max a jogar e o valor seja maior.
+	\end{itemize}
+	\item Sempre que o intervalo de valores $[\alpha, \beta]$ de um nó não intersecta o intervalo de qualquer um dos pais, deixa de ser necessário percorrer qualquer sub-árvore com esse nó como raiz. Dá-se um corte dessa sub-árvore.
+\end{enumerate}
+Existem ordenações de jogadas que tornam os cortes mais propícios reduzindo consideravelmente a complexidade temporal. Uma ordenação perfeita em que para todos os nós todas as sub-árvores exceto a primeira são cortadas resulta numa complexidade de $O(b^{m/2})$.
+\subsection{Limitação de Recursos}
+Mesmo com o corte $\alpha-\beta$ muitos dos problemas de pesquisa tem complexidades temporais demasiado grandes, nesses são aplicadas outras medidas de otimização. As mais simples são a \textbf{limitação de profundidade} (substituição do teste de estados terminais por um teste de profundidade) aliada à utilização de \textbf{funções de avaliação} heurísticas que estimem quão bom é um estado (substituir a função de utilidade por uma avaliação heurística).\par
+Um exemplo de uma função heurística num jogo como um xadrez é a contagem de pontos das peças derrotadas.\par
+Uma função heurística tem de ter correlação ao valor que seria calculado inspecionando todos os movimentos, de preservar a ordem que a avaliação completa teria e de ser rápida de calcular.\par
+Um problema que pode existir são estados com avaliações heurísticas iguais mas vantagens bastante distintas. Utilizando o exemplo dos pontos do xadrez, um jogo tem os mesmos pontos com ou sem a rainha preste a ser vencida.\par
+Pode ainda haver o \textbf{problema do horizonte} que consiste em adiar uma derrota garantida. Quando a derrota é colocada para lá da profundidade de corte, a avaliação heurística pode catalogar essa jogada como uma possível vitória, quem sabe promissora.
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
