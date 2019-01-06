@@ -885,6 +885,20 @@ Um exemplo de uma função heurística num jogo como um xadrez é a contagem de 
 Uma função heurística tem de ter correlação ao valor que seria calculado inspecionando todos os movimentos, de preservar a ordem que a avaliação completa teria e de ser rápida de calcular.\par
 Um problema que pode existir são estados com avaliações heurísticas iguais mas vantagens bastante distintas. Utilizando o exemplo dos pontos do xadrez, um jogo tem os mesmos pontos com ou sem a rainha preste a ser vencida.\par
 Pode ainda haver o \textbf{problema do horizonte} que consiste em adiar uma derrota garantida. Quando a derrota é colocada para lá da profundidade de corte, a avaliação heurística pode catalogar essa jogada como uma possível vitória, quem sabe promissora.
+\clearpage
+\section{Minimax Estocástico}
+Quando se quer fazer uma pesquisa com adversários em ambientes estocásticos (em que uma ação pode ou não resultar, ou resultar em vários valores) o método do minimax tem de sofrer uma alteração para considerar a probabilidade da jogada suceder de cada forma possível.\par
+Seguida a cada jogada, de qualquer que seja o jogador é feito um teste de sorte, em que cada resultado possível tem o seu valor ponderado pela probabilidade de ocorrer. Assim sendo, o caminho ideal é o que tem uma expectativa maior.
+$$\text{MINIMAX-ESPERADO(nó)} =
+\begin{cases}
+	\text{UTILIDADE(nó)} & \text{Caso o nó seja terminal}\\
+	max_{s \in \text{sucessores(nó)}} \text{MINIMAX-ESPERADO(s)}& \text{Caso o nó pertença a max}\\
+	min_{s \in \text{sucessores(nó)}} \text{MINIMAX-ESPERADO(s)}& \text{Caso o nó pertença a min}\\
+	\sum_{s \in \text{sucessores(nó)}} P(s)\text{MINIMAX-ESPERADO(s)}& \text{Caso o nó seja de sorte}
+\end{cases}$$
+\subsection{Informação imperfeita}
+Em problemas em que parte da informação é desconhecida (como jogos de cartas em que não se sabe quem tem que carta) é pode ser calculado o minimax para cada ação possível de ser feita por um adversário e ponderar com as probabilidades de certos jogos ocorrerem ou de ações serem tomadas, por fim opta-se pelo caminho de maior esperança. No entanto o valor de uma ação não é a média dos valores de todos os estados possíveis visto que se encontra enviesado pela crença do agente.\\
+Uma ação que seja ideal para qualquer que seja a informação desconhecida é dita \textbf{ótima}.
 \chapter{Agentes Lógicos}
 \section{Bases de conhecimento}
 Uma base de conhecimento (abreviado KB, do inglês \textit{knowledge base}) é um conjunto de \textbf{frases} numa linguagem \textbf{formal}.
